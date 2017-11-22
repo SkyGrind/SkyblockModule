@@ -1,5 +1,6 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
@@ -12,24 +13,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
+import xyz.sethy.commands.SubCommand;
 
 import java.util.UUID;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class Leave extends RDCommand {
+public class IslandLeaveCommand extends SubCommand {
 
-    IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
+    private final IslandRegistry registry;
 
-    protected Leave() {
-        super("leave");
+    public IslandLeaveCommand() {
+        super("leave", Lists.newArrayList(), true);
+        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
+    public void execute(Player player, String[] args) {
         if (args.length > 0) {
             player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island leave");
             return;
@@ -62,7 +63,7 @@ public class Leave extends RDCommand {
         return;
     }
 
-    public void openNewOwnerSelector(Player player, Island island) {
+    private void openNewOwnerSelector(Player player, Island island) {
         Inventory inventory = Bukkit.createInventory(null, 9, "Owner Selection");
         for (UUID uuid : island.getMembers()) {
 
@@ -76,8 +77,7 @@ public class Leave extends RDCommand {
                 meta.setDisplayName(ChatColor.GREEN + ChatColor.BOLD.toString() + offlinePlayer.getName());
                 is.setItemMeta(meta);
                 inventory.addItem(is);
-            }
-            else {
+            } else {
                 ItemStack is = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
                 SkullMeta meta = (SkullMeta) is.getItemMeta();
                 meta.setOwner(player.getName());

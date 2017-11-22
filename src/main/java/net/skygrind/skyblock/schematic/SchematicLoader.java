@@ -8,19 +8,12 @@ import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.data.DataException;
 import com.sk89q.worldedit.schematic.SchematicFormat;
 import net.skygrind.skyblock.SkyBlock;
-import net.skygrind.skyblock.island.Island;
-import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-import javax.xml.validation.Schema;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 
 /**
@@ -28,15 +21,15 @@ import java.util.logging.Level;
  */
 public class SchematicLoader {
 
-    
+
     private File schematicDir;
 
     public SchematicLoader() {
-        
+
     }
 
     public void pasteSchematic(String file, World world, int x, int y, int z) throws DataException, IOException, MaxChangedBlocksException {
-        File schematic = new File(SkyBlock.getPlugin().getDataFolder() + "/schematics", file);
+        File schematic = new File(((Plugin) SkyBlock.getPlugin()).getDataFolder() + "/skyblock/schematics", file);
         if (schematic.exists()) {
             Vector origin = new Vector(x, y, z);
 
@@ -49,7 +42,7 @@ public class SchematicLoader {
 
             clipboard.paste(editSession, BukkitUtil.toVector(origin), true);
         } else {
-            SkyBlock.getPlugin().getLogger().log(Level.SEVERE,
+            ((Plugin) SkyBlock.getPlugin()).getLogger().log(Level.SEVERE,
                     "Schematic {0} does not exist", file);
         }
     }

@@ -34,15 +34,14 @@ public class IslandOreGens implements Listener {
 
             int chance = 0;
 
-            double cobble = plugin.getConfig().getDouble("oregen.cobble");
-            double coal = plugin.getConfig().getDouble("oregen.coal");
-            double iron = plugin.getConfig().getDouble("oregen.iron");
-            double diamond = plugin.getConfig().getDouble("oregen.diamond");
-            double lapis = plugin.getConfig().getDouble("oregen.lapis");
-            double redstone = plugin.getConfig().getDouble("oregen.redstone");
-            double gold = plugin.getConfig().getDouble("oregen.gold");
-            double emerald = plugin.getConfig().getDouble("oregen.emerald");
-
+            double cobble = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.COBBLESTONE);
+            double coal = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.COAL_ORE);
+            double iron = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.IRON_ORE);
+            double diamond = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.DIAMOND_ORE);
+            double lapis = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.LAPIS_ORE);
+            double redstone = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.REDSTONE_ORE);
+            double gold = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.GOLD_ORE);
+            double emerald = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.EMERALD_ORE);
 
             chance = chance + random.nextInt(100);
 

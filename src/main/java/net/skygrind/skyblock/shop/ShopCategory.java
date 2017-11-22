@@ -1,8 +1,6 @@
 package net.skygrind.skyblock.shop;
 
-import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
-import sun.plugin.util.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +10,10 @@ import java.util.UUID;
  * Created by Matt on 18/03/2017.
  */
 public class ShopCategory {
-
-    @Getter private final String name;
-    @Getter private final ItemStack icon;
-    @Getter private final List<ShopItem> items;
-    @Getter private final UUID shopId;
+    private final String name;
+    private final ItemStack icon;
+    private final List<ShopItem> items;
+    private final UUID shopId;
 
     public ShopCategory(UUID shopId, String name, ItemStack icon) {
         this.shopId = shopId;
@@ -37,5 +34,17 @@ public class ShopCategory {
             }
         }
         return null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ItemStack getIcon() {
+        return icon;
+    }
+
+    public UUID getShopId() {
+        return shopId;
     }
 }

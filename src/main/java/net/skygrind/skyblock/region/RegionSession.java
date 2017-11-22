@@ -7,13 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.ItemMergeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.HashMap;
 
 /**
  * Created by Matt on 2017-02-11.
@@ -69,13 +66,11 @@ public class RegionSession implements Listener {
             this.setMin(e.getClickedBlock().getLocation());
             player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] Set point one.");
             player.sendMessage(ChatColor.GRAY + "Right click the next block to set the second point.");
-        }
-        else if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        } else if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             this.setMax(e.getClickedBlock().getLocation());
             player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] Set point two.");
             player.sendMessage(ChatColor.GRAY + "If both points are set, execute /region create <name>.");
-        }
-        else {
+        } else {
             player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] Not a valid action!");
         }
     }

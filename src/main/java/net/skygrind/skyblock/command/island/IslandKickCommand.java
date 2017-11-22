@@ -1,28 +1,27 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
+import xyz.sethy.commands.SubCommand;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class Kick extends RDCommand {
+public class IslandKickCommand extends SubCommand {
+    private final IslandRegistry registry;
 
-    IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
-
-    protected Kick() {
-        super("kick");
+    public IslandKickCommand() {
+        super("kick", Lists.newArrayList(), true);
+        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
+    public void execute(Player player, String[] args) {
         if (args.length != 1) {
             player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island kick [Player]");
             return;

@@ -1,5 +1,7 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
+import com.islesmc.modules.api.API;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -11,21 +13,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
+import xyz.sethy.commands.SubCommand;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class Invite extends RDCommand {
-
-    protected Invite() {
-        super("invite");
+public class IslandInviteCommand extends SubCommand {
+    public IslandInviteCommand() {
+        super("invite", Lists.newArrayList(), true);
     }
 
     @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
+    public void execute(Player player, String[] args) {
         if (args.length < 1) {
             MessageUtil.sendUrgent(player, "/island invite [Player]");
             return;
@@ -68,7 +69,7 @@ public class Invite extends RDCommand {
 
         BaseComponent[] comps = new BaseComponent[]{message};
 
-        target.playSound(target.getLocation(), Sound.ORB_PICKUP, 1,1);
+        target.playSound(target.getLocation(), Sound.ORB_PICKUP, 1, 1);
         target.spigot().sendMessage(comps);
         target.sendMessage(ChatColor.GRAY + "This invite expires in 3 minutes!");
 
@@ -79,6 +80,7 @@ public class Invite extends RDCommand {
             public void run() {
                 registry.getIslandInvites().remove(target.getUniqueId());
             }
-        }.runTaskLater(SkyBlock.getPlugin(), 20*60*3L);
+        }.runTaskLater((Plugin) API.getPlugin(), 20 * 60 * 3L);
+        return;
     }
 }

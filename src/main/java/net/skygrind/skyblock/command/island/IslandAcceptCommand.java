@@ -1,27 +1,28 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
+import xyz.sethy.commands.SubCommand;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class InviteDecline extends RDCommand {
+public class IslandAcceptCommand extends SubCommand {
+    private final IslandRegistry registry;
 
-    IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
+    public IslandAcceptCommand() {
+        super("accept", Lists.newArrayList(), true);
+        this.registry = SkyBlock.getPlugin().getIslandRegistry();
 
-    public InviteDecline() {
-        super("decline");
     }
 
     @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
+    public void execute(Player player, String[] strings) {
         if (!registry.hasInvite(player)) {
             player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have any pending invites.");
             return;
@@ -29,7 +30,8 @@ public class InviteDecline extends RDCommand {
 
         Island invite = registry.getInviteFor(player);
 
-        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Declined invite from " + ChatColor.GOLD + invite.getName());
+        invite.getMembers().add(player.getUniqueId());
+        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Joined " + ChatColor.GOLD + invite.getName());
 
         Player owner = Bukkit.getPlayer(invite.getOwner());
 
@@ -37,7 +39,7 @@ public class InviteDecline extends RDCommand {
             return;
         }
 
-        owner.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GOLD + player.getName() + ChatColor.GRAY + " has declined your island invite.");
+        owner.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GOLD + player.getName() + ChatColor.GRAY + " has accepted your island invite.");
         registry.getIslandInvites().remove(player.getUniqueId());
         return;
     }

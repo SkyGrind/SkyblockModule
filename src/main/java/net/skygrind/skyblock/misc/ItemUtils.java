@@ -1,6 +1,5 @@
 package net.skygrind.skyblock.misc;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

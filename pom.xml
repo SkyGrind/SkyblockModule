@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -42,10 +42,6 @@
     </build>
 
     <repositories>
-         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
         <repository>
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
@@ -59,14 +55,6 @@
             <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
         </dependency>
-
-        <dependency>
-            <groupId>tech.rayline.redemptive</groupId>
-            <artifactId>redemptive-core</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>worldedit</artifactId>
@@ -86,14 +74,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.skygrind.skyblock</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.skygrind</groupId>
             <artifactId>API</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.islesmc</groupId>
+            <artifactId>modules-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>xyz.sethy</groupId>
+            <artifactId>CommandHandler</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

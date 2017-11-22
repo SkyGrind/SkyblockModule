@@ -6,38 +6,22 @@ import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
 
 import java.util.Arrays;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class Create extends RDCommand {
+public class IslandCreateCommand extends BukkitCommand {
 
-    protected Create() {
+    protected IslandCreateCommand() {
         super("create");
-    }
-
-    @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
-        if (args.length > 0) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island create");
-            return;
-        }
-
-        if (SkyBlock.getPlugin().getIslandRegistry().hasIsland(player)) {
-            MessageUtil.sendUrgent(player, "You already have an island!");
-            return;
-        }
-
-        MessageUtil.sendGood(player, "Opening island selection...");
-        openIslandGUI(player);
     }
 
     public void openIslandGUI(Player player) {
@@ -53,5 +37,24 @@ public class Create extends RDCommand {
             inv.addItem(item);
         }
         player.openInventory(inv);
+    }
+
+    @Override
+    public boolean execute(CommandSender sender, String s, String[] args) {
+        Player player = (Player) sender;
+
+        if (args.length > 0) {
+            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island create");
+            return true;
+        }
+
+        if (SkyBlock.getPlugin().getIslandRegistry().hasIsland(player)) {
+            MessageUtil.sendUrgent(player, "You already have an island!");
+            return true;
+        }
+
+        MessageUtil.sendGood(player, "Opening island selection...");
+        openIslandGUI(player);
+        return true;
     }
 }

@@ -1,21 +1,20 @@
 package net.skygrind.skyblock.island;
 
+import com.islesmc.modules.api.API;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import net.md_5.bungee.api.ChatColor;
 import net.skygrind.skyblock.SkyBlock;
-import net.skygrind.skyblock.SkyBlockAPI;
 import net.skygrind.skyblock.misc.MessageUtil;
-import net.skygrind.skyblock.player.SkyPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
@@ -74,8 +73,8 @@ public class IslandGUIHandler implements Listener {
                 playerIsland.getMembers().remove(player.getUniqueId());
                 pl.closeInventory();
 
-                File file = new File(SkyBlock.getPlugin().getDataFolder() + "/islands", pl.getUniqueId().toString() + ".yml");
-                file.renameTo(new File(SkyBlock.getPlugin().getDataFolder() + "/islands", player.getUniqueId().toString() + ".yml"));
+                File file = new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", pl.getUniqueId().toString() + ".yml");
+                file.renameTo(new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", player.getUniqueId().toString() + ".yml"));
 
                 MessageUtil.sendGood(pl, "Set your island's owner to: " + org.bukkit.ChatColor.GOLD + player.getName());
             } else {
@@ -86,8 +85,8 @@ public class IslandGUIHandler implements Listener {
                 MessageUtil.sendGood(pl, "Set your island's owner to: " + org.bukkit.ChatColor.GOLD + newOwner.getName());
                 MessageUtil.sendGood(newOwner, "You have been promoted to owner status on " + org.bukkit.ChatColor.GOLD + playerIsland.getName() + "'s " + ChatColor.GREEN + " island");
 
-                File file = new File(SkyBlock.getPlugin().getDataFolder() + "/islands", pl.getUniqueId().toString() + ".yml");
-                file.renameTo(new File(SkyBlock.getPlugin().getDataFolder() + "/islands", newOwner.getUniqueId().toString() + ".yml"));
+                File file = new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", pl.getUniqueId().toString() + ".yml");
+                file.renameTo(new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", newOwner.getUniqueId().toString() + ".yml"));
             }
             pl.teleport(SkyBlock.getPlugin().getSpawn());
             pl.sendMessage(org.bukkit.ChatColor.GREEN + org.bukkit.ChatColor.BOLD.toString() + "[!] " + org.bukkit.ChatColor.GRAY + "Successfully left your island!");

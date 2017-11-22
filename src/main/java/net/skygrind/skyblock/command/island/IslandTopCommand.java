@@ -1,5 +1,6 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
@@ -10,28 +11,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
+import xyz.sethy.commands.SubCommand;
 
 import java.util.*;
 
 /**
  * Created by Matt on 17/04/2017.
  */
-public class IslandTop extends RDCommand {
-
-    IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
-
-    protected IslandTop() {
-        super("top");
-    }
-
+public class IslandTopCommand extends SubCommand {
+    private final IslandRegistry registry;
     private Inventory islandTop = Bukkit.createInventory(null, 36, "Top Islands");
 
-    @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
-
-
+    public IslandTopCommand() {
+        super("top", Lists.newArrayList(), true);
+        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     private void populateIslandTop() {
@@ -52,16 +45,7 @@ public class IslandTop extends RDCommand {
         List<Map.Entry<Island, Integer>> list = new ArrayList<Map.Entry<Island, Integer>>(
                 set);
 
-        list.sort(new Comparator<Map.Entry<Island, Integer>>() {
-
-            @Override
-            public int compare(Map.Entry<Island, Integer> o1,
-                               Map.Entry<Island, Integer> o2) {
-
-                return o2.getValue().compareTo(o1.getValue());
-            }
-
-        });
+        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
 
         for (Map.Entry<Island, Integer> ent : list.subList(0, topSize)) {
 
@@ -71,8 +55,7 @@ public class IslandTop extends RDCommand {
             if (player == null || !player.isOnline()) {
                 player = Bukkit.getOfflinePlayer(uuid);
             }
-            else {
-            }
+
 
             ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
             SkullMeta meta = (SkullMeta) item.getItemMeta();
@@ -81,5 +64,10 @@ public class IslandTop extends RDCommand {
             item.setItemMeta(meta);
             islandTop.addItem(item);
         }
+    }
+
+    @Override
+    public void execute(Player player, String[] strings) {
+
     }
 }

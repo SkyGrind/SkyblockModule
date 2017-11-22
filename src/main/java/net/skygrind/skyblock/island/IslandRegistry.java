@@ -1,5 +1,6 @@
 package net.skygrind.skyblock.island;
 
+import com.islesmc.modules.api.API;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
@@ -12,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import java.io.File;
@@ -23,15 +25,24 @@ import java.util.*;
  */
 public class IslandRegistry {
 
-    public List<Island> playerIslands = new ArrayList<>();
-
-    private File islandDir = new File(SkyBlock.getPlugin().getDataFolder(), "islands");
-    private LinkedHashMap<UUID, Island> islandInvites = new LinkedHashMap<>();
-
     private final int islandDistance = 1000;
     private final int baseIslandSize = 80;
-
+    public List<Island> playerIslands = new ArrayList<>();
+    private File islandDir = new File(((Plugin) API.getPlugin()).getDataFolder(), "skyblock");
+    private LinkedHashMap<UUID, Island> islandInvites = new LinkedHashMap<>();
     private Location lastIsland = null;
+
+    public static Location alignToDistance(Location loc, int distance) {
+        if (loc == null) {
+            return null;
+        }
+        int x = (int) (Math.round(loc.getX() / distance) * distance);
+        int z = (int) (Math.round(loc.getZ() / distance) * distance);
+        loc.setX(x);
+        loc.setY(100);
+        loc.setZ(z);
+        return loc;
+    }
 
     public void init() {
         loadIslands();
@@ -43,12 +54,12 @@ public class IslandRegistry {
 
     public void disable() {
         for (Island island : playerIslands) {
-            
-            
+
+
             File islandFile = getFileForIsland(island);
             YamlConfiguration config = YamlConfiguration.loadConfiguration(islandFile);
 
-            if (island == null || islandFile == null) {
+            if (island == null) {
                 return;
             }
 
@@ -124,12 +135,10 @@ public class IslandRegistry {
         System.out.println("Loaded: " + playerIslands.size());
         if (playerIslands.isEmpty()) {
 
-        }
-        else {
+        } else {
             this.lastIsland = playerIslands.get(playerIslands.size() - 1).getSpawn();
         }
     }
-
 
     public void createIsland(Player player, IslandType type) throws MaxChangedBlocksException {
 
@@ -139,7 +148,7 @@ public class IslandRegistry {
         }
 
         //Location center = findEmptySpace();
-        Location center = nextIslandLocation(lastIsland == null ? new Location(SkyBlock.getPlugin().getIslandWorld(), 0,100,0) : lastIsland);
+        Location center = nextIslandLocation(lastIsland == null ? new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0) : lastIsland);
 
         Island island = new Island(player.getUniqueId(), center, type);
         island.setSize(baseIslandSize);
@@ -284,7 +293,7 @@ public class IslandRegistry {
 
                 for (int z = minZ; z < maxZ; z++) {
 
-                    Block block = SkyBlock.getPlugin().getIslandWorld().getBlockAt(x,y,z);
+                    Block block = SkyBlock.getPlugin().getIslandWorld().getBlockAt(x, y, z);
                     block.setType(Material.AIR);
                 }
             }
@@ -320,18 +329,6 @@ public class IslandRegistry {
             return islandInvites.get(player.getUniqueId());
         }
         return null;
-    }
-
-    public static Location alignToDistance(Location loc, int distance) {
-        if (loc == null) {
-            return null;
-        }
-        int x = (int) (Math.round(loc.getX() / distance) * distance);
-        int z = (int) (Math.round(loc.getZ() / distance) * distance);
-        loc.setX(x);
-        loc.setY(100);
-        loc.setZ(z);
-        return loc;
     }
 
     public Location nextIslandLocation(final Location lastIsland) {

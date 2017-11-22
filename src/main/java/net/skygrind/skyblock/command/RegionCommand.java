@@ -1,13 +1,19 @@
 package net.skygrind.skyblock.command;
 
 
-import tech.rayline.core.command.RDCommand;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.BukkitCommand;
 
 /**
  * Created by Matt on 2017-02-11.
  */
-public class RegionCommand extends RDCommand {
+public class RegionCommand extends BukkitCommand {
     public RegionCommand() {
         super("region");
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender, String s, String[] strings) {
+        return false;
     }
 }

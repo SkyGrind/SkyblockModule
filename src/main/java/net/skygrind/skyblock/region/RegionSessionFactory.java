@@ -1,10 +1,10 @@
 package net.skygrind.skyblock.region;
 
-import net.skygrind.skyblock.SkyBlock;
+import com.islesmc.modules.api.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class RegionSessionFactory {
 
         RegionSession session = new RegionSession(player);
         this.activeSessions.add(session);
-        Bukkit.getServer().getPluginManager().registerEvents(session, SkyBlock.getPlugin());
+        Bukkit.getServer().getPluginManager().registerEvents(session, (Plugin) API.getPlugin());
 
         player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] You are now in an active region session.");
         player.sendMessage(ChatColor.GRAY + "Use the wand to select the minimum and maximum point of the region.");

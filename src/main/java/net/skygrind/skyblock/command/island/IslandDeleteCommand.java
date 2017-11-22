@@ -1,27 +1,27 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.entity.Player;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
+import xyz.sethy.commands.SubCommand;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class Delete extends RDCommand {
+public class IslandDeleteCommand extends SubCommand {
+    private final IslandRegistry registry;
 
-
-    IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
-
-    protected Delete() {
-        super("delete");
+    public IslandDeleteCommand() {
+        super("delete", Lists.newArrayList(), true);
+        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
+
     @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
+    public void execute(Player player, String[] args) {
         if (args.length != 0) {
             MessageUtil.sendUrgent(player, "/island delete");
         }
@@ -40,5 +40,6 @@ public class Delete extends RDCommand {
 
         registry.deleteIsland(player, island);
         MessageUtil.sendGood(player, "Deleted your island.");
+        return;
     }
 }

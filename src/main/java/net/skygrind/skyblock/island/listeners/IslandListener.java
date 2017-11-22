@@ -31,7 +31,7 @@ public class IslandListener implements Listener {
         Location location = event.getBlockPlaced().getLocation();
 
         //Added to allow SkyBattles to work. -IcyRelic
-        if(location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
+        if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
 
         if (registry.conflicts(location)) {
 
@@ -41,14 +41,12 @@ public class IslandListener implements Listener {
                 placer.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to build here!");
                 event.setCancelled(true);
             }
-        }
-        else {
+        } else {
             event.setCancelled(true);
             if (location.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
                 MessageUtil.sendUrgent(placer, ChatColor.RED + "This is out of your islands region!");
                 MessageUtil.sendServerTheme(placer, ChatColor.YELLOW + "Store: http://store.skygrind.net");
-            }
-            else {
+            } else {
 
                 if (!placer.hasPermission("skygrind.build")) {
                     MessageUtil.sendUrgent(placer, ChatColor.RED + "You do not have permission to build here!");
@@ -65,7 +63,7 @@ public class IslandListener implements Listener {
         Location location = event.getBlock().getLocation();
 
         //Added to allow SkyBattles to work. -IcyRelic
-        if(location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
+        if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
 
         if (registry.conflicts(location)) {
 
@@ -87,7 +85,7 @@ public class IslandListener implements Listener {
             Block block = event.getClickedBlock();
 
             //Added to allow SkyBattles to work. -IcyRelic
-            if(block.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
+            if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
 
 
             if (!(block.getType() == Material.CHEST)) {

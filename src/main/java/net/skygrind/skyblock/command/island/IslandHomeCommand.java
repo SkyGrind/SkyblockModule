@@ -1,23 +1,22 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.entity.Player;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
+import xyz.sethy.commands.SubCommand;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class Home extends RDCommand {
-
-    protected Home() {
-        super("home");
+public class IslandHomeCommand extends SubCommand {
+    public IslandHomeCommand() {
+        super("home", Lists.newArrayList(), true);
     }
 
     @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
+    public void execute(Player player, String[] args) {
         if (args.length > 0) {
             MessageUtil.sendUrgent(player, "/island home");
             return;
@@ -35,5 +34,6 @@ public class Home extends RDCommand {
 
         player.teleport(SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player).getSpawn());
         MessageUtil.sendInfo(player, "Teleported you to your island home.");
+        return;
     }
 }

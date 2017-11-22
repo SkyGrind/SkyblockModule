@@ -1,0 +1,6 @@
+{
+  "name": "Skyblock",
+  "main": "net.skygrind.skyblock.SkyBlock",
+  "version": "0.0.1",
+  "description": "Default Skyblock plugin"
+}

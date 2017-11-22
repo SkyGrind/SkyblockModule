@@ -1,32 +1,35 @@
 package net.skygrind.skyblock.command;
 
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseLocation;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-import tech.rayline.core.command.CommandException;
-import tech.rayline.core.command.RDCommand;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class SetSpawnCommand extends RDCommand {
+public class SetSpawnCommand extends BukkitCommand {
 
     public SetSpawnCommand() {
         super("setspawn");
     }
 
     @Override
-    protected void handleCommand(Player player, String[] args) throws CommandException {
+    public boolean execute(CommandSender sender, String s, String[] args) {
+        Player player = (Player) sender;
         if (!player.hasPermission("skygrind.setspawn")) {
             player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to do this!");
-            return;
+            return true;
         }
 
         Location loc = player.getLocation();
 
-        SkyBlock.getPlugin().setSpawn(loc);
+        SkyBlock.getPlugin().getServerConfig().setSpawnLocation(GooseLocation.fromLocation(loc));
+        SkyBlock.getPlugin().getServerConfig().save();
         player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Set server spawn to your location.");
-        return;
+        return true;
     }
 }
