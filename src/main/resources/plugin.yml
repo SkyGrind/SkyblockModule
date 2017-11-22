@@ -1,0 +1,5 @@
+name: Skyblock
+main: net.skygrind.skyblock.SkyBlock
+version: 0.5
+author: GitBash/Venal/IcyRelic
+depend: [WorldEdit, Multiverse-Core, Skyblock-Core]
