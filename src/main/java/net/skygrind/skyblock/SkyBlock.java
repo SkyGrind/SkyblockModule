@@ -22,6 +22,7 @@ import net.skygrind.skyblock.shop.ShopHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -94,7 +95,7 @@ public class SkyBlock extends PluginModule {
         schematicLoader = new SchematicLoader();
 
         initFiles();
-        registerClasses();
+        setupShit();
         //TODO load schems
         //TODO load player data
     }
@@ -138,7 +139,7 @@ public class SkyBlock extends PluginModule {
         return spawn;
     }
 
-    private void registerClasses() {
+    private void setupShit() {
         registerEvent(new IslandListener());
         registerEvent(new IslandGUIHandler());
         registerEvent(new GeneralListener());
