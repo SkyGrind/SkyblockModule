@@ -2,6 +2,7 @@ package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.sethy.commands.SubCommand;
 
@@ -29,5 +30,10 @@ public class IslandBaseCommand extends SubCommand {
             player.sendMessage(ChatColor.LIGHT_PURPLE.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
 
         }
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender, String s, String[] strings) {
+        return false;
     }
 }

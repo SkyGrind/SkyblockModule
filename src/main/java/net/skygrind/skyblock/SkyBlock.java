@@ -154,7 +154,6 @@ public class SkyBlock extends PluginModule {
         commandHandler.addSubCommand(new IslandKickCommand());
         commandHandler.addSubCommand(new IslandLeaveCommand());
         commandHandler.addSubCommand(new IslandLevelCommand());
-//        commandHandler.addSubCommand(new IslandLockCommand());
         commandHandler.addSubCommand(new IslandTopCommand());
 
         registerCommand("island", commandHandler);
