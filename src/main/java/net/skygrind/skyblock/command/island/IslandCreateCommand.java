@@ -1,13 +1,13 @@
 package net.skygrind.skyblock.command.island;
 
+import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.IslandType;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,10 +18,11 @@ import java.util.Arrays;
 /**
  * Created by Matt on 2017-02-25.
  */
-public class IslandCreateCommand extends BukkitCommand {
+public class IslandCreateCommand extends GooseCommand {
 
-    protected IslandCreateCommand() {
-        super("create");
+
+    public IslandCreateCommand() {
+        super("create", Lists.newArrayList(), true);
     }
 
     public void openIslandGUI(Player player) {
@@ -40,21 +41,20 @@ public class IslandCreateCommand extends BukkitCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String s, String[] args) {
-        Player player = (Player) sender;
+    public void execute(Player player, String[] args) {
 
         if (args.length > 0) {
             player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island create");
-            return true;
+            return;
         }
 
         if (SkyBlock.getPlugin().getIslandRegistry().hasIsland(player)) {
             MessageUtil.sendUrgent(player, "You already have an island!");
-            return true;
+            return;
         }
 
         MessageUtil.sendGood(player, "Opening island selection...");
         openIslandGUI(player);
-        return true;
+        return;
     }
 }

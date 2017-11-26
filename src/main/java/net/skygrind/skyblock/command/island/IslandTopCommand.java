@@ -2,6 +2,7 @@ package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.Bukkit;
@@ -11,14 +12,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import xyz.sethy.commands.SubCommand;
 
 import java.util.*;
 
 /**
  * Created by Matt on 17/04/2017.
  */
-public class IslandTopCommand extends SubCommand {
+public class IslandTopCommand extends GooseCommand {
     private final IslandRegistry registry;
     private Inventory islandTop = Bukkit.createInventory(null, 36, "Top Islands");
 

@@ -2,6 +2,7 @@ package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.region.Region;
@@ -9,7 +10,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import xyz.sethy.commands.SubCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Matt on 17/04/2017.
  */
 
-public class IslandLevelCommand extends SubCommand {
+public class IslandLevelCommand extends GooseCommand {
     public IslandLevelCommand() {
         super("level", Lists.newArrayList(), true);
     }

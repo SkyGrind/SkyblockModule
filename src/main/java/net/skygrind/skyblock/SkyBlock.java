@@ -11,6 +11,7 @@ import net.skygrind.skyblock.command.mission.LevelCommand;
 import net.skygrind.skyblock.configuration.ChallengeConfig;
 import net.skygrind.skyblock.configuration.OreGenerationConfig;
 import net.skygrind.skyblock.configuration.ServerConfig;
+import net.skygrind.skyblock.goose.GooseCommandHandler;
 import net.skygrind.skyblock.island.IslandGUIHandler;
 import net.skygrind.skyblock.island.IslandOreGens;
 import net.skygrind.skyblock.island.IslandRegistry;
@@ -22,11 +23,9 @@ import net.skygrind.skyblock.shop.ShopHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
-import xyz.sethy.commands.CommandHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,13 +77,13 @@ public class SkyBlock extends PluginModule {
 
         islandRegistry.init();
 
-        if (!Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
+        if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
             API.getModuleManager().disableModule(this);
         }
 
         worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
+        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null &&!Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
             API.getModuleManager().disableModule(this);
         }
 
@@ -145,17 +144,18 @@ public class SkyBlock extends PluginModule {
         registerEvent(new GeneralListener());
         registerEvent(new IslandOreGens());
 
-        CommandHandler commandHandler = new CommandHandler("island");
-        commandHandler.addSubCommand(new IslandAcceptCommand());
-        commandHandler.addSubCommand(new IslandBaseCommand());
-        commandHandler.addSubCommand(new IslandDeclineCommand());
-        commandHandler.addSubCommand(new IslandDeleteCommand());
-        commandHandler.addSubCommand(new IslandHomeCommand());
-        commandHandler.addSubCommand(new IslandKickCommand());
-        commandHandler.addSubCommand(new IslandLeaveCommand());
-        commandHandler.addSubCommand(new IslandLevelCommand());
+        GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());
+        commandHandler.addSubCommand("accept", new IslandAcceptCommand());
+        commandHandler.addSubCommand("help", new IslandBaseCommand());
+        commandHandler.addSubCommand("create", new IslandCreateCommand());
+        commandHandler.addSubCommand("decline", new IslandDeclineCommand());
+        commandHandler.addSubCommand("delete", new IslandDeleteCommand());
+        commandHandler.addSubCommand("home", new IslandHomeCommand());
+        commandHandler.addSubCommand("kick", new IslandKickCommand());
+        commandHandler.addSubCommand("leave", new IslandLeaveCommand());
+        commandHandler.addSubCommand("level", new IslandLevelCommand());
 //        commandHandler.addSubCommand(new IslandLockCommand());
-        commandHandler.addSubCommand(new IslandTopCommand());
+        commandHandler.addSubCommand("top", new IslandTopCommand());
 
         registerCommand("island", commandHandler);
 

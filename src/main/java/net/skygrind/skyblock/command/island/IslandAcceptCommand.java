@@ -2,17 +2,17 @@ package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import xyz.sethy.commands.SubCommand;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class IslandAcceptCommand extends SubCommand {
+public class IslandAcceptCommand extends GooseCommand {
     private final IslandRegistry registry;
 
     public IslandAcceptCommand() {

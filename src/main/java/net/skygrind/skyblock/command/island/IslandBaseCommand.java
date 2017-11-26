@@ -1,14 +1,14 @@
 package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
+import net.skygrind.skyblock.goose.GooseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import xyz.sethy.commands.SubCommand;
 
 /**
  * Created by Matt on 2017-02-11.
  */
-public class IslandBaseCommand extends SubCommand {
+public class IslandBaseCommand extends GooseCommand {
 
     public IslandBaseCommand() {
         super("help", Lists.newArrayList(), true);
