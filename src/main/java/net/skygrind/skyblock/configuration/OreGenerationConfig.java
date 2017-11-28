@@ -78,7 +78,7 @@ public class OreGenerationConfig {
                 Type type = new TypeToken<Map<Material, Double>>() {
                 }.getType();
                 Map<Material, Double> ores = this.gson.fromJson(element, type);
-                if(ores == null) {
+                if (ores == null) {
                     save();
                     return;
                 }

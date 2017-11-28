@@ -24,11 +24,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Matt on 2017-02-10.
@@ -83,7 +80,7 @@ public class SkyBlock extends PluginModule {
 
         worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 
-        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null &&!Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
+        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null && !Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
             API.getModuleManager().disableModule(this);
         }
 
@@ -93,7 +90,7 @@ public class SkyBlock extends PluginModule {
 
         schematicLoader = new SchematicLoader();
 
-        initFiles();
+//        initFiles();
         setupShit();
         //TODO load schems
         //TODO load player data
@@ -109,7 +106,7 @@ public class SkyBlock extends PluginModule {
 
     @Override
     public void onDisable() {
-        saveMissionsFile();
+//        saveMissionsFile();
         islandRegistry.disable();
         plugin = null;
     }
@@ -165,46 +162,44 @@ public class SkyBlock extends PluginModule {
         registerCommand("level", new LevelCommand());
     }
 
-    private void initFiles() {
-        File missionsDir = new File(((Plugin) API.getPlugin()).getDataFolder(), "challenges");
-
-        if (!(missionsDir.exists())) {
-            missionsDir.mkdir();
-        }
-
-        challenges = new File(missionsDir, "challenges.yml");
-        challengesConfig = YamlConfiguration.loadConfiguration(challenges);
-
-        challengesConfig.options().copyDefaults(true);
-
-        if (!(challenges.exists())) {
-            try {
-                System.out.println("Missions file not found. Creating....");
-                challenges.createNewFile();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        challengesConfig.options().copyDefaults(true);
-    }
-
-
-    public void saveMissionsFile() {
-        try {
-            if (challenges == null) {
-                System.out.println("No data inside of missions file!");
-                return;
-            }
-            challengesConfig.save(challenges);
-        } catch (IOException ex) {
-            System.out.println("There was a problem saving " + challenges.toString());
-        }
-    }
-
-    public void reloadMissions() {
-        saveMissionsFile();
-        YamlConfiguration.loadConfiguration(challenges);
-    }
+//    private void initFiles() {
+//        File missionsDir = new File(getModuleDir().toString(), "challenges");
+//
+//        if (!(missionsDir.exists())) {
+//            missionsDir.mkdir();
+//        }
+//
+//        challenges = new File(missionsDir, "challenges.yml");
+//        challengesConfig = YamlConfiguration.loadConfiguration(challenges);
+//
+//        challengesConfig.options().copyDefaults(true);
+//
+//        if (!(challenges.exists())) {
+//            try {
+//                System.out.println("Missions file not found. Creating....");
+//                challenges.createNewFile();
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//        challengesConfig.options().copyDefaults(true);
+//    }
+//    public void saveMissionsFile() {
+//        try {
+//            if (challenges == null) {
+//                System.out.println("No data inside of missions file!");
+//                return;
+//            }
+//            challengesConfig.save(challenges);
+//        } catch (IOException ex) {
+//            System.out.println("There was a problem saving " + challenges.toString());
+//        }
+//    }
+//
+//    public void reloadMissions() {
+//        saveMissionsFile();
+//        YamlConfiguration.loadConfiguration(challenges);
+//    }
 
 
     public ShopHandler getShopHandler() {

@@ -65,7 +65,7 @@ public class ChallengeConfig {
             try (FileReader fileReader = new FileReader(this.fileName)) {
                 JsonElement element = parser.parse(fileReader);
                 ChallengeConfig serverConfig = this.gson.fromJson(element, ChallengeConfig.class);
-                if(serverConfig == null) {
+                if (serverConfig == null) {
                     save();
                     return;
                 }

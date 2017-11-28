@@ -70,7 +70,7 @@ public class ServerConfig {
             try (FileReader fileReader = new FileReader(this.fileName)) {
                 JsonElement element = parser.parse(fileReader);
                 ServerConfig serverConfig = this.gson.fromJson(element, ServerConfig.class);
-                if(serverConfig == null) {
+                if (serverConfig == null) {
                     save();
                     return;
                 }
