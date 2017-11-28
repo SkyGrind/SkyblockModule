@@ -13,16 +13,18 @@ public class GooseLocation {
     private final Double x;
     private final Double y;
     private final Double z;
+    private final Double yaw;
 
-    private GooseLocation(final UUID world, final Double x, final Double y, final Double z) {
+    private GooseLocation(final UUID world, final Double x, final Double y, final Double z, final Double yaw) {
         this.world = world;
         this.x = x;
         this.y = y;
         this.z = z;
+        this.yaw = yaw;
     }
 
     public static GooseLocation fromLocation(final Location location) {
-        return new GooseLocation(location.getWorld().getUID(), location.getX(), location.getY(), location.getZ());
+        return new GooseLocation(location.getWorld().getUID(), location.getX(), location.getY(), location.getZ(), (double) location.getYaw());
     }
 
     public UUID getWorld() {
@@ -42,6 +44,6 @@ public class GooseLocation {
     }
 
     public Location toLocation() {
-        return new Location(Bukkit.getWorld(world), x, y, z);
+        return new Location(Bukkit.getWorld(world), x, y, z, yaw.floatValue(), 0f);
     }
 }

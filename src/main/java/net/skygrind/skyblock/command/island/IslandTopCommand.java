@@ -50,7 +50,7 @@ public class IslandTopCommand extends GooseCommand implements Listener {
 
         Set<Map.Entry<Island, Integer>> set = islands.entrySet();
 
-        List<Map.Entry<Island, Integer>> list = new ArrayList<Map.Entry<Island, Integer>>(
+        List<Map.Entry<Island, Integer>> list = new ArrayList<>(
                 set);
 
         list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));

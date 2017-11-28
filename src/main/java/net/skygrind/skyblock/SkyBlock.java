@@ -12,6 +12,8 @@ import net.skygrind.skyblock.configuration.ChallengeConfig;
 import net.skygrind.skyblock.configuration.OreGenerationConfig;
 import net.skygrind.skyblock.configuration.ServerConfig;
 import net.skygrind.skyblock.goose.GooseCommandHandler;
+import net.skygrind.skyblock.goose.GooseHandler;
+import net.skygrind.skyblock.goose.GooseTicker;
 import net.skygrind.skyblock.island.IslandGUIHandler;
 import net.skygrind.skyblock.island.IslandOreGens;
 import net.skygrind.skyblock.island.IslandRegistry;
@@ -43,6 +45,7 @@ public class SkyBlock extends PluginModule {
     private OreGenerationConfig oreGenerationConfig;
     private ServerConfig serverConfig;
     private ChallengeConfig challengeConfig;
+    private GooseHandler gooseHandler;
 
     private World islandWorld;
 
@@ -71,6 +74,7 @@ public class SkyBlock extends PluginModule {
         this.serverConfig.load();
         this.challengeConfig = new ChallengeConfig();
         this.challengeConfig.load();
+        this.gooseHandler = new GooseHandler();
 
         islandRegistry.init();
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
@@ -88,7 +92,7 @@ public class SkyBlock extends PluginModule {
             @Override
             public void run() {
                 // Was VoidWorld
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidGenerator");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
                 islandWorld = Bukkit.getWorld("Skyblock");
             }
         }.runTaskLater(API.getPlugin(), 10L);
@@ -99,6 +103,8 @@ public class SkyBlock extends PluginModule {
         setupShit();
         //TODO load schems
         //TODO load player data
+
+        new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
     }
 
     public RegionHandler getRegionHandler() {
@@ -141,6 +147,7 @@ public class SkyBlock extends PluginModule {
         registerEvent(new IslandGUIHandler());
         registerEvent(new GeneralListener());
         registerEvent(new IslandOreGens());
+        registerEvent(this.gooseHandler);
 
         GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());
         commandHandler.addSubCommand("accept", new IslandAcceptCommand());
@@ -209,5 +216,9 @@ public class SkyBlock extends PluginModule {
 
     public ServerConfig getServerConfig() {
         return serverConfig;
+    }
+
+    public GooseHandler getGooseHandler() {
+        return gooseHandler;
     }
 }
