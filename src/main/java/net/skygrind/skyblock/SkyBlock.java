@@ -24,6 +24,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 
@@ -76,16 +77,23 @@ public class SkyBlock extends PluginModule {
         islandRegistry.init();
 
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
-            API.getModuleManager().disableModule(this);
+            disable();
         }
 
         worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 
-        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null && !Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
-            API.getModuleManager().disableModule(this);
-        }
+//        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null && !Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
+//            disable();
+//        }
 
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
+            }
+        }.runTaskLater(API.getPlugin(), 10L);
+
 
         islandWorld = Bukkit.getWorld("Skyblock");
 
