@@ -1,6 +1,5 @@
 package net.skygrind.skyblock.island;
 
-import com.islesmc.modules.api.API;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
@@ -13,7 +12,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import java.io.File;
@@ -28,7 +26,7 @@ public class IslandRegistry {
     private final int islandDistance = 1000;
     private final int baseIslandSize = 80;
     public List<Island> playerIslands = new ArrayList<>();
-    private File islandDir = new File(((Plugin) API.getPlugin()).getDataFolder(), "skyblock");
+    private File islandDir = new File(SkyBlock.getPlugin().getModuleDir().toString(), "islands");
     private LinkedHashMap<UUID, Island> islandInvites = new LinkedHashMap<>();
     private Location lastIsland = null;
 
