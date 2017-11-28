@@ -5,10 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
 import org.bukkit.Material;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.FileReader;
@@ -45,8 +43,7 @@ public class OreGenerationConfig {
     }
 
     public void save() {
-        String json = this.gson.toJson(this);
-        System.out.println(json);
+        String json = this.gson.toJson(generationMap);
         File file = new File(this.fileName);
         if (!file.exists()) {
             try {

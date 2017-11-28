@@ -58,7 +58,7 @@ public class IslandLeaveCommand extends GooseCommand {
                 island.getMembers().remove(player.getUniqueId());
             }
         }
-        player.teleport(SkyBlock.getPlugin().getSpawn());
+        player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Successfully left your island!");
         return;
     }

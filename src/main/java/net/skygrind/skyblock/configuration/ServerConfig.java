@@ -4,12 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.FileReader;

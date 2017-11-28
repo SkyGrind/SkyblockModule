@@ -1,8 +1,8 @@
 package net.skygrind.skyblock.shop;
 
-import com.skygrind.api.API;
-import com.skygrind.api.framework.user.User;
-import com.skygrind.api.framework.user.profile.Profile;
+import com.islesmc.modules.api.API;
+import com.islesmc.modules.api.framework.user.User;
+import com.islesmc.modules.api.framework.user.profile.Profile;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;

@@ -266,7 +266,7 @@ public class IslandRegistry {
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
             if (isInIslandRegion(island, pl.getLocation())) {
-                pl.teleport(SkyBlock.getPlugin().getSpawn());
+                pl.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
                 pl.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] This island is being deleted! Sent you to spawn");
             }
         }

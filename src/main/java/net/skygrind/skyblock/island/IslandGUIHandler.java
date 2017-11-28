@@ -73,8 +73,8 @@ public class IslandGUIHandler implements Listener {
                 playerIsland.getMembers().remove(player.getUniqueId());
                 pl.closeInventory();
 
-                File file = new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", pl.getUniqueId().toString() + ".yml");
-                file.renameTo(new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", player.getUniqueId().toString() + ".yml"));
+                File file = new File(API.getPlugin().getDataFolder() + "/skyblock", pl.getUniqueId().toString() + ".yml");
+                file.renameTo(new File(API.getPlugin().getDataFolder() + "/skyblock", player.getUniqueId().toString() + ".yml"));
 
                 MessageUtil.sendGood(pl, "Set your island's owner to: " + org.bukkit.ChatColor.GOLD + player.getName());
             } else {
@@ -85,10 +85,10 @@ public class IslandGUIHandler implements Listener {
                 MessageUtil.sendGood(pl, "Set your island's owner to: " + org.bukkit.ChatColor.GOLD + newOwner.getName());
                 MessageUtil.sendGood(newOwner, "You have been promoted to owner status on " + org.bukkit.ChatColor.GOLD + playerIsland.getName() + "'s " + ChatColor.GREEN + " island");
 
-                File file = new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", pl.getUniqueId().toString() + ".yml");
-                file.renameTo(new File(((Plugin) API.getPlugin()).getDataFolder() + "/skyblock", newOwner.getUniqueId().toString() + ".yml"));
+                File file = new File((API.getPlugin()).getDataFolder() + "/skyblock", pl.getUniqueId().toString() + ".yml");
+                file.renameTo(new File(API.getPlugin().getDataFolder() + "/skyblock", newOwner.getUniqueId().toString() + ".yml"));
             }
-            pl.teleport(SkyBlock.getPlugin().getSpawn());
+            pl.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
             pl.sendMessage(org.bukkit.ChatColor.GREEN + org.bukkit.ChatColor.BOLD.toString() + "[!] " + org.bukkit.ChatColor.GRAY + "Successfully left your island!");
         }
     }

@@ -40,7 +40,6 @@ public class SkyBlock extends PluginModule {
     private RegionHandler regionHandler;
     private IslandRegistry islandRegistry;
     private ShopHandler shopHandler;
-    private Location spawn;
     private WorldEditPlugin worldEditPlugin;
     private OreGenerationConfig oreGenerationConfig;
     private ServerConfig serverConfig;
@@ -75,7 +74,6 @@ public class SkyBlock extends PluginModule {
         this.challengeConfig.load();
 
         islandRegistry.init();
-
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
             disable();
         }
@@ -138,10 +136,6 @@ public class SkyBlock extends PluginModule {
 
     public SchematicLoader getSchematicLoader() {
         return schematicLoader;
-    }
-
-    public Location getSpawn() {
-        return spawn;
     }
 
     private void setupShit() {

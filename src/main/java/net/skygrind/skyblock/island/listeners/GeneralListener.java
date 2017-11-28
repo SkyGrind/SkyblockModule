@@ -17,14 +17,14 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        event.getPlayer().teleport(SkyBlock.getPlugin().getSpawn());
+        event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         event.setJoinMessage(null);
     }
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        player.teleport(SkyBlock.getPlugin().getSpawn());
+        player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
     }
 
     @EventHandler
@@ -45,7 +45,7 @@ public class GeneralListener implements Listener {
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
-        if (!(damaged.getWorld() == SkyBlock.getPlugin().getSpawn().getWorld())) return;
+        if (!(damaged.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld())) return;
 
         MessageUtil.sendUrgent(damager, "You cannot do this in spawn!");
 
@@ -58,7 +58,7 @@ public class GeneralListener implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        if (!(player.getWorld() == SkyBlock.getPlugin().getSpawn().getWorld())) return;
+        if (!(player.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld())) return;
 
         event.setCancelled(true);
     }
@@ -69,7 +69,7 @@ public class GeneralListener implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        if (!(player.getWorld() == SkyBlock.getPlugin().getSpawn().getWorld())) return;
+        if (!(player.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld())) return;
 
         event.setCancelled(true);
     }

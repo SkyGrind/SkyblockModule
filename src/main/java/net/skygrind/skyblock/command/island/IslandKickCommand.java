@@ -53,7 +53,7 @@ public class IslandKickCommand extends GooseCommand {
 
         island.getMembers().remove(target.getUniqueId());
         if (registry.isInIslandRegion(island, target.getLocation())) {
-            target.teleport(SkyBlock.getPlugin().getSpawn());
+            target.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         }
         player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You have kicked " + ChatColor.GOLD + target.getName() + ChatColor.GRAY + " off your island!");
         target.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You have been kicked off your island!");
