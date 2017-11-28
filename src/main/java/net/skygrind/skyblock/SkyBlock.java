@@ -61,6 +61,7 @@ public class SkyBlock extends PluginModule {
 
     @Override
     public void onEnable() {
+        getModuleDir().toFile().mkdir();
         plugin = this;
         this.regionHandler = new RegionHandler();
         this.islandRegistry = new IslandRegistry();
