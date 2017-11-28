@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.islesmc.modules.api.API;
+import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,7 +26,7 @@ public class ServerConfig {
 
     public ServerConfig() {
         this.spawn = GooseLocation.fromLocation(new Location(Bukkit.getWorld("world"), 0, 0, 0));
-        this.fileName = ((Plugin) API.getPlugin()).getDataFolder() + File.separator + "skyblock" + File.separator + "config.json";
+        this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "config.json";
         this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
 

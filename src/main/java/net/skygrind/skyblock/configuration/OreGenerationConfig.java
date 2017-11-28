@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.islesmc.modules.api.API;
+import net.skygrind.skyblock.SkyBlock;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 
@@ -36,7 +37,7 @@ public class OreGenerationConfig {
         this.generationMap.put(Material.REDSTONE_ORE, 2.1);
         this.generationMap.put(Material.GOLD_ORE, 1.0);
         this.generationMap.put(Material.EMERALD_ORE, 0.3);
-        this.fileName = ((Plugin) API.getPlugin()).getDataFolder() + File.separator + "skyblock" + File.separator + "ores.json";
+        this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "ores.json";
     }
 
     public Double getValue(final Material key) {

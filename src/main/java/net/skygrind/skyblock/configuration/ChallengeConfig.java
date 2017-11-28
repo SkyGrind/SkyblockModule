@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.islesmc.modules.api.API;
+import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.challenges.Challenge;
 import net.skygrind.skyblock.challenges.ChallengeLevel;
 import org.bukkit.plugin.Plugin;
@@ -27,7 +28,7 @@ public class ChallengeConfig {
 
     public ChallengeConfig() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
-        this.fileName = ((Plugin) API.getPlugin()).getDataFolder() + File.separator + "skyblock" + File.separator + "challenges.json";
+        this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "challenges.json";
         this.challenges = new ArrayList<>();
         this.challengeLevels = new ArrayList<>();
     }
