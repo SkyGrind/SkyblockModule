@@ -68,6 +68,7 @@ public class IslandTopCommand extends GooseCommand {
 
     @Override
     public void execute(Player player, String[] strings) {
-
+        populateIslandTop();
+        player.openInventory(this.islandTop);
     }
 }

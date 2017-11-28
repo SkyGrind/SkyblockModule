@@ -89,11 +89,9 @@ public class SkyBlock extends PluginModule {
             public void run() {
                 // Was VoidWorld
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidGenerator");
+                islandWorld = Bukkit.getWorld("Skyblock");
             }
         }.runTaskLater(API.getPlugin(), 10L);
-
-
-        islandWorld = Bukkit.getWorld("Skyblock");
 
         schematicLoader = new SchematicLoader();
 

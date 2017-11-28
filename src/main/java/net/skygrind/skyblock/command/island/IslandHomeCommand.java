@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
+import net.skygrind.skyblock.misc.LocationUtil;
 import net.skygrind.skyblock.misc.MessageUtil;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -29,10 +31,15 @@ public class IslandHomeCommand extends GooseCommand {
 
         Island playerIsland = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
 
+        System.out.println(" ");
         System.out.println(playerIsland.getName());
-        System.out.println(playerIsland.getSpawn().getBlockX() + ", " + playerIsland.getSpawn().getBlockZ());
+        Location spawn = playerIsland.getSpawn();
+        System.out.println(" ");
 
-        player.teleport(SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player).getSpawn());
+
+        Location teleport = new Location(SkyBlock.getPlugin().getIslandWorld(), spawn.getX(), spawn.getY(), spawn.getZ());
+
+        player.teleport(teleport);
         MessageUtil.sendInfo(player, "Teleported you to your island home.");
         return;
     }

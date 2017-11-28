@@ -1,5 +1,6 @@
 package net.skygrind.skyblock.schematic;
 
+import com.islesmc.modules.api.API;
 import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
@@ -20,8 +21,6 @@ import java.util.logging.Level;
  * Created by Matt on 2017-02-10.
  */
 public class SchematicLoader {
-
-
     private File schematicDir;
 
     public SchematicLoader() {
@@ -29,7 +28,7 @@ public class SchematicLoader {
     }
 
     public void pasteSchematic(String file, World world, int x, int y, int z) throws DataException, IOException, MaxChangedBlocksException {
-        File schematic = new File(((Plugin) SkyBlock.getPlugin()).getDataFolder() + "/skyblock/schematics", file);
+        File schematic = new File(SkyBlock.getPlugin().getModuleDir() + "/schematics", file);
         if (schematic.exists()) {
             Vector origin = new Vector(x, y, z);
 
@@ -41,9 +40,8 @@ public class SchematicLoader {
             System.out.println(y);
 
             clipboard.paste(editSession, BukkitUtil.toVector(origin), true);
-        } else {
-            ((Plugin) SkyBlock.getPlugin()).getLogger().log(Level.SEVERE,
-                    "Schematic {0} does not exist", file);
+            return;
         }
+        API.getPlugin().getLogger().log(Level.SEVERE, "Schematic {0} does not exist", file);
     }
 }
