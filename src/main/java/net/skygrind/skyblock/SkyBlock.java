@@ -88,7 +88,8 @@ public class SkyBlock extends PluginModule {
         new BukkitRunnable() {
             @Override
             public void run() {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
+                // Was VoidWorld
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidGenerator");
             }
         }.runTaskLater(API.getPlugin(), 10L);
 
