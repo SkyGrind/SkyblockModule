@@ -1,7 +1,13 @@
 package net.skygrind.skyblock;
 
 import com.islesmc.modules.api.API;
+import com.islesmc.modules.api.framework.user.User;
+import com.islesmc.modules.api.framework.user.profile.Profile;
 import com.islesmc.modules.api.module.PluginModule;
+import com.keenant.tabbed.Tabbed;
+import com.keenant.tabbed.item.TabItem;
+import com.keenant.tabbed.item.TextTabItem;
+import com.keenant.tabbed.tablist.SimpleTabList;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import net.skygrind.skyblock.command.RegionCommand;
 import net.skygrind.skyblock.command.SetSpawnCommand;
@@ -14,20 +20,28 @@ import net.skygrind.skyblock.configuration.ServerConfig;
 import net.skygrind.skyblock.goose.GooseCommandHandler;
 import net.skygrind.skyblock.goose.GooseHandler;
 import net.skygrind.skyblock.goose.GooseTicker;
+import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandGUIHandler;
 import net.skygrind.skyblock.island.IslandOreGens;
 import net.skygrind.skyblock.island.IslandRegistry;
 import net.skygrind.skyblock.island.listeners.GeneralListener;
 import net.skygrind.skyblock.island.listeners.IslandListener;
+import net.skygrind.skyblock.player.listener.PlayerJoinListener;
 import net.skygrind.skyblock.region.RegionHandler;
 import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Matt on 2017-02-10.
@@ -46,7 +60,7 @@ public class SkyBlock extends PluginModule {
     private ServerConfig serverConfig;
     private ChallengeConfig challengeConfig;
     private GooseHandler gooseHandler;
-
+    private Tabbed tabbed;
     private World islandWorld;
 
     public static SkyBlock getPlugin() {
@@ -75,6 +89,7 @@ public class SkyBlock extends PluginModule {
         this.challengeConfig = new ChallengeConfig();
         this.challengeConfig.load();
         this.gooseHandler = new GooseHandler();
+        this.tabbed = new Tabbed(API.getPlugin());
 
         islandRegistry.init();
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
@@ -105,6 +120,20 @@ public class SkyBlock extends PluginModule {
         //TODO load player data
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(Player player : Bukkit.getOnlinePlayers()) {
+
+                    SimpleTabList tab = (SimpleTabList) getTabbed().getTabList(player);
+                    int i = 0;
+                    for (TabItem tabItem :  getTabItems(player)) {
+                        tab.set(i, new TextTabItem(ChatColor.translateAlternateColorCodes('&', tabItem.getText())));
+                        i++;
+                    }
+                }
+            }
+        }.runTaskTimer(API.getPlugin(), 20L, 20L);
     }
 
     public RegionHandler getRegionHandler() {
@@ -148,6 +177,7 @@ public class SkyBlock extends PluginModule {
         registerEvent(new GeneralListener());
         registerEvent(new IslandOreGens());
         registerEvent(this.gooseHandler);
+        registerEvent(new PlayerJoinListener());
 
         GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());
         commandHandler.addSubCommand("accept", new IslandAcceptCommand());
@@ -220,5 +250,121 @@ public class SkyBlock extends PluginModule {
 
     public GooseHandler getGooseHandler() {
         return gooseHandler;
+    }
+
+    public List<TabItem> getTabItems(final Player player) {
+        List<TabItem> items = new ArrayList<>();
+
+        User user = API.getUserManager().findByUniqueId(player.getUniqueId());
+        Profile permissions = user.getProfile("permissions");
+
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem("&b&lIsland"));
+        Island island = getIslandRegistry().getIslandForPlayer(player);
+        if(island == null) {
+            items.add(new TextTabItem("&fNone"));
+            items.add(new TextTabItem(" "));
+            items.add(new TextTabItem(" "));
+            items.add(new TextTabItem(" "));
+            items.add(new TextTabItem(" "));
+        } else {
+            items.add(new TextTabItem(island.getName()));
+            items.add(new TextTabItem("&7\u00BB&b Level&7: &f" + island.getIslandLevel()));
+            items.add(new TextTabItem("&7\u00BB&b Balance&7: &f" + island.getBankBalance()));
+            items.add(new TextTabItem("&7\u00BB&b Members&7: &f" + island.getMembers().size() + "/" + island.getMaxPlayers()));
+            items.add(new TextTabItem("&7\u00BB&b Type&7: &f" + island.getType().getDisplay()));
+        }
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem("&b&lCommunity"));
+        items.add(new TextTabItem("&fSkyParadisemc.com"));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+
+        items.add(new TextTabItem("&b&lSky&f&lParadise"));
+        items.add(new TextTabItem("&fOnline: " + Bukkit.getOnlinePlayers().size()));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem("&bTop Islands"));
+//        int i = 0;
+//        for(Map.Entry<Island, Integer> entry : IslandTopCommand.getTopIslands().subList(0, 10)) {
+//            i++;
+//            items.add(new TextTabItem("&f" + entry.getKey().getName() + " (" + entry.getKey().getIslandLevel() + ")"));
+//        }
+//        while (i != 10) {
+//            i++;
+//            items.add(new TextTabItem(" "));
+//        }
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem("&b&lStore"));
+        items.add(new TextTabItem("&fshop.skyparadisemc.com"));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem("&b&lPlayer Info"));
+        items.add(new TextTabItem("&7Group: " + permissions.getString("group")));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem(" "));
+        return items;
+    }
+
+    public Tabbed getTabbed() {
+        return tabbed;
     }
 }

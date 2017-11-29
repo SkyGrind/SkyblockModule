@@ -3,6 +3,11 @@ package net.skygrind.skyblock.player.listener;
 import com.islesmc.modules.api.API;
 import com.islesmc.modules.api.framework.user.User;
 import com.islesmc.modules.api.framework.user.profile.Profile;
+import com.keenant.tabbed.item.TabItem;
+import com.keenant.tabbed.item.TextTabItem;
+import com.keenant.tabbed.tablist.SimpleTabList;
+import net.skygrind.skyblock.SkyBlock;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,5 +27,7 @@ public class PlayerJoinListener implements Listener {
             profile.set("achievements", new ArrayList<String>());
             user.getAllProfiles().add(profile);
         }
+
+        SimpleTabList tab = SkyBlock.getPlugin().getTabbed().newSimpleTabList(player, 80);
     }
 }

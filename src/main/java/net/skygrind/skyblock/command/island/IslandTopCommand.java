@@ -34,11 +34,10 @@ public class IslandTopCommand extends GooseCommand implements Listener {
         SkyBlock.getPlugin().registerEvent(this);
     }
 
-    private Inventory createIslandTopInventory() {
-        Inventory inventory = Bukkit.createInventory(null, 36, "Top Islands");
+    public static List<Map.Entry<Island, Integer>> getTopIslands() {
         Map<Island, Integer> islands = new HashMap<>();
 
-        for (Island island : registry.getPlayerIslands()) {
+        for (Island island : SkyBlock.getPlugin().getIslandRegistry().getPlayerIslands()) {
             islands.put(island, island.getIslandLevel());
         }
 
@@ -50,12 +49,16 @@ public class IslandTopCommand extends GooseCommand implements Listener {
 
         Set<Map.Entry<Island, Integer>> set = islands.entrySet();
 
-        List<Map.Entry<Island, Integer>> list = new ArrayList<>(
-                set);
+        List<Map.Entry<Island, Integer>> list = new ArrayList<>(set);
 
         list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+        return list;
+    }
 
-        for (Map.Entry<Island, Integer> ent : list.subList(0, topSize)) {
+    private Inventory createIslandTopInventory() {
+        Inventory inventory = Bukkit.createInventory(null, 36, "Top Islands");
+
+        for (Map.Entry<Island, Integer> ent : getTopIslands().subList(0, 10)) {
 
             UUID uuid = ent.getKey().getOwner();
 

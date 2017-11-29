@@ -21,6 +21,9 @@ public class LocationUtil {
     }
 
     public static String serialize(Location loc) {
-        return loc.getWorld().getName().trim() + "," + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ();
+        if(loc == null)
+            return "";
+
+        return loc.getWorld() == null ? "world" : loc.getWorld().getName()  + "," + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ();
     }
 }
