@@ -9,6 +9,7 @@ import com.keenant.tabbed.item.TabItem;
 import com.keenant.tabbed.item.TextTabItem;
 import com.keenant.tabbed.tablist.SimpleTabList;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import net.milkbowl.vault.economy.Economy;
 import net.skygrind.skyblock.command.RegionCommand;
 import net.skygrind.skyblock.command.SetSpawnCommand;
 import net.skygrind.skyblock.command.SpawnCommand;
@@ -36,9 +37,11 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +63,7 @@ public class SkyBlock extends PluginModule {
     private ServerConfig serverConfig;
     private ChallengeConfig challengeConfig;
     private GooseHandler gooseHandler;
+    private Economy economy;
     private Tabbed tabbed;
     private World islandWorld;
 
@@ -90,6 +94,8 @@ public class SkyBlock extends PluginModule {
         this.challengeConfig.load();
         this.gooseHandler = new GooseHandler();
         this.tabbed = new Tabbed(API.getPlugin());
+
+        setupEconomy();
 
         islandRegistry.init();
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
@@ -139,6 +145,17 @@ public class SkyBlock extends PluginModule {
         }.runTaskTimerAsynchronously(API.getPlugin(), 20L, 20L);
     }
 
+    private boolean setupEconomy() {
+        if (API.getPlugin().getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = API.getPlugin().getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        economy = rsp.getProvider();
+        return economy != null;
+    }
     public RegionHandler getRegionHandler() {
         return regionHandler;
     }
@@ -242,6 +259,21 @@ public class SkyBlock extends PluginModule {
 //        YamlConfiguration.loadConfiguration(challenges);
 //    }
 
+
+    public Economy getEconomy() {
+        return this.economy;
+    }
+
+    public String format(double number) {
+        String[] suffix = new String[]{"","k", "m", "b", "t"};
+        int MAX_LENGTH = 4;
+        String r = new DecimalFormat("##0E0").format(number);
+        r = r.replaceAll("E[0-9]", suffix[Character.getNumericValue(r.charAt(r.length() - 1)) / 3]);
+        while(r.length() > MAX_LENGTH || r.matches("[0-9]+\\.[a-z]")){
+            r = r.substring(0, r.length()-2) + r.substring(r.length() - 1);
+        }
+        return r;
+    }
 
     public ShopHandler getShopHandler() {
         return shopHandler;
@@ -347,8 +379,8 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem("&b&lPlayer Info"));
-        items.add(new TextTabItem("&7Group: " + permissions.getString("group")));
-        items.add(new TextTabItem(" "));
+        items.add(new TextTabItem("&7Group: &f" + permissions.getString("group")));
+        items.add(new TextTabItem("&7Balance: &f$" + format(getEconomy().getBalance(player))));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
