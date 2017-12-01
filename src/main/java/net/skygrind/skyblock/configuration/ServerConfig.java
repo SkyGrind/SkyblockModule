@@ -21,11 +21,13 @@ public class ServerConfig {
     private final transient String fileName;
     private final transient Gson gson;
     private GooseLocation spawn;
+    private Integer playersJoined;
 
     public ServerConfig() {
-        this.spawn = GooseLocation.fromLocation(new Location(Bukkit.getWorld("world"), 0, 0, 0));
         this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "config.json";
         this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.spawn = GooseLocation.fromLocation(new Location(Bukkit.getWorld("world"), 0, 0, 0));
+        this.playersJoined = 0;
     }
 
     public Location getSpawnLocation() {
@@ -78,5 +80,13 @@ public class ServerConfig {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Integer getPlayersJoined() {
+        return playersJoined;
+    }
+
+    public void setPlayersJoined(Integer playersJoined) {
+        this.playersJoined = playersJoined;
     }
 }

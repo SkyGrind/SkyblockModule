@@ -170,6 +170,7 @@ public class SkyBlock extends PluginModule {
 //        saveMissionsFile();
         islandRegistry.disable();
         plugin = null;
+        getServerConfig().save();
     }
 
     public ChallengeConfig getChallengeConfig() {

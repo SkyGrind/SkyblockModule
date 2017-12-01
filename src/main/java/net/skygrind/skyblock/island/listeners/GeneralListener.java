@@ -2,6 +2,8 @@ package net.skygrind.skyblock.island.listeners;
 
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.misc.MessageUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,14 +14,20 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import sun.applet.Main;
 
 
 public class GeneralListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if(!event.getPlayer().hasPlayedBefore())
+        if(!event.getPlayer().hasPlayedBefore()) {
+            int joinNumber = SkyBlock.getPlugin().getServerConfig().getPlayersJoined();
             event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+            Bukkit.broadcastMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise " + ChatColor.GRAY + "\u00BB " + ChatColor.YELLOW +
+                    String.format("Welcome %s to the ", event.getPlayer().getName()) + ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise" + ChatColor.YELLOW + String.format(" (%s)", joinNumber));
+            SkyBlock.getPlugin().getServerConfig().setPlayersJoined(joinNumber + 1);
+        }
 
         event.setJoinMessage(null);
     }
