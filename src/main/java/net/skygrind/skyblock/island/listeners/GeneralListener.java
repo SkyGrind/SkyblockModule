@@ -2,6 +2,7 @@ package net.skygrind.skyblock.island.listeners;
 
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.misc.MessageUtil;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +27,9 @@ public class GeneralListener implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+        Location spawn = SkyBlock.getPlugin().getServerConfig().getSpawnLocation();
+        player.teleport(spawn);
+        event.setRespawnLocation(spawn);
     }
 
     @EventHandler
@@ -38,6 +41,7 @@ public class GeneralListener implements Listener {
         } else {
             event.setKeepInventory(false);
         }
+        event.setDeathMessage(null);
     }
 
     @EventHandler
