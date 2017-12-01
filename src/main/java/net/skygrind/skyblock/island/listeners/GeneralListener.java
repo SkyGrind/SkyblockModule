@@ -46,12 +46,14 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player && event.getDamager() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player && event.getDamager() instanceof Player))
+            return;
 
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
-        if (!(damaged.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld())) return;
+        if (!(damaged.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld()))
+            return;
 
         MessageUtil.sendUrgent(damager, "You cannot do this in spawn!");
 
@@ -71,11 +73,18 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onFallDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player))
+            return;
 
         Player player = (Player) event.getEntity();
 
-        if (!(player.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld())) return;
+        if (!(player.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld()))
+            return;
+
+        if(event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+            player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+            return;
+        }
 
         event.setCancelled(true);
     }
