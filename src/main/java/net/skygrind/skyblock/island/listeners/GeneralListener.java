@@ -17,7 +17,9 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+        if(!event.getPlayer().hasPlayedBefore())
+            event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+
         event.setJoinMessage(null);
     }
 
