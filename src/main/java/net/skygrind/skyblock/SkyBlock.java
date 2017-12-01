@@ -323,7 +323,7 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem("&b&lCommunity"));
-        items.add(new TextTabItem("&fSkyParadisemc.com"));
+        items.add(new TextTabItem("&fSkyParadise-mc.com"));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
