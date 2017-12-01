@@ -133,7 +133,7 @@ public class SkyBlock extends PluginModule {
                     }
                 }
             }
-        }.runTaskTimer(API.getPlugin(), 20L, 20L);
+        }.runTaskTimerAsynchronously(API.getPlugin(), 20L, 20L);
     }
 
     public RegionHandler getRegionHandler() {
