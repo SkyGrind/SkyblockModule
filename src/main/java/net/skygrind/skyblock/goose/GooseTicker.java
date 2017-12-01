@@ -75,7 +75,8 @@ public class GooseTicker extends BukkitRunnable
             User user = API.getUserManager().findByUniqueId(player.getUniqueId());
             Profile profile = user.getProfile("Skyblock");
             scoreboard.add(translateString("&7&m---------"), translateString("&7&m---------"));
-            scoreboard.add(translateString("&bBalance&7: "), translateString("&f$0"));
+            double balance = SkyBlock.getPlugin().getEconomy().getBalance(player);
+            scoreboard.add(translateString("&bBalance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
             if(island == null) {
                 scoreboard.add(translateString("&bIsland&7: "), translateString("&fNone"));
@@ -83,7 +84,7 @@ public class GooseTicker extends BukkitRunnable
                 String name = splitEqually(island.getName(), 13).get(0);
                 scoreboard.add(translateString("&bIsland&7: "), translateString("&f " + name));
                 scoreboard.add(translateString("&7\u00BB&b Level&7:"), translateString("&f " + island.getIslandLevel()));
-                scoreboard.add(translateString("&7\u00BB&b Balance&7:"), translateString("&f " + SkyBlock.getPlugin().format(SkyBlock.getPlugin().getEconomy().getBalance(player))));
+                scoreboard.add(translateString("&7\u00BB&b Balance&7:"), translateString("&f " + SkyBlock.getPlugin().format(island.getBankBalance())));
                 scoreboard.add(translateString("&7\u00BB&b Members&7:"), translateString("&f " + island.getMembers().size() + "/" + island.getMaxPlayers()));
                 scoreboard.add(translateString("&7\u00BB&b Type&7:"), translateString("&f " + island.getType().getDisplay()));
             }

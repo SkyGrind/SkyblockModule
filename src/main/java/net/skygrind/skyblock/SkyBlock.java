@@ -33,7 +33,6 @@ import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -44,7 +43,6 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Matt on 2017-02-10.
@@ -95,7 +93,6 @@ public class SkyBlock extends PluginModule {
         this.gooseHandler = new GooseHandler();
         this.tabbed = new Tabbed(API.getPlugin());
 
-        setupEconomy();
 
         islandRegistry.init();
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
@@ -115,8 +112,9 @@ public class SkyBlock extends PluginModule {
                 // Was VoidWorld
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
                 islandWorld = Bukkit.getWorld("Skyblock");
+                setupEconomy();
             }
-        }.runTaskLater(API.getPlugin(), 10L);
+        }.runTaskLater(API.getPlugin(), 20L);
 
         schematicLoader = new SchematicLoader();
 
@@ -147,13 +145,15 @@ public class SkyBlock extends PluginModule {
 
     private boolean setupEconomy() {
         if (API.getPlugin().getServer().getPluginManager().getPlugin("Vault") == null) {
+            System.out.println("no vault");
             return false;
         }
-        RegisteredServiceProvider<Economy> rsp = API.getPlugin().getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
+        RegisteredServiceProvider<Economy> economyProvider = API.getPlugin().getServer().getServicesManager().getRegistration(Economy.class);
+        if (economyProvider == null) {
+            System.out.println("rsp is null");
             return false;
         }
-        economy = rsp.getProvider();
+        economy = economyProvider.getProvider();
         return economy != null;
     }
     public RegionHandler getRegionHandler() {
@@ -265,7 +265,7 @@ public class SkyBlock extends PluginModule {
     }
 
     public String format(double number) {
-        String[] suffix = new String[]{"","k", "m", "b", "t"};
+        String[] suffix = new String[]{"","K", "M", "B", "T"};
         int MAX_LENGTH = 4;
         String r = new DecimalFormat("##0E0").format(number);
         r = r.replaceAll("E[0-9]", suffix[Character.getNumericValue(r.charAt(r.length() - 1)) / 3]);

@@ -45,7 +45,7 @@ public class IslandListener implements Listener {
             event.setCancelled(true);
             if (location.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
                 MessageUtil.sendUrgent(placer, ChatColor.RED + "This is out of your islands region!");
-                MessageUtil.sendServerTheme(placer, ChatColor.YELLOW + "Store: http://store.skygrind.net");
+                MessageUtil.sendServerTheme(placer, ChatColor.YELLOW + "Store: http://shop.skyparadisemc.com");
             } else {
 
                 if (!placer.hasPermission("skygrind.build")) {
