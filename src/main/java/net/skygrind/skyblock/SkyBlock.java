@@ -1,5 +1,6 @@
 package net.skygrind.skyblock;
 
+import com.google.common.collect.Lists;
 import com.islesmc.modules.api.API;
 import com.islesmc.modules.api.framework.user.User;
 import com.islesmc.modules.api.framework.user.profile.Profile;
@@ -200,6 +201,7 @@ public class SkyBlock extends PluginModule {
         registerEvent(new PlayerJoinListener());
 
         GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());
+        commandHandler.setAliases(Lists.newArrayList("is", "islands"));
         commandHandler.addSubCommand("accept", new IslandAcceptCommand());
         commandHandler.addSubCommand("help", new IslandBaseCommand());
         commandHandler.addSubCommand("create", new IslandCreateCommand());
