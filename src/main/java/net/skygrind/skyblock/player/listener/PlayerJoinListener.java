@@ -24,7 +24,7 @@ public class PlayerJoinListener implements Listener {
         Profile profile = user.getProfile("skyblock");
         if (profile == null) {
             profile = new Profile("skyblock");
-            profile.set("achievements", new ArrayList<String>());
+            profile.set("achievements", new ArrayList<>());
             user.getAllProfiles().add(profile);
         }
 

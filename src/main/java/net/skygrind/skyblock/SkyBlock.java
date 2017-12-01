@@ -128,6 +128,9 @@ public class SkyBlock extends PluginModule {
                     SimpleTabList tab = (SimpleTabList) getTabbed().getTabList(player);
                     int i = 0;
                     for (TabItem tabItem :  getTabItems(player)) {
+                        if(tab == null || tabItem == null)
+                            continue;
+
                         tab.set(i, new TextTabItem(ChatColor.translateAlternateColorCodes('&', tabItem.getText())));
                         i++;
                     }
