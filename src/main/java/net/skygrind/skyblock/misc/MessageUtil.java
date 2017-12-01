@@ -21,6 +21,6 @@ public class MessageUtil {
     }
 
     public static void sendServerTheme(Player player, String msg) {
-        player.sendMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise " + ChatColor.GREEN + "\u00BB " + ChatColor.RESET + msg);
+        player.sendMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise " + ChatColor.GRAY + "\u00BB " + ChatColor.RESET + msg);
     }
 }
