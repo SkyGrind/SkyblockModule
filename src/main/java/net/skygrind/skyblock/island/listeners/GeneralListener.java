@@ -21,15 +21,27 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if(!event.getPlayer().hasPlayedBefore()) {
+        event.setJoinMessage(null);
+
+        Player player = event.getPlayer();
+
+        player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+        player.sendMessage(" ");
+        player.sendMessage(ChatColor.YELLOW + " Welcome " + ChatColor.WHITE + player.getName() + ChatColor.YELLOW + " to " + ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise" + ChatColor.YELLOW + "!");
+        player.sendMessage(" ");
+        player.sendMessage(ChatColor.YELLOW + " Website:" + ChatColor.WHITE + " http://skyparadise-mc.com");
+        player.sendMessage(ChatColor.YELLOW + " Discord:" + ChatColor.WHITE + " https://discord.gg/NcFcBnj");
+        player.sendMessage(ChatColor.YELLOW + " Shop:" + ChatColor.WHITE + " http://shop.skyparadisemc.com");
+        player.sendMessage(" ");
+        player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+
+        if(!player.hasPlayedBefore()) {
             int joinNumber = SkyBlock.getPlugin().getServerConfig().getPlayersJoined();
-            event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+            player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
             Bukkit.broadcastMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise " + ChatColor.GRAY + "\u00BB " + ChatColor.YELLOW +
-                    String.format("Welcome %s to the ", event.getPlayer().getName()) + ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise" + ChatColor.YELLOW + String.format(" (%s)", joinNumber));
+                    String.format("Welcome %s to the ", player.getName()) + ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise" + ChatColor.YELLOW + String.format(" (%s)", joinNumber));
             SkyBlock.getPlugin().getServerConfig().setPlayersJoined(joinNumber + 1);
         }
-
-        event.setJoinMessage(null);
     }
 
     @EventHandler
