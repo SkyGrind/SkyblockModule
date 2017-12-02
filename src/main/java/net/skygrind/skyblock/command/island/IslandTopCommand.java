@@ -58,7 +58,12 @@ public class IslandTopCommand extends GooseCommand implements Listener {
     private Inventory createIslandTopInventory() {
         Inventory inventory = Bukkit.createInventory(null, 36, "Top Islands");
 
-        for (Map.Entry<Island, Integer> ent : getTopIslands().subList(0, 10)) {
+        int max = 10;
+        if(SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
+            max = SkyBlock.getPlugin().getIslandRegistry().playerIslands.size();
+        }
+
+        for (Map.Entry<Island, Integer> ent : getTopIslands().subList(0, max)) {
 
             UUID uuid = ent.getKey().getOwner();
 

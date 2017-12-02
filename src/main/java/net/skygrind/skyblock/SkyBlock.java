@@ -44,6 +44,7 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Matt on 2017-02-10.
@@ -332,15 +333,19 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem("&fOnline: " + Bukkit.getOnlinePlayers().size()));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem("&bTop Islands"));
-//        int i = 0;
-//        for(Map.Entry<Island, Integer> entry : IslandTopCommand.getTopIslands().subList(0, 10)) {
-//            i++;
-//            items.add(new TextTabItem("&f" + entry.getKey().getName() + " (" + entry.getKey().getIslandLevel() + ")"));
-//        }
-//        while (i != 10) {
-//            i++;
-//            items.add(new TextTabItem(" "));
-//        }
+        int i = 0;
+        int max = 10;
+        if(SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
+            max = SkyBlock.getPlugin().getIslandRegistry().playerIslands.size();
+        }
+        for(Map.Entry<Island, Integer> entry : IslandTopCommand.getTopIslands().subList(0, max)) {
+            i++;
+            items.add(new TextTabItem("&f" + entry.getKey().getName() + " (" + entry.getKey().getIslandLevel() + ")"));
+        }
+        while (i != 10) {
+            i++;
+            items.add(new TextTabItem(" "));
+        }
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
