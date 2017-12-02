@@ -86,12 +86,8 @@ public class GooseTicker extends BukkitRunnable
                 scoreboard.add(translateString("&7\u00BB&b Level&7:"), translateString("&f " + island.getIslandLevel()));
                 scoreboard.add(translateString("&7\u00BB&b Balance&7:"), translateString("&f " + SkyBlock.getPlugin().format(island.getBankBalance())));
                 scoreboard.add(translateString("&7\u00BB&b Members&7:"), translateString("&f " + island.getMembers().size() + "/" + island.getMaxPlayers()));
-                List<String> type = this.splitEqually(island.getType().getDisplay(), 15);
-                if (type.size() == 1) {
-                    scoreboard.add(translateString("&7\u00BB&b Type&7:"), translateString("&f " + type.get(0)));
-                } else {
-                    scoreboard.add(translateString("&7\u00BB&b Type&7:"), translateString(ChatColor.getLastColors(type.get(0)) + type.get(1)));
-                }
+                scoreboard.add(translateString("&7\u00BB&b Type&7:"), translateString("&f " + island.getType().getRaw()));
+
             }
 
             scoreboard.add("", "");
