@@ -34,7 +34,7 @@ public class SchematicLoader {
 
 
             BukkitWorld bukkitWorld = new BukkitWorld(world);
-            EditSession editSession = new EditSession(bukkitWorld, 10000);
+            EditSession editSession = new EditSession(bukkitWorld, 100000);
             CuboidClipboard clipboard = SchematicFormat.MCEDIT.load(schematic);
 
             System.out.println(y);
