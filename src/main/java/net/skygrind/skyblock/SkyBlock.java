@@ -11,9 +11,7 @@ import com.keenant.tabbed.item.TextTabItem;
 import com.keenant.tabbed.tablist.SimpleTabList;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import net.milkbowl.vault.economy.Economy;
-import net.skygrind.skyblock.command.RegionCommand;
-import net.skygrind.skyblock.command.SetSpawnCommand;
-import net.skygrind.skyblock.command.SpawnCommand;
+import net.skygrind.skyblock.command.*;
 import net.skygrind.skyblock.command.island.*;
 import net.skygrind.skyblock.command.mission.LevelCommand;
 import net.skygrind.skyblock.configuration.ChallengeConfig;
@@ -222,6 +220,9 @@ public class SkyBlock extends PluginModule {
         registerCommand("setspawn", new SetSpawnCommand());
         registerCommand("spawn", new SpawnCommand());
         registerCommand("level", new LevelCommand());
+        registerCommand("balance", new BalanceCommand());
+        registerCommand("pay", new PayCommand());
+        registerCommand("addbalance", new AddBalance());
     }
 
 //    private void initFiles() {
