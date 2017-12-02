@@ -342,11 +342,10 @@ public class SkyBlock extends PluginModule {
             i++;
             items.add(new TextTabItem("&f" + entry.getKey().getName() + " (" + entry.getKey().getIslandLevel() + ")"));
         }
-        while (i != 10) {
+        while (i <= (max - 1)) {
             i++;
             items.add(new TextTabItem(" "));
         }
-        items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
