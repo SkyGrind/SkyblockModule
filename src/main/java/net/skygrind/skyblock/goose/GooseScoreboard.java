@@ -7,12 +7,14 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class GooseScoreboard
 {
-    private LinkedList<ScoreboardText> texts = new LinkedList<>();
+    private List<ScoreboardText> texts = new ArrayList<>();
     private Scoreboard scoreboard;
     private Objective objective;
     private String tag = "PlaceHolder";
