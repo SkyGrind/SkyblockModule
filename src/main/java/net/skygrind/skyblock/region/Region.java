@@ -1,5 +1,6 @@
 package net.skygrind.skyblock.region;
 
+import net.skygrind.skyblock.goose.GooseLocation;
 import org.bukkit.Location;
 
 /**
@@ -8,13 +9,13 @@ import org.bukkit.Location;
 public class Region {
 
     private String name;
-    private Location min;
-    private Location max;
+    private GooseLocation min;
+    private GooseLocation max;
 
     public Region(String name, Location min, Location max) {
         this.name = name;
-        this.min = min;
-        this.max = max;
+        this.min = GooseLocation.fromLocation(min);
+        this.max = GooseLocation.fromLocation(max);
     }
 
     public String getName() {
@@ -22,10 +23,10 @@ public class Region {
     }
 
     public Location getMin() {
-        return min;
+        return min.toLocation();
     }
 
     public Location getMax() {
-        return max;
+        return max.toLocation();
     }
 }

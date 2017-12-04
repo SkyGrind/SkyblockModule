@@ -18,24 +18,22 @@ import java.util.UUID;
  * Created by Matt on 2017-02-11.
  */
 public class Island {
-    private final transient File file;
     private GooseLocation spawn;
     private Region container;
     private UUID owner;
 
-    private int maxPlayers;
+    private Integer maxPlayers;
 
     private List<UUID> members;
-    private int size;
+    private Integer size;
     private IslandType type;
     private String islandName;
 
-    private int islandLevel = 0;
+    private Integer islandLevel = 0;
 
-    private int bankBalance = 0;
+    private Integer bankBalance = 0;
 
     public Island(UUID owner, Location spawn, IslandType type) {
-        this.file = new File(SkyBlock.getPlugin().getModuleDir().toFile() + File.separator + "islands" + File.separator + owner.toString() + ".json");
         this.owner = owner;
         this.spawn = GooseLocation.fromLocation(spawn);
         this.type = type;
@@ -129,7 +127,7 @@ public class Island {
 
     public void save() throws IOException {
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(this);
-        FileWriter writer = new FileWriter(this.file);
+        FileWriter writer = new FileWriter(new File(SkyBlock.getPlugin().getModuleDir().toFile() + File.separator + "islands" + File.separator + owner.toString() + ".json"));
         writer.write(json);
     }
 }
