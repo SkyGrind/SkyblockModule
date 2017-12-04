@@ -295,7 +295,7 @@ public class IslandRegistry {
             }
         }
 
-        File toDelete = new File(islandDir, island.getOwner().toString() + ".yml");
+        File toDelete = new File(islandDir, island.getOwner().toString().replace("-", "") + ".json");
 
         if (!toDelete.exists()) {
             return;
