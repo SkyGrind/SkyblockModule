@@ -1,5 +1,9 @@
 package net.skygrind.skyblock.island;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
@@ -15,7 +19,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -96,45 +103,64 @@ public class IslandRegistry {
         return playerIslands;
     }
 
-    public void loadIslands() {
+    private void loadIslands() {
         if (!islandDir.exists()) {
             islandDir.mkdir();
         }
-        for (File islandFile : islandDir.listFiles()) {
-            if (islandFile.getName().endsWith(".yml")) {
-                //ISLAND!!
 
-                YamlConfiguration islandConfig = YamlConfiguration.loadConfiguration(islandFile);
+        File[] files = islandDir.listFiles();
 
-                UUID ownerID = UUID.fromString(islandConfig.getString("ownerID"));
-                Location spawn = LocationUtil.deserialize(islandConfig.getString("spawn"));
+        for (int i = 0; i < files.length; i++) {
+            File file = files[i];
 
-                Location min = LocationUtil.deserialize(islandConfig.getString("min"));
-                Location max = LocationUtil.deserialize(islandConfig.getString("max"));
+            JsonParser parser = new JsonParser();
 
-                IslandType type = IslandType.valueOf(islandConfig.getString("type"));
 
-                int bankBalance = islandConfig.getInt("balance");
-                int islandLevel = islandConfig.getInt("islandLevel");
-                int maxPlayers = islandConfig.getInt("maxPlayers");
-
-                List<UUID> members = new ArrayList<>();
-
-                for (String uuid : islandConfig.getStringList("members")) {
-                    UUID id = UUID.fromString(uuid);
-                    members.add(id);
-                }
-
-                Island island = new Island(ownerID, spawn, type);
-                island.setContainer(SkyBlock.getPlugin().getRegionHandler().createRegion(island.getName(), min, max));
-                island.setMembers(members);
-                island.setMaxPlayers(maxPlayers);
-                island.setBankBalance(bankBalance);
-                island.setIslandLevel(islandLevel);
-
-                registerIsland(ownerID, island);
+            try (FileReader reader = new FileReader(file)) {
+                JsonElement element = parser.parse(reader);
+                Island island = new GsonBuilder().setPrettyPrinting().create().fromJson(element, Island.class);
+                this.playerIslands.add(island);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+
+
+//        for (File islandFile : islandDir.listFiles()) {
+//            if (islandFile.getName().endsWith(".yml")) {
+//                //ISLAND!!
+//
+//                YamlConfiguration islandConfig = YamlConfiguration.loadConfiguration(islandFile);
+//
+//                UUID ownerID = UUID.fromString(islandConfig.getString("ownerID"));
+//                Location spawn = LocationUtil.deserialize(islandConfig.getString("spawn"));
+//
+//                Location min = LocationUtil.deserialize(islandConfig.getString("min"));
+//                Location max = LocationUtil.deserialize(islandConfig.getString("max"));
+//
+//                IslandType type = IslandType.valueOf(islandConfig.getString("type"));
+//
+//                int bankBalance = islandConfig.getInt("balance");
+//                int islandLevel = islandConfig.getInt("islandLevel");
+//                int maxPlayers = islandConfig.getInt("maxPlayers");
+//
+//                List<UUID> members = new ArrayList<>();
+//
+//                for (String uuid : islandConfig.getStringList("members")) {
+//                    UUID id = UUID.fromString(uuid);
+//                    members.add(id);
+//                }
+//
+//                Island island = new Island(ownerID, spawn, type);
+//                island.setContainer(SkyBlock.getPlugin().getRegionHandler().createRegion(island.getName(), min, max));
+//                island.setMembers(members);
+//                island.setMaxPlayers(maxPlayers);
+//                island.setBankBalance(bankBalance);
+//                island.setIslandLevel(islandLevel);
+//
+//                registerIsland(ownerID, island);
+//            }
+//        }
         System.out.println("Loaded: " + playerIslands.size());
         if (playerIslands.isEmpty()) {
 
