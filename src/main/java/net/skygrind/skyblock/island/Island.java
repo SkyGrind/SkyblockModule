@@ -2,6 +2,7 @@ package net.skygrind.skyblock.island;
 
 import com.google.gson.GsonBuilder;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.region.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,7 +20,7 @@ import java.util.UUID;
  */
 public class Island {
     private final transient File file;
-    private Location spawn;
+    private GooseLocation spawn;
     private Region container;
     private UUID owner;
 
@@ -37,7 +38,7 @@ public class Island {
     public Island(UUID owner, Location spawn, IslandType type) {
         this.file = new File(SkyBlock.getPlugin().getModuleDir().toFile() + File.separator + "islands" + File.separator + owner.toString() + ".json");
         this.owner = owner;
-        this.spawn = spawn;
+        this.spawn = GooseLocation.fromLocation(spawn);
         this.type = type;
 
         if (Bukkit.getPlayer(owner) == null) {
@@ -57,7 +58,7 @@ public class Island {
     }
 
     public Location getSpawn() {
-        return spawn;
+        return spawn.toLocation();
     }
 
     public Region getContainer() {
