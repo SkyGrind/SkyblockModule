@@ -8,7 +8,8 @@ import org.bukkit.Location;
 public class Region {
 
     private String name;
-    private Location min, max;
+    private Location min;
+    private Location max;
 
     public Region(String name, Location min, Location max) {
         this.name = name;

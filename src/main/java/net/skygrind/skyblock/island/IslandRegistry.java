@@ -276,6 +276,9 @@ public class IslandRegistry {
 
     public boolean conflicts(Location loc) {
         for (Island conflict : playerIslands) {
+            if (conflict == null || conflict.getContainer() == null || loc.toVector() == null)
+                return true;
+
             if (loc.toVector().isInAABB(conflict.getContainer().getMin().toVector(), conflict.getContainer().getMax().toVector())) {
                 return true;
             }

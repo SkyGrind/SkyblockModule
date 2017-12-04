@@ -7,7 +7,6 @@ import net.skygrind.skyblock.region.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import sun.applet.Main;
 
 import java.io.File;
 import java.io.FileWriter;
