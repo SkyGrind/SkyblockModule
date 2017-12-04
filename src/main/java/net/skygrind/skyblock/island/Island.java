@@ -1,10 +1,16 @@
 package net.skygrind.skyblock.island;
 
+import com.google.gson.GsonBuilder;
+import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.region.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import sun.applet.Main;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +18,7 @@ import java.util.UUID;
  * Created by Matt on 2017-02-11.
  */
 public class Island {
+    private final transient File file;
     private Location spawn;
     private Region container;
     private UUID owner;
@@ -28,6 +35,7 @@ public class Island {
     private int bankBalance = 0;
 
     public Island(UUID owner, Location spawn, IslandType type) {
+        this.file = new File(SkyBlock.getPlugin().getModuleDir().toFile() + File.separator + "islands" + File.separator + owner.toString() + ".json");
         this.owner = owner;
         this.spawn = spawn;
         this.type = type;
@@ -117,5 +125,11 @@ public class Island {
 
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+    }
+
+    public void save() throws IOException {
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(this);
+        FileWriter writer = new FileWriter(this.file);
+        writer.write(json);
     }
 }

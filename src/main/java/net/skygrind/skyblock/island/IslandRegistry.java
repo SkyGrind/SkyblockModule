@@ -54,27 +54,32 @@ public class IslandRegistry {
         for (Island island : playerIslands) {
 
 
-            File islandFile = getFileForIsland(island);
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(islandFile);
-
-            if (island == null) {
-                return;
+//            File islandFile = getFileForIsland(island);
+//            YamlConfiguration config = YamlConfiguration.loadConfiguration(islandFile);
+//
+//            if (island == null) {
+//                return;
+//            }
+//
+//            config.set("owner", island.getOwner());
+//            config.set("min", LocationUtil.serialize(island.getContainer().getMin()));
+//            config.set("max", LocationUtil.serialize(island.getContainer().getMax()));
+//            List<String> mems = config.getStringList("members");
+//            for (UUID uuid : island.getMembers()) {
+//                if (!mems.contains(uuid.toString())) {
+//                    continue;
+//                }
+//                mems.add(uuid.toString());
+//            }
+//            config.set("members", mems);
+//            config.set("spawn", island.getSpawn());
+//            config.set("maxPlayers", island.getMaxPlayers());
+//            config.set("balance", island.getBankBalance());
+            try {
+                island.save();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            config.set("owner", island.getOwner());
-            config.set("min", LocationUtil.serialize(island.getContainer().getMin()));
-            config.set("max", LocationUtil.serialize(island.getContainer().getMax()));
-            List<String> mems = config.getStringList("members");
-            for (UUID uuid : island.getMembers()) {
-                if (!mems.contains(uuid.toString())) {
-                    continue;
-                }
-                mems.add(uuid.toString());
-            }
-            config.set("members", mems);
-            config.set("spawn", island.getSpawn());
-            config.set("maxPlayers", island.getMaxPlayers());
-            config.set("balance", island.getBankBalance());
         }
     }
 
@@ -170,29 +175,30 @@ public class IslandRegistry {
 
         island.setMaxPlayers(4);
 
-        File islandFile = new File(islandDir, player.getUniqueId().toString() + ".yml");
+//        File islandFile = new File(islandDir, player.getUniqueId().toString() + ".yml");
+//
+//        if (!islandFile.exists()) {
+//            try {
+//                islandFile.createNewFile();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        YamlConfiguration config = YamlConfiguration.loadConfiguration(islandFile);
+//
+//        config.set("ownerID", player.getUniqueId().toString());
+//        config.set("min", LocationUtil.serialize(min));
+//        config.set("max", LocationUtil.serialize(max));
+//        config.set("members", "");
+//        config.set("spawn", LocationUtil.serialize(island.getSpawn()));
+//        config.set("type", island.getType().toString());
+//        config.set("balance", 0);
+//        config.set("islandLevel", 0);
+//        config.set("maxPlayers", 4);
 
-        if (!islandFile.exists()) {
-            try {
-                islandFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(islandFile);
-
-        config.set("ownerID", player.getUniqueId().toString());
-        config.set("min", LocationUtil.serialize(min));
-        config.set("max", LocationUtil.serialize(max));
-        config.set("members", "");
-        config.set("spawn", LocationUtil.serialize(island.getSpawn()));
-        config.set("type", island.getType().toString());
-        config.set("balance", 0);
-        config.set("islandLevel", 0);
-        config.set("maxPlayers", 4);
         try {
-            config.save(islandFile);
+            island.save();
         } catch (IOException e) {
             e.printStackTrace();
         }
