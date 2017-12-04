@@ -125,9 +125,15 @@ public class Island {
         this.maxPlayers = maxPlayers;
     }
 
-    public void save() throws IOException {
+    public void save()  {
+        File file = new File(SkyBlock.getPlugin().getModuleDir().toString() + File.separator + "islands" + File.separator + owner.toString().replace("-", "") + ".json");
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(this);
-        FileWriter writer = new FileWriter(new File(SkyBlock.getPlugin().getModuleDir().toFile() + File.separator + "islands" + File.separator + owner.toString() + ".json"));
-        writer.write(json);
+
+        try (FileWriter writer = new FileWriter(file.toString())) {
+            writer.write(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(json);
     }
 }

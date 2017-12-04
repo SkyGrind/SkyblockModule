@@ -60,7 +60,6 @@ public class IslandRegistry {
     public void disable() {
         for (Island island : playerIslands) {
 
-
 //            File islandFile = getFileForIsland(island);
 //            YamlConfiguration config = YamlConfiguration.loadConfiguration(islandFile);
 //
@@ -82,11 +81,7 @@ public class IslandRegistry {
 //            config.set("spawn", island.getSpawn());
 //            config.set("maxPlayers", island.getMaxPlayers());
 //            config.set("balance", island.getBankBalance());
-            try {
-                island.save();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            island.save();
         }
     }
 
@@ -223,11 +218,7 @@ public class IslandRegistry {
 //        config.set("islandLevel", 0);
 //        config.set("maxPlayers", 4);
 
-        try {
-            island.save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        island.save();
 
         try {
             SkyBlock.getPlugin().getSchematicLoader().pasteSchematic(type.name().toLowerCase() + ".schematic", SkyBlock.getPlugin().getIslandWorld(), center.getBlockX(), 100, center.getBlockZ());
