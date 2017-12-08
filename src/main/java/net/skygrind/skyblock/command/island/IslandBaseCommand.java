@@ -25,7 +25,7 @@ public class IslandBaseCommand extends GooseCommand {
             player.sendMessage(ChatColor.AQUA + " /island leave " + ChatColor.WHITE + "IslandLeaveCommand your current island.");
             player.sendMessage(ChatColor.AQUA + " /island kick " + ChatColor.WHITE + "IslandKickCommand a member from your island.");
             player.sendMessage(ChatColor.AQUA + " /island level " + ChatColor.WHITE + "Check your islands current level.");
-            player.sendMessage(ChatColor.AQUA + " /island top -- " + ChatColor.WHITE + "Displays the top islands");
+            player.sendMessage(ChatColor.AQUA + " /island top " + ChatColor.WHITE + "Displays the top islands");
             player.sendMessage(ChatColor.AQUA.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
 
         }
