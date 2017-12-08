@@ -61,7 +61,9 @@ public class IslandTopCommand extends GooseCommand implements Listener {
             max = SkyBlock.getPlugin().getIslandRegistry().playerIslands.size();
         }
 
+        int index = 0;
         for (Map.Entry<Island, Integer> ent : getTopIslands().subList(0, max)) {
+            index++;
 
             UUID uuid = ent.getKey().getOwner();
 
@@ -78,9 +80,29 @@ public class IslandTopCommand extends GooseCommand implements Listener {
             List<String> lore = Lists.newArrayList(String.format("Level: %s", ent.getKey().getIslandLevel()), String.format("Balance: %s", ent.getKey().getBankBalance()));
             meta.setLore(lore);
             item.setItemMeta(meta);
-            inventory.addItem(item);
+            inventory.setItem(getInventoryLocationForIndex(index), item);
         }
         return inventory;
+    }
+
+
+    private int getInventoryLocationForIndex(final int index) {
+        switch (index) {
+            case 1:
+                return 4;
+            case 2:
+                return 12;
+            case 3:
+                return 14;
+            case 4:
+                return 20;
+            case 5:
+                return 25;
+            case 6:
+                return 29;
+            default:
+                return 0;
+        }
     }
 
     @Override
