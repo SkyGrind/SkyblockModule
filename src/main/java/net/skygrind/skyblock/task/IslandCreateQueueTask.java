@@ -33,7 +33,15 @@ public class IslandCreateQueueTask extends BukkitRunnable {
     public void run() {
         for (QueueItem item : islandQueue) {
             Player player = item.getPlayer();
-            Location center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
+
+            Location center = null;
+
+            if (SkyBlock.getPlugin().getIslandRegistry().getLastIsland() == null) {
+                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+            }
+            else {
+                center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
+            }
 
             Island island = new Island(player.getUniqueId(), center, item.getType());
             island.setSize(SkyBlock.getPlugin().getIslandRegistry().getBaseIslandSize());
