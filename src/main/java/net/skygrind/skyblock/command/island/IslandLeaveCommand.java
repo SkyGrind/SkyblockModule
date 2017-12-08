@@ -50,7 +50,8 @@ public class IslandLeaveCommand extends GooseCommand {
                 return;
             } else {
                 registry.deleteIsland(player, island);
-                Bukkit.broadcastMessage(ChatColor.GRAY + ChatColor.BOLD.toString() + island.getName() + " Status: " + ChatColor.RED + ChatColor.BOLD.toString() + "[FALLEN]");
+
+//                Bukkit.broadcastMessage(ChatColor.GRAY + ChatColor.BOLD.toString() + island.getName() + " Status: " + ChatColor.RED + ChatColor.BOLD.toString() + "[FALLEN]");
             }
         } else {
 
