@@ -14,6 +14,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.util.Vector;
 
 import java.io.File;
@@ -171,7 +173,18 @@ public class IslandRegistry {
         }
 
         this.queueTask.queueIsland(player, type);
+
+        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1);
+        SkullMeta meta = (SkullMeta) item.getItemMeta();
+
+        meta.setOwner("Hannah4848");
+        meta.setDisplayName(ChatColor.RED + "Christmas Present");
+        item.setItemMeta(meta);
+
+        player.getInventory().addItem(item);
+
         MessageUtil.sendServerTheme(player, ChatColor.GREEN + "Please wait while we create your island.");
+        MessageUtil.sendServerTheme(player, ChatColor.GREEN + "Merry Christmas! Have a starter present :)");
     }
 
 //    public void createIsland(Player player, IslandType type) throws MaxChangedBlocksException {

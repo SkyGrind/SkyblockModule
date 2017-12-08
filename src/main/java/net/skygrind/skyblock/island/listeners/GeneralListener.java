@@ -5,15 +5,19 @@ import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 
 public class GeneralListener implements Listener {
@@ -88,6 +92,30 @@ public class GeneralListener implements Listener {
         if (!(player.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld())) return;
 
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onGiftPlace(BlockPlaceEvent event) {
+        if (event.getBlock() == null) {
+            return;
+        }
+
+        Block block = event.getBlock();
+
+        if (block.getType() != Material.SKULL) {
+            return;
+        }
+
+        block.setType(Material.AIR);
+
+        ItemStack[] items = new ItemStack[]{new ItemStack(Material.ICE, 1), new ItemStack(Material.MELON, 1),
+                new ItemStack(Material.BONE, 1), new ItemStack(Material.LAVA_BUCKET), new ItemStack(Material.MELON_SEEDS, 1),
+                new ItemStack(Material.SUGAR_CANE, 1), new ItemStack(Material.RED_MUSHROOM, 1), new ItemStack(Material.BROWN_MUSHROOM, 1),
+                new ItemStack(Material.CACTUS, 1)};
+
+        event.getPlayer().getInventory().addItem(items);
+
+        MessageUtil.sendServerTheme(event.getPlayer(), ChatColor.GREEN + "You have opened your Christmas Present!");
     }
 
     @EventHandler
