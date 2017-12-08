@@ -5,9 +5,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.islesmc.modules.api.API;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.task.IslandCreateQueueTask;
+import org.apache.commons.codec.binary.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,12 +18,14 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -174,10 +179,8 @@ public class IslandRegistry {
 
         this.queueTask.queueIsland(player, type);
 
-        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1);
-        SkullMeta meta = (SkullMeta) item.getItemMeta();
-
-        meta.setOwner("Hannah4848");
+        ItemStack item = getSkull("http://textures.minecraft.net/texture/b5651a18f54714b0b8f7f011c018373b33fd1541ca6f1cfe7a6c97b65241f5");
+        ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.RED + "Christmas Present");
         item.setItemMeta(meta);
 
@@ -185,6 +188,27 @@ public class IslandRegistry {
 
         MessageUtil.sendServerTheme(player, ChatColor.GREEN + "Please wait while we create your island.");
         MessageUtil.sendServerTheme(player, ChatColor.GREEN + "Merry Christmas! Have a starter present :)");
+    }
+
+    public ItemStack getSkull(String url) {
+        ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        if (url.isEmpty()) return head;
+
+
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        byte[] encodedData = org.apache.commons.codec.binary.Base64.encodeBase64(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
+        profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
+        Field profileField = null;
+        try {
+            profileField = headMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(headMeta, profile);
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+        head.setItemMeta(headMeta);
+        return head;
     }
 
 //    public void createIsland(Player player, IslandType type) throws MaxChangedBlocksException {
