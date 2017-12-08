@@ -33,7 +33,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
     public void run() {
         for (QueueItem item : islandQueue) {
             Player player = item.getPlayer();
-            Location center = SkyBlock.getPlugin().getIslandRegistry().findEmptySpace();
+            Location center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
 
             Island island = new Island(player.getUniqueId(), center, item.getType());
             island.setSize(SkyBlock.getPlugin().getIslandRegistry().getBaseIslandSize());
@@ -42,9 +42,9 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             double minY = 0;
             double minZ = center.getBlockZ() - island.getType().getSize() / 2;
 
-            int maxX = center.getBlockX() + island.getType().getSize() / 2;
-            int maxY = 256;
-            int maxZ = center.getBlockZ() + island.getType().getSize() / 2;
+            double maxX = center.getBlockX() + island.getType().getSize() / 2;
+            double maxY = 256;
+            double maxZ = center.getBlockZ() + island.getType().getSize() / 2;
 
 
             Location min = new Location(SkyBlock.getPlugin().getIslandWorld(), minX, minY, minZ);
@@ -69,6 +69,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             player.sendMessage(ChatColor.GREEN + "Type (/is home) to visit.");
             SkyBlock.getPlugin().getIslandRegistry().registerIsland(player.getUniqueId(), island);
             this.islandQueue.remove(item);
+            SkyBlock.getPlugin().getIslandRegistry().setLastIsland(center);
         }
     }
 

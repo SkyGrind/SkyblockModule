@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * Owned by SethyCorp, and KueMedia respectively.
- **/
 public abstract class GooseCommand {
 
     private final AtomicReference<String> subCommand;

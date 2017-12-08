@@ -407,4 +407,12 @@ public class IslandRegistry {
     public int getBaseIslandSize() {
         return baseIslandSize;
     }
+
+    public Location getLastIsland() {
+        return lastIsland;
+    }
+
+    public void setLastIsland(Location lastIsland) {
+        this.lastIsland = lastIsland;
+    }
 }
