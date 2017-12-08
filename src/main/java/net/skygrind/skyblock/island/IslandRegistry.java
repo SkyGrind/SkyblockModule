@@ -295,12 +295,13 @@ public class IslandRegistry {
             }
         }
 
-        File toDelete = new File(islandDir, island.getOwner().toString().replace("-", "") + ".json");
+        File file = new File(SkyBlock.getPlugin().getModuleDir().toString() + File.separator + "islands" + File.separator + island.getOwner().toString().replace("-", "") + ".json");
 
-        if (!toDelete.exists()) {
+        if (!file.exists()) {
+            System.out.println("island doesn't exist");
             return;
         }
-        toDelete.delete();
+        file.delete();
 
 
         int minX = island.getContainer().getMin().getBlockX();

@@ -156,6 +156,7 @@ public class SkyBlock extends PluginModule {
         economy = economyProvider.getProvider();
         return economy != null;
     }
+
     public RegionHandler getRegionHandler() {
         return regionHandler;
     }
