@@ -112,7 +112,7 @@ public class GeneralListener implements Listener {
 
         ItemStack item = event.getPlayer().getItemInHand();
 
-        if (item.getType() != Material.SKULL_ITEM) {
+        if (item.getType() != Material.SKULL && item.getType() != Material.SKULL_ITEM) {
             return;
         }
 
@@ -128,7 +128,7 @@ public class GeneralListener implements Listener {
             return;
         }
 
-        if (event.getAction() != Action.RIGHT_CLICK_AIR || event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
 
