@@ -32,6 +32,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>com.google.code.gson:gson</include>
+                                    <include>com.keenant:tabbed</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
@@ -49,6 +50,14 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>avicus-public</id>
+            <url>https://repo.avicus.net/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
     </repositories>
 
@@ -74,6 +83,16 @@
             <groupId>xyz.sethy</groupId>
             <artifactId>CommandHandler</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.keenant</groupId>
+            <artifactId>tabbed</artifactId>
+            <version>1.7-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.6</version>
         </dependency>
     </dependencies>
 </project>
