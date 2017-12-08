@@ -93,8 +93,6 @@ public class SkyBlock extends PluginModule {
         this.gooseHandler = new GooseHandler();
         this.tabbed = new Tabbed(API.getPlugin());
 
-
-        islandRegistry.init();
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
             disable();
         }
@@ -127,12 +125,12 @@ public class SkyBlock extends PluginModule {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for(Player player : Bukkit.getOnlinePlayers()) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
 
                     SimpleTabList tab = (SimpleTabList) getTabbed().getTabList(player);
                     int i = 0;
-                    for (TabItem tabItem :  getTabItems(player)) {
-                        if(tab == null || tabItem == null)
+                    for (TabItem tabItem : getTabItems(player)) {
+                        if (tab == null || tabItem == null)
                             continue;
 
                         tab.set(i, new TextTabItem(ChatColor.translateAlternateColorCodes('&', tabItem.getText())));
@@ -271,12 +269,12 @@ public class SkyBlock extends PluginModule {
     }
 
     public String format(double number) {
-        String[] suffix = new String[]{"","K", "M", "B", "T"};
+        String[] suffix = new String[]{"", "K", "M", "B", "T"};
         int MAX_LENGTH = 4;
         String r = new DecimalFormat("##0E0").format(number);
         r = r.replaceAll("E[0-9]", suffix[Character.getNumericValue(r.charAt(r.length() - 1)) / 3]);
-        while(r.length() > MAX_LENGTH || r.matches("[0-9]+\\.[a-z]")){
-            r = r.substring(0, r.length()-2) + r.substring(r.length() - 1);
+        while (r.length() > MAX_LENGTH || r.matches("[0-9]+\\.[a-z]")) {
+            r = r.substring(0, r.length() - 2) + r.substring(r.length() - 1);
         }
         return r;
     }
@@ -304,7 +302,7 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem("&b&lIsland"));
         Island island = getIslandRegistry().getIslandForPlayer(player);
-        if(island == null) {
+        if (island == null) {
             items.add(new TextTabItem("&fNone"));
             items.add(new TextTabItem(" "));
             items.add(new TextTabItem(" "));
@@ -337,10 +335,10 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem("&bTop Islands"));
         int i = 0;
         int max = 10;
-        if(SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
+        if (SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
             max = SkyBlock.getPlugin().getIslandRegistry().playerIslands.size();
         }
-        for(Map.Entry<Island, Integer> entry : IslandTopCommand.getTopIslands().subList(0, max)) {
+        for (Map.Entry<Island, Integer> entry : IslandTopCommand.getTopIslands().subList(0, max)) {
             i++;
             items.add(new TextTabItem("&f" + entry.getKey().getName() + " (" + entry.getKey().getIslandLevel() + ")"));
         }

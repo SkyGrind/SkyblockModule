@@ -14,7 +14,6 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import sun.applet.Main;
 
 
 public class GeneralListener implements Listener {
@@ -35,7 +34,7 @@ public class GeneralListener implements Listener {
         player.sendMessage(" ");
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
 
-        if(!player.hasPlayedBefore()) {
+        if (!player.hasPlayedBefore()) {
             int joinNumber = SkyBlock.getPlugin().getServerConfig().getPlayersJoined();
             player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
             Bukkit.broadcastMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise " + ChatColor.GRAY + "\u00BB " + ChatColor.YELLOW +
@@ -101,7 +100,7 @@ public class GeneralListener implements Listener {
         if (!(player.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld()))
             return;
 
-        if(event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
             player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
             return;
         }

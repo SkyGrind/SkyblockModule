@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 
@@ -45,11 +46,12 @@ public class IslandGUIHandler implements Listener {
 
             pl.closeInventory();
 
-            try {
-                SkyBlock.getPlugin().getIslandRegistry().createIsland(pl, type);
-            } catch (MaxChangedBlocksException e) {
-                e.printStackTrace();
-            }
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    SkyBlock.getPlugin().getIslandRegistry().createIsland(pl, type);
+                }
+            }.runTaskAsynchronously(API.getPlugin());
         } else if (event.getClickedInventory().getName().equalsIgnoreCase("Owner Selection")) {
 
             event.setCancelled(true);

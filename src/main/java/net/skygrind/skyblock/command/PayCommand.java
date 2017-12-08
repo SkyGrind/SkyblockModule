@@ -15,7 +15,7 @@ public class PayCommand extends BukkitCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        Player player = (Player)sender;
+        Player player = (Player) sender;
         if (args.length != 2) {
             sender.sendMessage(ChatColor.RED + "Usage: /pay <Player> <Amount>");
             return true;
@@ -32,7 +32,7 @@ public class PayCommand extends BukkitCommand {
         }
 
         int toPay = Integer.valueOf(args[1]);
-        if(!SkyBlock.getPlugin().getEconomy().has(player, toPay)) {
+        if (!SkyBlock.getPlugin().getEconomy().has(player, toPay)) {
             sender.sendMessage(ChatColor.RED + String.format("You do not have $%s to pay %s.", toPay, target.getName()));
             return true;
         }

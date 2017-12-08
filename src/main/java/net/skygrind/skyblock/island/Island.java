@@ -125,7 +125,7 @@ public class Island {
         this.maxPlayers = maxPlayers;
     }
 
-    public void save()  {
+    public void save() {
         File file = new File(SkyBlock.getPlugin().getModuleDir().toString() + File.separator + "islands" + File.separator + owner.toString().replace("-", "") + ".json");
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(this);
 

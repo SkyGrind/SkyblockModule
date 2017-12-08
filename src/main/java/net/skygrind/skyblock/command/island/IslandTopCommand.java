@@ -1,13 +1,11 @@
 package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
-import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -59,7 +57,7 @@ public class IslandTopCommand extends GooseCommand implements Listener {
         Inventory inventory = Bukkit.createInventory(null, 36, "Top Islands");
 
         int max = 10;
-        if(SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
+        if (SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
             max = SkyBlock.getPlugin().getIslandRegistry().playerIslands.size();
         }
 
@@ -92,7 +90,7 @@ public class IslandTopCommand extends GooseCommand implements Listener {
 
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent event) {
-        if(event.getInventory().getTitle().equalsIgnoreCase("Top Islands")) {
+        if (event.getInventory().getTitle().equalsIgnoreCase("Top Islands")) {
             event.setResult(Event.Result.DENY);
         }
     }

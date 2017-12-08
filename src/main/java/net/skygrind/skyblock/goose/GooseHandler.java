@@ -13,31 +13,25 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GooseHandler implements Listener
-{
+public class GooseHandler implements Listener {
     private final ConcurrentHashMap<Player, GooseScoreboard> scoreboards;
 
-    public GooseHandler()
-    {
+    public GooseHandler() {
         this.scoreboards = new ConcurrentHashMap<>();
     }
 
-    public GooseScoreboard getScoreboard(Player player)
-    {
+    public GooseScoreboard getScoreboard(Player player) {
         return scoreboards.get(player);
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event)
-    {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         event.getPlayer().setScoreboard(scoreboard);
 
-        new BukkitRunnable()
-        {
+        new BukkitRunnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 GooseScoreboard gooseScoreboard = new GooseScoreboard(scoreboard, "&b&lSky&f&lParadise");
                 scoreboards.put(event.getPlayer(), gooseScoreboard);
             }
@@ -45,14 +39,12 @@ public class GooseHandler implements Listener
     }
 
     @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event)
-    {
+    public void onPlayerQuit(PlayerQuitEvent event) {
         scoreboards.remove(event.getPlayer());
     }
 
     @EventHandler
-    public void onPlayerKick(PlayerKickEvent event)
-    {
+    public void onPlayerKick(PlayerKickEvent event) {
         scoreboards.remove(event.getPlayer());
     }
 }

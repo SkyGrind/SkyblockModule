@@ -2,14 +2,11 @@ package net.skygrind.skyblock.command;
 
 import net.skygrind.skyblock.SkyBlock;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-
-import javax.print.attribute.standard.NumberUp;
 
 public class AddBalance extends BukkitCommand {
     public AddBalance() {
@@ -18,7 +15,7 @@ public class AddBalance extends BukkitCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        Player player = (Player)sender;
+        Player player = (Player) sender;
         if (args.length != 2) {
             sender.sendMessage(ChatColor.RED + "Usage: /setbalance <Player> <Amount>");
             return true;

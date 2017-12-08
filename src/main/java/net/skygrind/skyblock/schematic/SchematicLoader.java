@@ -10,7 +10,6 @@ import com.sk89q.worldedit.data.DataException;
 import com.sk89q.worldedit.schematic.SchematicFormat;
 import net.skygrind.skyblock.SkyBlock;
 import org.bukkit.World;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import java.io.File;
