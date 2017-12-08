@@ -6,6 +6,7 @@ import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import net.skygrind.skyblock.misc.MessageUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
@@ -23,23 +24,23 @@ public class IslandDeleteCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (args.length != 0) {
-            MessageUtil.sendUrgent(player, "/island delete");
+            player.sendMessage(ChatColor.RED + "Usage: /island delete");
         }
 
         Island island = registry.getIslandForPlayer(player);
 
         if (island == null) {
-            MessageUtil.sendUrgent(player, "You do not have an island to delete!");
+            player.sendMessage(ChatColor.RED + "You do not have an island to delete.");
             return;
         }
 
         if (!island.getOwner().equals(player.getUniqueId())) {
-            MessageUtil.sendUrgent(player, "You do not have permission to do this!");
+            player.sendMessage(ChatColor.RED + "Only the owner of your island can delete it.");
             return;
         }
 
         registry.deleteIsland(player, island);
-        MessageUtil.sendGood(player, "Deleted your island.");
+        MessageUtil.sendServerTheme(player, "You have successfully deleted your island.");
         return;
     }
 }

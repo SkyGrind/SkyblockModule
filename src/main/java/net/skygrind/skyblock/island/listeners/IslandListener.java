@@ -45,12 +45,12 @@ public class IslandListener implements Listener {
             event.setCancelled(true);
             if (location.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
                 MessageUtil.sendUrgent(placer, ChatColor.RED + "This is out of your islands region!");
-                MessageUtil.sendServerTheme(placer, ChatColor.YELLOW + "Store: http://shop.skyparadisemc.com");
+                placer.sendMessage(ChatColor.GREEN + "You cannot place outside of your island.");
+                MessageUtil.sendServerTheme(placer, ChatColor.GREEN + "To upgrade your islands size visit: http://shop.skyparadisemc.com");
             } else {
 
-                if (!placer.hasPermission("skygrind.build")) {
-                    MessageUtil.sendUrgent(placer, ChatColor.RED + "You do not have permission to build here!");
-                    return;
+                if (!placer.hasPermission("islesmc.build")) {
+                    placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
                 }
             }
         }
@@ -70,7 +70,7 @@ public class IslandListener implements Listener {
             Island conflict = registry.getIslandAt(location);
 
             if (!conflict.getMembers().contains(placer.getUniqueId()) && !conflict.getOwner().equals(placer.getUniqueId())) {
-                placer.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to build here!");
+                placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
                 event.setCancelled(true);
             }
         }
@@ -97,7 +97,7 @@ public class IslandListener implements Listener {
                 Island conflict = registry.getIslandAt(block.getLocation());
 
                 if (!conflict.getMembers().contains(player.getUniqueId()) && !conflict.getOwner().equals(player.getUniqueId())) {
-                    player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to open containers here!");
+                    player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
                     event.setCancelled(true);
                 }
             }

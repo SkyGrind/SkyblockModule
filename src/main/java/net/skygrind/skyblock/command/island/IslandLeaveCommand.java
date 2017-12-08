@@ -32,14 +32,14 @@ public class IslandLeaveCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (args.length > 0) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island leave");
+            player.sendMessage(ChatColor.RED + "Usage: /island kick");
             return;
         }
 
         Island island = registry.getIslandForPlayer(player);
 
         if (island == null) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have an island to leave!");
+            player.sendMessage(ChatColor.RED + "You do not currently have an island.");
             return;
         }
 
@@ -59,7 +59,7 @@ public class IslandLeaveCommand extends GooseCommand {
             }
         }
         player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
-        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Successfully left your island!");
+        MessageUtil.sendServerTheme(player, ChatColor.GREEN + "You have successfully left your island.");
         return;
     }
 

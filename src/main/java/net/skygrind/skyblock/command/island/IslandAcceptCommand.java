@@ -24,14 +24,14 @@ public class IslandAcceptCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] strings) {
         if (!registry.hasInvite(player)) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have any pending invites.");
+            player.sendMessage(ChatColor.RED + "You do not have any pending invites.");
             return;
         }
 
         Island invite = registry.getInviteFor(player);
 
         invite.getMembers().add(player.getUniqueId());
-        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Joined " + ChatColor.GOLD + invite.getName());
+        player.sendMessage(ChatColor.GREEN + String.format("You have joined %s island.", invite.getName()));
 
         Player owner = Bukkit.getPlayer(invite.getOwner());
 
@@ -39,7 +39,7 @@ public class IslandAcceptCommand extends GooseCommand {
             return;
         }
 
-        owner.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GOLD + player.getName() + ChatColor.GRAY + " has accepted your island invite.");
+        owner.sendMessage(ChatColor.GREEN + String.format("%s has accepted your island invite.", player.getName()));
         registry.getIslandInvites().remove(player.getUniqueId());
         return;
     }

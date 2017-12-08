@@ -5,6 +5,7 @@ import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
+import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -23,31 +24,31 @@ public class IslandKickCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (args.length != 1) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island kick [Player]");
+            player.sendMessage(ChatColor.RED + "Usage: /island kick <Player>");
             return;
         }
 
         Island island = registry.getIslandForPlayer(player);
 
         if (island == null) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have an island!");
+            player.sendMessage(ChatColor.RED + "You do not currently have an island.");
             return;
         }
 
         Player target = Bukkit.getPlayer(args[0]);
 
         if (target == null) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You cannot kick an offline player!");
+            player.sendMessage(ChatColor.RED + String.format("'%s' must be online to kick them.", args[0]));
             return;
         }
 
-        if (!island.getOwner().equals(player.getUniqueId()) && !player.hasPermission("skygrind.skyblock.kick")) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to do this!");
+        if (!island.getOwner().equals(player.getUniqueId()) && !player.hasPermission("islesmc.staff.kick")) {
+            player.sendMessage(ChatColor.RED + "Only the island's owner can kick members.");
             return;
         }
 
         if (!island.getMembers().contains(target.getUniqueId())) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "This player is not in your island!");
+            player.sendMessage(ChatColor.RED + String.format("'%s' is not currently a member of your island.", player.getName()));
             return;
         }
 
@@ -55,8 +56,8 @@ public class IslandKickCommand extends GooseCommand {
         if (registry.isInIslandRegion(island, target.getLocation())) {
             target.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         }
-        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You have kicked " + ChatColor.GOLD + target.getName() + ChatColor.GRAY + " off your island!");
-        target.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You have been kicked off your island!");
+        MessageUtil.sendServerTheme(player, ChatColor.GREEN + String.format("You have clicked %s from your island.", target.getName()));
+        MessageUtil.sendServerTheme(player, ChatColor.RED + String.format("You have been kicked from %s's island.", player.getName()));
         return;
     }
 }

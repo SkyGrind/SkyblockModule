@@ -5,6 +5,7 @@ import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.misc.MessageUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -19,12 +20,12 @@ public class IslandHomeCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (args.length > 0) {
-            MessageUtil.sendUrgent(player, "/island home");
+            player.sendMessage(ChatColor.RED + "Usage: /island home");
             return;
         }
 
         if (!SkyBlock.getPlugin().getIslandRegistry().hasIsland(player)) {
-            MessageUtil.sendUrgent(player, "You do not have an island to teleport to!");
+            player.sendMessage(ChatColor.RED + "You do not have an island to teleport to.");
             return;
         }
 
@@ -39,7 +40,7 @@ public class IslandHomeCommand extends GooseCommand {
         Location teleport = new Location(SkyBlock.getPlugin().getIslandWorld(), spawn.getX(), spawn.getY(), spawn.getZ());
 
         player.teleport(teleport);
-        MessageUtil.sendInfo(player, "Teleported you to your island home.");
+        player.sendMessage(ChatColor.GREEN + "You have been teleported to your island's home.");
         return;
     }
 }

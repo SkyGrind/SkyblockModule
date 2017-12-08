@@ -44,16 +44,15 @@ public class IslandCreateCommand extends GooseCommand {
     public void execute(Player player, String[] args) {
 
         if (args.length > 0) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "/island create");
+            player.sendMessage(ChatColor.RED + "Usage: /island create");
             return;
         }
 
         if (SkyBlock.getPlugin().getIslandRegistry().hasIsland(player)) {
-            MessageUtil.sendUrgent(player, "You already have an island!");
+            player.sendMessage(ChatColor.RED + "You already have an island.");
             return;
         }
-
-        MessageUtil.sendGood(player, "Opening island selection...");
+        MessageUtil.sendServerTheme(player, ChatColor.GREEN + "Opening island selection...");
         openIslandGUI(player);
         return;
     }

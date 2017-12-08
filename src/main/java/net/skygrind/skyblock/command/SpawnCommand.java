@@ -2,6 +2,7 @@ package net.skygrind.skyblock.command;
 
 import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -22,14 +23,14 @@ public class SpawnCommand extends BukkitCommand {
     public boolean execute(CommandSender sender, String s, String[] args) {
         Player player = (Player) sender;
 
-        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Sending you to spawn in 3 seconds...");
+        MessageUtil.sendServerTheme(player, ChatColor.GREEN + "You are being teleported to spawn in 3 seconds....");
 
         new BukkitRunnable() {
             @Override
             public void run() {
                 player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
             }
-        }.runTaskLater((Plugin) API.getPlugin(), 3 * 20L);
+        }.runTaskLater(API.getPlugin(), 3 * 20L);
         return true;
     }
 }

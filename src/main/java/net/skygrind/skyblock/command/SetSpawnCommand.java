@@ -20,8 +20,8 @@ public class SetSpawnCommand extends BukkitCommand {
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
         Player player = (Player) sender;
-        if (!player.hasPermission("skygrind.setspawn")) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to do this!");
+        if (!player.hasPermission("islesmc.setspawn")) {
+            player.sendMessage(ChatColor.RED + "You do not have permission to execute this command.");
             return true;
         }
 
@@ -29,7 +29,7 @@ public class SetSpawnCommand extends BukkitCommand {
 
         SkyBlock.getPlugin().getServerConfig().setSpawnLocation(GooseLocation.fromLocation(loc));
         SkyBlock.getPlugin().getServerConfig().save();
-        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Set server spawn to your location.");
+        player.sendMessage(ChatColor.GREEN + "You have successfully set the server's spawn.");
         return true;
     }
 }

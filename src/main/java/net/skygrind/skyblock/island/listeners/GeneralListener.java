@@ -55,7 +55,7 @@ public class GeneralListener implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        if (player.hasPermission("skygrind.keepinv")) {
+        if (player.hasPermission("islesmc.keepinv")) {
             event.setKeepInventory(true);
         } else {
             event.setKeepInventory(false);
@@ -74,7 +74,7 @@ public class GeneralListener implements Listener {
         if (!(damaged.getWorld() == SkyBlock.getPlugin().getServerConfig().getSpawnLocation().getWorld()))
             return;
 
-        MessageUtil.sendUrgent(damager, "You cannot do this in spawn!");
+        MessageUtil.sendServerTheme(damager, "You cannot damage other players in spawn.");
 
         event.setCancelled(true);
     }

@@ -23,21 +23,20 @@ public class IslandDeclineCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] strings) {
         if (!registry.hasInvite(player)) {
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have any pending invites.");
+            player.sendMessage(ChatColor.RED + "You do not have any pending invitations.");
             return;
         }
 
         Island invite = registry.getInviteFor(player);
 
-        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "Declined invite from " + ChatColor.GOLD + invite.getName());
-
+        player.sendMessage(ChatColor.GREEN + String.format("You have declined %s's invite.", invite.getName()));
         Player owner = Bukkit.getPlayer(invite.getOwner());
 
         if (owner == null) {
             return;
         }
 
-        owner.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "[!] " + ChatColor.GOLD + player.getName() + ChatColor.GRAY + " has declined your island invite.");
+        owner.sendMessage(ChatColor.GREEN + String.format("%s has declined his invitation to your island.", player.getName()));
         registry.getIslandInvites().remove(player.getUniqueId());
         return;
     }

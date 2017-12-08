@@ -28,7 +28,7 @@ public class IslandInviteCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (args.length < 1) {
-            MessageUtil.sendUrgent(player, "/island invite [Player]");
+            player.sendMessage(ChatColor.RED + "Usage: /island invite <Player>");
             return;
         }
 
@@ -37,41 +37,41 @@ public class IslandInviteCommand extends GooseCommand {
         IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
 
         if (!registry.hasIsland(player)) {
-            MessageUtil.sendUrgent(player, "You do not have an island!");
+            player.sendMessage(ChatColor.RED + "You do not currently have an island.");
             return;
         }
 
         Island island = registry.getIslandForPlayer(player);
 
         if (target == null) {
-            MessageUtil.sendUrgent(player, "That player is not currently online!");
+            player.sendMessage(ChatColor.RED + String.format("No player with the name or UUID of '%s' is online.", args[0]));
             return;
         }
 
         if (island.getMembers().size() >= island.getMaxPlayers()) {
-            MessageUtil.sendUrgent(player, "You're currently restricted to 4 island members...");
-            MessageUtil.sendServerTheme(player, "To increase this visit http://store.skygrind.net");
+            player.sendMessage(ChatColor.RED + String.format("Your island is currently limited to %s island members..", island.getMaxPlayers()));
+            MessageUtil.sendServerTheme(player, "To increase this limit visit http://shop.skyparadisemc.com");
             return;
         }
 
-        MessageUtil.sendGood(player, "Invited " + ChatColor.GOLD + target.getName() + ChatColor.GREEN + " to join your island.");
+        player.sendMessage(ChatColor.RED + String.format("You have invited %s to join your island.", target.getName()));
 
-        TextComponent message = new TextComponent(ChatColor.GRAY + "You've been invited to join " + ChatColor.GOLD + player.getName() + ChatColor.GRAY + "'s island");
-        TextComponent accept = new TextComponent(ChatColor.GREEN + ChatColor.BOLD.toString() + " /ACCEPT ");
-        accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/accept"));
+        TextComponent message = new TextComponent(ChatColor.GREEN + String.format("You have been invited to join %s's island.", player.getName()));
+        TextComponent accept = new TextComponent(ChatColor.GREEN + "Click here to accept this invitation.");
+        accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/is accept"));
 
         message.addExtra(accept);
-        message.addExtra(ChatColor.GRAY + "or ");
+        message.addExtra(ChatColor.GREEN + " or ");
 
-        TextComponent decline = new TextComponent(ChatColor.RED + ChatColor.BOLD.toString() + "/DECLINE");
-        decline.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/decline"));
+        TextComponent decline = new TextComponent(ChatColor.GREEN + "click here to decline this invitation.");
+        decline.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/is decline"));
         message.addExtra(decline);
 
         BaseComponent[] comps = new BaseComponent[]{message};
 
         target.playSound(target.getLocation(), Sound.ORB_PICKUP, 1, 1);
         target.spigot().sendMessage(comps);
-        target.sendMessage(ChatColor.GRAY + "This invite expires in 3 minutes!");
+        target.sendMessage(ChatColor.GREEN + String.format("Your invitation to join %s's island expires in 3 minutes.", player.getName()));
 
         registry.getIslandInvites().put(target.getUniqueId(), island);
 
@@ -80,7 +80,7 @@ public class IslandInviteCommand extends GooseCommand {
             public void run() {
                 registry.getIslandInvites().remove(target.getUniqueId());
             }
-        }.runTaskLater((Plugin) API.getPlugin(), 20 * 60 * 3L);
+        }.runTaskLater(API.getPlugin(), 20 * 60 * 3L);
         return;
     }
 }

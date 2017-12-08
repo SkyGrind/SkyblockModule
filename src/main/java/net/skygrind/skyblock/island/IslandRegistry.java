@@ -1,5 +1,6 @@
 package net.skygrind.skyblock.island;
 
+import com.avaje.ebeaninternal.server.core.Message;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -300,7 +301,7 @@ public class IslandRegistry {
         for (Player pl : Bukkit.getOnlinePlayers()) {
             if (isInIslandRegion(island, pl.getLocation())) {
                 pl.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
-                pl.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] This island is being deleted! Sent you to spawn");
+                MessageUtil.sendServerTheme(pl, ChatColor.RED + "The island you where in was deleted, you are now in spawn.");
             }
         }
 
@@ -398,6 +399,7 @@ public class IslandRegistry {
         return islandInvites;
     }
 
+    @Deprecated
     public File getFileForIsland(Island island) {
         return new File(islandDir, island.getOwner().toString() + ".yml");
     }

@@ -1,11 +1,13 @@
 package net.skygrind.skyblock.command.island;
 
+import com.avaje.ebeaninternal.server.core.Message;
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.region.Region;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -71,7 +73,7 @@ public class IslandLevelCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] strings) {
         if (!SkyBlock.getPlugin().getIslandRegistry().hasIsland(player)) {
-            MessageUtil.sendUrgent(player, "You need to have an island to update your island level!");
+            player.sendMessage(ChatColor.RED + "You do not currently have an island.");
             return;
         }
 
@@ -106,6 +108,6 @@ public class IslandLevelCommand extends GooseCommand {
 
         int islandLevel = handleBlock(blocks);
         island.setIslandLevel(islandLevel);
-        MessageUtil.sendInfo(player, "Your island level is now: " + islandLevel);
+        MessageUtil.sendServerTheme(player, ChatColor.GREEN + String.format("Your island is currently level %s.", islandLevel));
     }
 }
