@@ -34,13 +34,13 @@ public class GooseScoreboard {
         this.objective.setDisplaySlot(DisplaySlot.SIDEBAR);
     }
 
-    public void add(String left, String right) {
+    public synchronized void add(String left, String right) {
         Preconditions.checkState(left.length() <= 16, "left can not be more than 16");
         Preconditions.checkState(right.length() <= 16, "right can not be more than 16");
         this.texts.add(new ScoreboardText(left, right));
     }
 
-    public void add(String left, String middle, String right) {
+    public synchronized void add(String left, String middle, String right) {
         Preconditions.checkState(left.length() <= 16, "left can not be more than 16");
         Preconditions.checkState(middle.length() <= 16, "middle can not be more than 16");
         Preconditions.checkState(right.length() <= 16, "right can not be more than 16");
@@ -64,7 +64,7 @@ public class GooseScoreboard {
         team.unregister();
     }
 
-    public void update() {
+    public synchronized void update() {
         Collections.reverse(this.texts);
         for (int i = 0; i < this.texts.size(); i++) {
             Team team = getOrCreateTeam(ChatColor.stripColor(this.tag) + i, i);
@@ -82,7 +82,7 @@ public class GooseScoreboard {
         this.lastSentCount = this.texts.size();
     }
 
-    public Team getOrCreateTeam(String team, int i) {
+    public synchronized Team getOrCreateTeam(String team, int i) {
         Team value = this.scoreboard.getTeam(team);
         if (value == null) {
             value = this.scoreboard.registerNewTeam(team);
@@ -91,7 +91,7 @@ public class GooseScoreboard {
         return value;
     }
 
-    public Objective getOrCreateObjective(String objective) {
+    public synchronized Objective getOrCreateObjective(String objective) {
         Objective value = this.scoreboard.getObjective("dummyhubobj");
         if (value == null) {
             value = this.scoreboard.registerNewObjective("dummyhubobj", "dummy");
@@ -100,7 +100,7 @@ public class GooseScoreboard {
         return value;
     }
 
-    public String getNameForIndex(int index) {
+    public synchronized String getNameForIndex(int index) {
         return ChatColor.values()[index].toString() + ChatColor.RESET;
     }
 
