@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -95,18 +96,20 @@ public class GeneralListener implements Listener {
     }
 
     @EventHandler
-    public void onGiftPlace(BlockPlaceEvent event) {
-        if (event.getBlock() == null) {
+    public void onGiftPlace(PlayerInteractEvent event) {
+        if (event.getPlayer().getItemInHand() == null) {
             return;
         }
 
-        Block block = event.getBlock();
+        ItemStack item = event.getPlayer().getItemInHand();
 
-        if (block.getType() != Material.SKULL) {
+        if (item.getType() != Material.SKULL) {
             return;
         }
 
-        block.setType(Material.AIR);
+        if (!ChatColor.stripColor(item.getItemMeta().getDisplayName()).equalsIgnoreCase("Christmas Present")) {
+            return;
+        }
 
         ItemStack[] items = new ItemStack[]{new ItemStack(Material.ICE, 1), new ItemStack(Material.MELON, 1),
                 new ItemStack(Material.BONE, 1), new ItemStack(Material.LAVA_BUCKET), new ItemStack(Material.MELON_SEEDS, 1),
@@ -114,6 +117,7 @@ public class GeneralListener implements Listener {
                 new ItemStack(Material.CACTUS, 1)};
 
         event.getPlayer().getInventory().addItem(items);
+        event.getPlayer().getInventory().removeItem(item);
 
         MessageUtil.sendServerTheme(event.getPlayer(), ChatColor.GREEN + "You have opened your Christmas Present!");
     }
