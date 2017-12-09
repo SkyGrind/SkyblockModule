@@ -8,6 +8,7 @@ import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandType;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.region.Region;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -34,6 +35,9 @@ public class IslandCreateQueueTask extends BukkitRunnable {
         for (QueueItem item : islandQueue) {
             Player player = item.getPlayer();
             Location center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
+            if (center == null) {
+                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+            }
 
             Island island = new Island(player.getUniqueId(), center, item.getType());
             island.setSize(SkyBlock.getPlugin().getIslandRegistry().getBaseIslandSize());
