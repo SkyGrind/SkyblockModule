@@ -16,18 +16,18 @@ import java.util.concurrent.TimeUnit;
 public class GooseTicker extends BukkitRunnable {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.0");
 
-    public static String formatTime(long time) {
+    public synchronized static String formatTime(long time) {
         if (time > 60000L)
             return setLongFormat(time);
         else
             return format(time);
     }
 
-    private static String format(long millisecond) {
+    private synchronized static String format(long millisecond) {
         return FORMAT.format(millisecond / 1000.0D);
     }
 
-    private static String setLongFormat(long paramMilliseconds) {
+    private synchronized static String setLongFormat(long paramMilliseconds) {
         if (paramMilliseconds < TimeUnit.MINUTES.toMillis(1L))
             return FORMAT.format(paramMilliseconds);
         return DurationFormatUtils.formatDuration(paramMilliseconds,
@@ -35,7 +35,7 @@ public class GooseTicker extends BukkitRunnable {
                         "mm:ss");
     }
 
-    private List<String> splitEqually(final String text, final int size) {
+    private synchronized List<String> splitEqually(final String text, final int size) {
         List<String> ret = new ArrayList<>();
 
         for (int start = 0; start < text.length(); start += size)
@@ -43,12 +43,12 @@ public class GooseTicker extends BukkitRunnable {
         return ret;
     }
 
-    private String translateString(String string) {
+    private synchronized String translateString(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             GooseScoreboard scoreboard = SkyBlock.getPlugin().getGooseHandler().getScoreboard(player);
             if (scoreboard == null)

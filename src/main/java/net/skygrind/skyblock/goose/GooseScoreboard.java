@@ -47,7 +47,7 @@ public class GooseScoreboard {
         this.texts.add(new ScoreboardText(left, middle, right));
     }
 
-    public void set(int index, String left, String right) {
+    public synchronized void set(int index, String left, String right) {
         Preconditions.checkState(left.length() <= 16, "left can not be more than 16");
         Preconditions.checkState(right.length() <= 16, "right can not be more than 16");
         this.texts.set(index, new ScoreboardText(left, right));
@@ -65,21 +65,23 @@ public class GooseScoreboard {
     }
 
     public synchronized void update() {
-        Collections.reverse(this.texts);
-        for (int i = 0; i < this.texts.size(); i++) {
-            Team team = getOrCreateTeam(ChatColor.stripColor(this.tag) + i, i);
-            ScoreboardText str = this.texts.get(this.texts.size() - i - 1);
-            team.setPrefix(str.getLeft());
-            team.setSuffix(str.getRight());
-            this.objective.getScore(getNameForIndex(i)).setScore(15 - i);
-        }
-        if (this.lastSentCount != -1) {
-            int sentCount = this.texts.size();
-            for (int i = 0; i < this.lastSentCount - sentCount; i++) {
-                remove(sentCount + i);
+        synchronized (this) {
+            Collections.reverse(this.texts);
+            for (int i = 0; i < this.texts.size(); i++) {
+                Team team = getOrCreateTeam(ChatColor.stripColor(this.tag) + i, i);
+                ScoreboardText str = this.texts.get(this.texts.size() - i - 1);
+                team.setPrefix(str.getLeft());
+                team.setSuffix(str.getRight());
+                this.objective.getScore(getNameForIndex(i)).setScore(15 - i);
             }
+            if (this.lastSentCount != -1) {
+                int sentCount = this.texts.size();
+                for (int i = 0; i < this.lastSentCount - sentCount; i++) {
+                    remove(sentCount + i);
+                }
+            }
+            this.lastSentCount = this.texts.size();
         }
-        this.lastSentCount = this.texts.size();
     }
 
     public synchronized Team getOrCreateTeam(String team, int i) {
@@ -121,27 +123,27 @@ public class GooseScoreboard {
         }
 
 
-        public String getLeft() {
+        public synchronized String getLeft() {
             return this.left;
         }
 
-        public void setLeft(String left) {
+        public synchronized void setLeft(String left) {
             this.left = left;
         }
 
-        public String getRight() {
+        public synchronized String getRight() {
             return this.right;
         }
 
-        public void setRight(String right) {
+        public synchronized void setRight(String right) {
             this.right = right;
         }
 
-        public String getMiddle() {
+        public synchronized String getMiddle() {
             return this.middle;
         }
 
-        public void setMiddle(String right) {
+        public synchronized void setMiddle(String right) {
             this.middle = middle;
         }
     }

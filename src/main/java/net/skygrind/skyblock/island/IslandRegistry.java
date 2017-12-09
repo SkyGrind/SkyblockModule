@@ -336,9 +336,13 @@ public class IslandRegistry {
     public void deleteIsland(Player player, Island island) {
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
-            if (isInIslandRegion(island, pl.getLocation())) {
-                pl.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
-                MessageUtil.sendServerTheme(pl, ChatColor.RED + "The island you where in was deleted, you are now in spawn.");
+            if (!pl.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
+                continue;
+            } else {
+                if (isInIslandRegion(island, pl.getLocation())) {
+                    pl.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+                    MessageUtil.sendServerTheme(pl, ChatColor.RED + "The island you where in was deleted, you are now in spawn.");
+                }
             }
         }
 
@@ -405,6 +409,7 @@ public class IslandRegistry {
 
     public Location nextIslandLocation(final Location lastIsland) {
         int d = islandDistance;
+
         alignToDistance(lastIsland, d);
         int x = lastIsland.getBlockX();
         int z = lastIsland.getBlockZ();

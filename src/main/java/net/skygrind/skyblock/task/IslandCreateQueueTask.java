@@ -6,6 +6,7 @@ import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandType;
+import net.skygrind.skyblock.misc.LocationUtil;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.region.Region;
 import org.bukkit.Bukkit;
@@ -34,10 +35,24 @@ public class IslandCreateQueueTask extends BukkitRunnable {
     public void run() {
         for (QueueItem item : islandQueue) {
             Player player = item.getPlayer();
-            Location center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
-            if (center == null) {
+
+            Location center;
+
+            if (SkyBlock.getPlugin().getIslandRegistry().getLastIsland() == null) {
                 center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
             }
+            else {
+                center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
+            }
+
+            if (center == null || center.getWorld().getName().equalsIgnoreCase("world")) {
+                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+                System.out.println("center null again");
+            }
+
+            // For some reason this fixes it?
+            center = center.clone().add(0, 0, 0);
+            System.out.println(String.format("LOCATION SERIALIZED IS %s", LocationUtil.serialize(center)));
 
             Island island = new Island(player.getUniqueId(), center, item.getType());
             island.setSize(SkyBlock.getPlugin().getIslandRegistry().getBaseIslandSize());
@@ -61,13 +76,19 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 
             island.setMaxPlayers(4);
 
-            island.save();
-
             try {
                 SkyBlock.getPlugin().getSchematicLoader().pasteSchematic(item.type.name().toLowerCase() + ".schematic", SkyBlock.getPlugin().getIslandWorld(), center.getBlockX(), 100, center.getBlockZ());
             } catch (DataException | IOException | MaxChangedBlocksException e) {
                 e.printStackTrace();
             }
+
+            if (item.getType() == IslandType.DEFAULT) {
+                center = center.clone().add(4, 8, 6);
+                System.out.println("default island");
+                island.setSpawn(center);
+            }
+
+            island.save();
 
             MessageUtil.sendServerTheme(player, ChatColor.GREEN + "Your island has been created.");
             player.sendMessage(ChatColor.GREEN + "Type (/is home) to visit.");
