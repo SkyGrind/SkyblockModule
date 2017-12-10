@@ -30,6 +30,7 @@ import net.skygrind.skyblock.player.listener.PlayerJoinListener;
 import net.skygrind.skyblock.region.RegionHandler;
 import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
+import net.skygrind.skyblock.util.GridUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -64,6 +65,7 @@ public class SkyBlock extends PluginModule {
     private Economy economy;
     private Tabbed tabbed;
     private World islandWorld;
+    private GridUtil gridUtil;
 
     public static SkyBlock getPlugin() {
         return plugin;
@@ -94,6 +96,7 @@ public class SkyBlock extends PluginModule {
         this.challengeConfig.load();
         this.gooseHandler = new GooseHandler();
         this.tabbed = new Tabbed(API.getPlugin());
+        this.gridUtil = new GridUtil(1000000);
 
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
             disable();
@@ -398,5 +401,9 @@ public class SkyBlock extends PluginModule {
 
     public Tabbed getTabbed() {
         return tabbed;
+    }
+
+    public GridUtil getGridUtil() {
+        return gridUtil;
     }
 }

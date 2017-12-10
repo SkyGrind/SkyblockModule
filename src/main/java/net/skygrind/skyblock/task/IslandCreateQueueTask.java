@@ -1,6 +1,5 @@
 package net.skygrind.skyblock.task;
 
-import com.islesmc.modules.api.task.Task;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
@@ -10,11 +9,11 @@ import net.skygrind.skyblock.island.IslandType;
 import net.skygrind.skyblock.misc.LocationUtil;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.region.Region;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import sun.applet.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,30 +39,37 @@ public class IslandCreateQueueTask extends BukkitRunnable {
                 continue;
             }
 
+            int islandNumber = SkyBlock.getPlugin().getServerConfig().getIslandsEverCreated().incrementAndGet();
+            int prime = SkyBlock.getPlugin().getGridUtil().getInts()[islandNumber];
+
+            int xZ = prime * 1000;
+
+            Location center = new Location(SkyBlock.getPlugin().getIslandWorld(), xZ, 100, xZ);
+
             Player player = item.getPlayer();
 
-            Location center;
+//            Location center;
+//
+//            if (SkyBlock.getPlugin().getIslandRegistry().getLastIsland() == null) {
+//                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+//            }
+//            else {
+//                center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
+//            }
 
-            if (SkyBlock.getPlugin().getIslandRegistry().getLastIsland() == null) {
-                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
-            }
-            else {
-                center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
-            }
-
-            if (center == null) {
-                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
-            }
-
-            if (center.getWorld() == null) {
-                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
-                center.setWorld(SkyBlock.getPlugin().getIslandWorld());
-            }
-
-            if (center == null || center.getWorld().getName().equalsIgnoreCase("world") || center.getWorld() == null) {
-                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
-                System.out.println("center null again");
-            }
+//            if (center == null) {
+//                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+//            }
+//
+//            if (center.getWorld() == null) {
+//                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+//                center.setWorld(SkyBlock.getPlugin().getIslandWorld());
+//            }
+//
+//            if (center == null || center.getWorld().getName().equalsIgnoreCase("world") || center.getWorld() == null) {
+//                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+//                System.out.println("center null again");
+//            }
 
             // For some reason this fixes it?
             center = center.clone().add(0, 0, 0);

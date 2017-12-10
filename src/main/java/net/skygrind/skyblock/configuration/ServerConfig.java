@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Owned by SethyCorp, and KueMedia respectively.
@@ -22,6 +23,7 @@ public class ServerConfig {
     private final transient Gson gson;
     private GooseLocation spawn;
     private Integer playersJoined;
+    private AtomicInteger islandsEverCreated;
 
     private GooseLocation lastIslandLocation;
 
@@ -30,6 +32,7 @@ public class ServerConfig {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.spawn = GooseLocation.fromLocation(new Location(Bukkit.getWorld("world"), 0, 0, 0));
         this.playersJoined = 0;
+        this.islandsEverCreated = new AtomicInteger(0);
     }
 
     public Location getSpawnLocation() {
@@ -99,5 +102,9 @@ public class ServerConfig {
 
     public void setPlayersJoined(Integer playersJoined) {
         this.playersJoined = playersJoined;
+    }
+
+    public AtomicInteger getIslandsEverCreated() {
+        return islandsEverCreated;
     }
 }
