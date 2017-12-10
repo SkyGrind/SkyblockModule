@@ -2,7 +2,9 @@ package net.skygrind.skyblock.command;
 
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
@@ -15,7 +17,16 @@ public class BalanceCommand extends BukkitCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        sender.sendMessage(ChatColor.GREEN + "Balance: " + ChatColor.WHITE + "$" + SkyBlock.getPlugin().getEconomy().getBalance((Player) sender));
+        if (args.length == 0) {
+            sender.sendMessage(ChatColor.GREEN + "Balance: " + ChatColor.WHITE + "$" + SkyBlock.getPlugin().getEconomy().getBalance((Player) sender));
+            return true;
+        }
+        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+        if (target == null) {
+            sender.sendMessage(ChatColor.RED + String.format("No player with the name or UUID '%s' was found.", args[0]));
+            return true;
+        }
+        sender.sendMessage(ChatColor.GREEN + target.getName() + "'s Balance: " + ChatColor.WHITE + "$" + SkyBlock.getPlugin().getEconomy().getBalance(target));
         return true;
     }
 }
