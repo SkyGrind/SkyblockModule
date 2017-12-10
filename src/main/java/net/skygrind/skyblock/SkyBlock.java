@@ -269,7 +269,7 @@ public class SkyBlock extends PluginModule {
     }
 
     public String format(double number) {
-        String[] suffix = new String[]{"", "K", "M", "B", "T"};
+        String[] suffix = new String[]{"", "K", "M", "B", "T", "Q"};
         int MAX_LENGTH = 4;
         String r = new DecimalFormat("##0E0").format(number);
         r = r.replaceAll("E[0-9]", suffix[Character.getNumericValue(r.charAt(r.length() - 1)) / 3]);
