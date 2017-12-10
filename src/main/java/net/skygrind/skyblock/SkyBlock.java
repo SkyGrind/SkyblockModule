@@ -333,6 +333,7 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem("&fOnline: " + Bukkit.getOnlinePlayers().size()));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem("&bTop Islands"));
+        // 4/21
         int i = 0;
         int max = 10;
         if (SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
@@ -342,23 +343,10 @@ public class SkyBlock extends PluginModule {
             i++;
             items.add(new TextTabItem("&f" + entry.getKey().getName() + " (" + entry.getKey().getIslandLevel() + ")"));
         }
-        while (i <= (max - 1)) {
+        while (i <= 13) {
             i++;
             items.add(new TextTabItem(" "));
         }
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
 
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
