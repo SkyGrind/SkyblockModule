@@ -101,7 +101,7 @@ public class SkyBlock extends PluginModule {
 
 //        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null && !Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
 //            disable();
-//        }
+//
 
 
         new BukkitRunnable() {

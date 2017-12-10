@@ -8,11 +8,12 @@ import net.skygrind.skyblock.island.IslandRegistry;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 
 /**
  * Created by Matt on 2017-02-25.
  */
-public class IslandDeleteCommand extends GooseCommand {
+public class IslandDeleteCommand extends GooseCommand implements Listener {
     private final IslandRegistry registry;
 
     public IslandDeleteCommand() {

@@ -45,7 +45,16 @@ public class IslandCreateQueueTask extends BukkitRunnable {
                 center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
             }
 
-            if (center == null || center.getWorld().getName().equalsIgnoreCase("world")) {
+            if (center == null) {
+                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+            }
+
+            if (center.getWorld() == null) {
+                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+                center.setWorld(SkyBlock.getPlugin().getIslandWorld());
+            }
+
+            if (center == null || center.getWorld().getName().equalsIgnoreCase("world") || center.getWorld() == null) {
                 center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
                 System.out.println("center null again");
             }

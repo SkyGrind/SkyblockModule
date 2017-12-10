@@ -34,11 +34,17 @@ import java.util.*;
 public class IslandRegistry {
 
     public final List<Island> playerIslands = new ArrayList<>();
+
     private final int islandDistance = 1000;
+
     private final int baseIslandSize = 80;
+
     private final File islandDir = new File(SkyBlock.getPlugin().getModuleDir().toString(), "islands");
+
     private final Map<UUID, Island> islandInvites = new HashMap<>();
+
     private final IslandCreateQueueTask queueTask;
+
     private Location lastIsland = null;
 
 
@@ -165,7 +171,7 @@ public class IslandRegistry {
 //        }
         System.out.println("Loaded: " + playerIslands.size());
         if (playerIslands.isEmpty()) {
-
+            this.lastIsland = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
         } else {
             this.lastIsland = playerIslands.get(playerIslands.size() - 1).getSpawn();
         }
@@ -384,7 +390,7 @@ public class IslandRegistry {
         Vector min = island.getContainer().getMin().toVector();
         Vector max = island.getContainer().getMax().toVector();
 
-        return loc.toVector().isInAABB(min, max);
+        return loc.toVector().isInAABB(min, max) && loc.getWorld().getName().equalsIgnoreCase(island.getSpawn().getWorld().getName());
     }
 
     public Island getIslandForPlayer(Player player) {
