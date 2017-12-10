@@ -23,6 +23,8 @@ public class ServerConfig {
     private GooseLocation spawn;
     private Integer playersJoined;
 
+    private GooseLocation lastIslandLocation;
+
     public ServerConfig() {
         this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "config.json";
         this.gson = new GsonBuilder().setPrettyPrinting().create();
@@ -76,10 +78,19 @@ public class ServerConfig {
                     return;
                 }
                 this.spawn = serverConfig.spawn;
+                this.lastIslandLocation = serverConfig.lastIslandLocation;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public GooseLocation getLastIslandLocation() {
+        return lastIslandLocation;
+    }
+
+    public void setLastIslandLocation(GooseLocation lastIslandLocation) {
+        this.lastIslandLocation = lastIslandLocation;
     }
 
     public Integer getPlayersJoined() {

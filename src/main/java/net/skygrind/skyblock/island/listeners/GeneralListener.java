@@ -134,13 +134,13 @@ public class GeneralListener implements Listener {
 
         event.setCancelled(true);
 
-        ItemStack[] items = new ItemStack[]{new ItemStack(Material.ICE, 1), new ItemStack(Material.MELON, 1),
+        ItemStack[] items = new ItemStack[]{new ItemStack(Material.CHEST, 1), new ItemStack(Material.ICE, 2), new ItemStack(Material.MELON, 1),
                 new ItemStack(Material.BONE, 1), new ItemStack(Material.LAVA_BUCKET), new ItemStack(Material.MELON_SEEDS, 1),
                 new ItemStack(Material.SUGAR_CANE, 1), new ItemStack(Material.RED_MUSHROOM, 1), new ItemStack(Material.BROWN_MUSHROOM, 1),
-                new ItemStack(Material.CACTUS, 1)};
+                new ItemStack(Material.CACTUS, 1), new ItemStack(Material.PUMPKIN_SEEDS, 1)};
 
-        event.getPlayer().getInventory().addItem(items);
         event.getPlayer().getInventory().removeItem(item);
+        event.getPlayer().getInventory().addItem(items);
 
         MessageUtil.sendServerTheme(event.getPlayer(), ChatColor.GREEN + "You have opened your Christmas Present!");
     }

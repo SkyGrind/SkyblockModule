@@ -4,6 +4,7 @@ import com.islesmc.modules.api.task.Task;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandType;
 import net.skygrind.skyblock.misc.LocationUtil;
@@ -34,6 +35,11 @@ public class IslandCreateQueueTask extends BukkitRunnable {
     @Override
     public void run() {
         for (QueueItem item : islandQueue) {
+
+            if (item == null) {
+                continue;
+            }
+
             Player player = item.getPlayer();
 
             Location center;
@@ -104,6 +110,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             SkyBlock.getPlugin().getIslandRegistry().registerIsland(player.getUniqueId(), island);
             this.islandQueue.remove(item);
             SkyBlock.getPlugin().getIslandRegistry().setLastIsland(center);
+            SkyBlock.getPlugin().getServerConfig().setLastIslandLocation(GooseLocation.fromLocation(center));
         }
     }
 

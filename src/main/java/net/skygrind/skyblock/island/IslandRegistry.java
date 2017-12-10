@@ -173,7 +173,7 @@ public class IslandRegistry {
         if (playerIslands.isEmpty()) {
             this.lastIsland = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
         } else {
-            this.lastIsland = playerIslands.get(playerIslands.size() - 1).getSpawn();
+            this.lastIsland = SkyBlock.getPlugin().getServerConfig().getLastIslandLocation().toLocation();
         }
     }
 

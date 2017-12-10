@@ -82,12 +82,14 @@ public class SkyBlock extends PluginModule {
         getModuleDir().toFile().mkdir();
         plugin = this;
         this.regionHandler = new RegionHandler();
-        this.islandRegistry = new IslandRegistry();
         this.shopHandler = new ShopHandler();
         this.oreGenerationConfig = new OreGenerationConfig();
         this.oreGenerationConfig.loadValues();
         this.serverConfig = new ServerConfig();
         this.serverConfig.load();
+
+        this.islandRegistry = new IslandRegistry();
+
         this.challengeConfig = new ChallengeConfig();
         this.challengeConfig.load();
         this.gooseHandler = new GooseHandler();

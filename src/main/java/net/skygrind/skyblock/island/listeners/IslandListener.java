@@ -38,6 +38,11 @@ public class IslandListener implements Listener {
             Island conflict = registry.getIslandAt(location);
 
             if (!conflict.getMembers().contains(placer.getUniqueId()) && !conflict.getOwner().equals(placer.getUniqueId())) {
+
+                if (placer.hasPermission("skyblock.bypass")) {
+                    return;
+                }
+
                 placer.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to build here!");
                 event.setCancelled(true);
             }
@@ -70,6 +75,11 @@ public class IslandListener implements Listener {
             Island conflict = registry.getIslandAt(location);
 
             if (!conflict.getMembers().contains(placer.getUniqueId()) && !conflict.getOwner().equals(placer.getUniqueId())) {
+
+                if (placer.hasPermission("skyblock.bypass")) {
+                    return;
+                }
+
                 placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
                 event.setCancelled(true);
             }
