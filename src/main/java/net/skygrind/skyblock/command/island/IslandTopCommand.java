@@ -6,6 +6,7 @@ import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -54,7 +55,7 @@ public class IslandTopCommand extends GooseCommand implements Listener {
     }
 
     private Inventory createIslandTopInventory() {
-        Inventory inventory = Bukkit.createInventory(null, 36, "Top Islands");
+        Inventory inventory = Bukkit.createInventory(null, 36, ChatColor.WHITE + "Top Islands");
 
         int max = 10;
         if (SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
@@ -75,9 +76,12 @@ public class IslandTopCommand extends GooseCommand implements Listener {
 
             ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
             SkullMeta meta = (SkullMeta) item.getItemMeta();
-            meta.setDisplayName(player.getName() + "'s Island");
+            meta.setDisplayName(ChatColor.GREEN + player.getName() + "'s Island");
             meta.setOwner(player.getName());
-            List<String> lore = Lists.newArrayList(String.format("Level: %s", ent.getKey().getIslandLevel()), String.format("Balance: %s", ent.getKey().getBankBalance()));
+            List<String> lore = Lists.newArrayList();
+            lore.add(ChatColor.translateAlternateColorCodes('&', String.format("&bLevel: &f%s", ent.getKey().getIslandLevel())));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&bMembers:"));
+            ent.getKey().getMembers().forEach(uuid1 -> lore.add(ChatColor.translateAlternateColorCodes('&', String.format("&7 \u00BB &f%s", Bukkit.getOfflinePlayer(uuid).getName()))));
             meta.setLore(lore);
             item.setItemMeta(meta);
             inventory.setItem(getInventoryLocationForIndex(index), item);
