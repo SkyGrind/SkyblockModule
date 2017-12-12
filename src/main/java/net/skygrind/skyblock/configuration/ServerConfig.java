@@ -23,8 +23,6 @@ public class ServerConfig {
     private final transient Gson gson;
     private GooseLocation spawn;
     private Integer playersJoined;
-    private AtomicInteger islandsEverCreated;
-
     private GooseLocation lastIslandLocation;
 
     public ServerConfig() {
@@ -32,7 +30,7 @@ public class ServerConfig {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.spawn = GooseLocation.fromLocation(new Location(Bukkit.getWorld("world"), 0, 0, 0));
         this.playersJoined = 0;
-        this.islandsEverCreated = new AtomicInteger(0);
+        this.lastIslandLocation = null;
     }
 
     public Location getSpawnLocation() {
@@ -102,9 +100,5 @@ public class ServerConfig {
 
     public void setPlayersJoined(Integer playersJoined) {
         this.playersJoined = playersJoined;
-    }
-
-    public AtomicInteger getIslandsEverCreated() {
-        return islandsEverCreated;
     }
 }

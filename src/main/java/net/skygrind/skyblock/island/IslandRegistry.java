@@ -413,6 +413,35 @@ public class IslandRegistry {
         return null;
     }
 
+    public Location getNextLocation(final Location last) {
+        final int x = last.getBlockX();
+        final int z = last.getBlockZ();
+
+        final Location next = last;
+        if (x < z) {
+            if (-1 * x < z) {
+                next.setX(next.getX() + 1000);
+                return next;
+            }
+            next.setZ(last.getZ() + 1000);
+            return next;
+        }
+        if (x > z) {
+            if (-1 * x >= z) {
+                next.setX(next.getX() - 1000);
+                return next;
+            }
+            next.setZ(next.getZ() - 1000);
+            return next;
+        }
+        if (x <= 0) {
+            next.setZ(next.getZ() + 1000);
+            return next;
+        }
+        next.setZ(next.getZ() - 1000);
+        return next;
+    }
+
     public Location nextIslandLocation(final Location lastIsland) {
         int d = islandDistance;
 

@@ -39,12 +39,18 @@ public class IslandCreateQueueTask extends BukkitRunnable {
                 continue;
             }
 
-            int islandNumber = SkyBlock.getPlugin().getServerConfig().getIslandsEverCreated().incrementAndGet();
-            int prime = SkyBlock.getPlugin().getGridUtil().getInts()[islandNumber];
+//            int islandNumber = SkyBlock.getPlugin().getServerConfig().getIslandsEverCreated().incrementAndGet();
+//            int prime = SkyBlock.getPlugin().getGridUtil().getInts()[islandNumber];
+//
+//            int xZ = prime * 1000;
 
-            int xZ = prime * 1000;
-
-            Location center = new Location(SkyBlock.getPlugin().getIslandWorld(), xZ, 100, xZ);
+            GooseLocation last = SkyBlock.getPlugin().getServerConfig().getLastIslandLocation();
+            Location center;
+            if (last == null) {
+                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+            } else {
+                center = SkyBlock.getPlugin().getIslandRegistry().getNextLocation(last.toLocation());
+            }
 
             Player player = item.getPlayer();
 
@@ -117,6 +123,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             this.islandQueue.remove(item);
             SkyBlock.getPlugin().getIslandRegistry().setLastIsland(center);
             SkyBlock.getPlugin().getServerConfig().setLastIslandLocation(GooseLocation.fromLocation(center));
+            SkyBlock.getPlugin().getServerConfig().save();
         }
     }
 

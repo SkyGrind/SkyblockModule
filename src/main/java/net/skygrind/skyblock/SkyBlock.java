@@ -96,7 +96,7 @@ public class SkyBlock extends PluginModule {
         this.challengeConfig.load();
         this.gooseHandler = new GooseHandler();
         this.tabbed = new Tabbed(API.getPlugin());
-        this.gridUtil = new GridUtil(1000000);
+        this.gridUtil = new GridUtil(100000);
 
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
             disable();
@@ -171,8 +171,8 @@ public class SkyBlock extends PluginModule {
     @Override
     public void onDisable() {
 //        saveMissionsFile();
-        islandRegistry.disable();
         getServerConfig().save();
+        islandRegistry.disable();
     }
 
     public ChallengeConfig getChallengeConfig() {
