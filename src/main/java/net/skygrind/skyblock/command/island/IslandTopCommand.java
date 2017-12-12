@@ -102,7 +102,7 @@ public class IslandTopCommand extends GooseCommand implements Listener {
             case 4:
                 return 20;
             case 5:
-                return 25;
+                return 24;
             case 6:
                 return 29;
             default:
