@@ -44,13 +44,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 //
 //            int xZ = prime * 1000;
 
-            GooseLocation last = SkyBlock.getPlugin().getServerConfig().getLastIslandLocation();
-            Location center;
-            if (last == null) {
-                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
-            } else {
-                center = SkyBlock.getPlugin().getIslandRegistry().getNextLocation(last.toLocation());
-            }
+            Location center = getLocation();
 
             Player player = item.getPlayer();
 
@@ -125,6 +119,18 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             SkyBlock.getPlugin().getServerConfig().setLastIslandLocation(GooseLocation.fromLocation(center));
             SkyBlock.getPlugin().getServerConfig().save();
         }
+    }
+
+    private Location getLocation() {
+        GooseLocation last = SkyBlock.getPlugin().getServerConfig().getLastIslandLocation();
+        if (last == null) {
+            last = GooseLocation.fromLocation(new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 0, 0));
+        }
+        Location next = SkyBlock.getPlugin().getIslandRegistry().getNextLocation(last.toLocation());
+        while (SkyBlock.getPlugin().getIslandRegistry().getIslandAt(next) != null) {
+            next = SkyBlock.getPlugin().getIslandRegistry().getNextLocation(next);
+        }
+        return next;
     }
 
     private class QueueItem {
