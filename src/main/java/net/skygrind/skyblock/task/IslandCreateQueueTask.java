@@ -100,6 +100,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 
             if (item.getType() == IslandType.DEFAULT) {
                 center = center.clone().add(4, 8, 6);
+                center = center.getWorld().getHighestBlockAt(center).getLocation();
                 System.out.println("default island");
                 island.setSpawn(center);
             }
