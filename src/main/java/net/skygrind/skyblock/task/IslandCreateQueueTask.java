@@ -66,7 +66,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
                 System.out.println("center null again");
             }
 
-            // For some reason this fixes it?
+            // For some reason this fixes it??
             center = center.clone().add(0, 0, 0);
             System.out.println(String.format("LOCATION SERIALIZED IS %s", LocationUtil.serialize(center)));
 
