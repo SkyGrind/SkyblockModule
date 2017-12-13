@@ -31,7 +31,7 @@ public class AddBalance extends BukkitCommand {
             return true;
         }
 
-        int targetBalance = Integer.valueOf(args[1]);
+        int targetBalance = Integer.parseInt(args[1]);
         double needs = targetBalance - SkyBlock.getPlugin().getEconomy().getBalance(target);
 
         SkyBlock.getPlugin().getEconomy().depositPlayer(player, needs);

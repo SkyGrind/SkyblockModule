@@ -67,7 +67,7 @@ public class SkyBlock extends PluginModule {
     private World islandWorld;
     private GridUtil gridUtil;
 
-    public static SkyBlock getPlugin() {
+    public static synchronized SkyBlock getPlugin() {
         return plugin;
     }
 
