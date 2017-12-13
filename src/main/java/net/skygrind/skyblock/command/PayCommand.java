@@ -31,7 +31,7 @@ public class PayCommand extends BukkitCommand {
             return true;
         }
 
-        int toPay = Integer.valueOf(args[1]);
+        int toPay = Integer.parseInt(args[1]);
         if (!SkyBlock.getPlugin().getEconomy().has(player, toPay)) {
             sender.sendMessage(ChatColor.RED + String.format("You do not have $%s to pay %s.", toPay, target.getName()));
             return true;
