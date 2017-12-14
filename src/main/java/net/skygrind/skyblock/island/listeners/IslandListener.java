@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -98,6 +99,16 @@ public class IslandListener implements Listener {
 
                 placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
                 event.setCancelled(true);
+                return;
+            }
+
+            if (event.getBlock() instanceof Sign) {
+                Sign sign = (Sign)event.getBlock();
+                if (!sign.getLine(1).equalsIgnoreCase("[welcome]"))
+                    return;
+
+                conflict.setWarpLocation(null);
+                return;
             }
         }
     }
