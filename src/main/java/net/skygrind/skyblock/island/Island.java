@@ -21,17 +21,14 @@ public class Island {
     private GooseLocation spawn;
     private Region container;
     private UUID owner;
-
     private Integer maxPlayers;
-
     private List<UUID> members;
     private Integer size;
     private IslandType type;
     private String islandName;
-
     private Integer islandLevel = 0;
-
     private Integer bankBalance = 0;
+    private Boolean locked;
 
     public Island(UUID owner, Location spawn, IslandType type) {
         this.owner = owner;
@@ -44,6 +41,7 @@ public class Island {
         } else {
             this.islandName = Bukkit.getPlayer(owner).getName();
         }
+        this.locked = false;
     }
 
     public int getIslandLevel() {
@@ -139,5 +137,13 @@ public class Island {
             e.printStackTrace();
         }
         System.out.println(json);
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
     }
 }
