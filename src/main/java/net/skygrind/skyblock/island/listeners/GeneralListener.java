@@ -49,7 +49,8 @@ public class GeneralListener implements Listener {
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
 
         if (!player.hasPlayedBefore()) {
-            int joinNumber = SkyBlock.getPlugin().getServerConfig().getPlayersJoined().incrementAndGet();
+            SkyBlock.getPlugin().getServerConfig().incrementPlayersJoined();
+            int joinNumber = SkyBlock.getPlugin().getServerConfig().getPlayersJoined();
             Bukkit.broadcastMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise " + ChatColor.GRAY + "\u00BB " + ChatColor.YELLOW + String.format("Welcome %s to the ", player.getName()) + ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise" + ChatColor.YELLOW + String.format(" (%s)", joinNumber));
             player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         }
