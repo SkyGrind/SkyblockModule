@@ -82,7 +82,7 @@ public class IslandTopCommand extends GooseCommand implements Listener {
             lore.add(ChatColor.translateAlternateColorCodes('&', String.format("&bLevel: &f%s", ent.getKey().getIslandLevel())));
             lore.add(ChatColor.translateAlternateColorCodes('&', "&bMembers:"));
             lore.add(ChatColor.translateAlternateColorCodes('&', String.format("&7 \u00BB &f%s", Bukkit.getOfflinePlayer(ent.getKey().getOwner()).getName() + " (Owner)")));
-            ent.getKey().getMembers().forEach(uuid1 -> lore.add(ChatColor.translateAlternateColorCodes('&', String.format("&7 \u00BB &f%s", Bukkit.getOfflinePlayer(uuid).getName()))));
+            ent.getKey().getMembers().forEach(uuid1 -> lore.add(ChatColor.translateAlternateColorCodes('&', String.format("&7 \u00BB &f%s", Bukkit.getOfflinePlayer(uuid1).getName()))));
             meta.setLore(lore);
             item.setItemMeta(meta);
             inventory.setItem(getInventoryLocationForIndex(index), item);
