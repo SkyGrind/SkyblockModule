@@ -117,7 +117,7 @@ public class IslandTopCommand extends GooseCommand implements Listener {
 
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent event) {
-        if (event.getInventory().getTitle().equalsIgnoreCase("Top Islands")) {
+        if (event.getInventory().getTitle().equalsIgnoreCase(ChatColor.WHITE + "Top Islands")) {
             event.setResult(Event.Result.DENY);
         }
     }
