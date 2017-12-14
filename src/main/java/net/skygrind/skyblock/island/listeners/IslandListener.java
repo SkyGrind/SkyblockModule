@@ -1,6 +1,7 @@
 package net.skygrind.skyblock.island.listeners;
 
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
 import net.skygrind.skyblock.misc.MessageUtil;
@@ -14,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 
@@ -57,6 +59,22 @@ public class IslandListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onSignChange(final SignChangeEvent event) {
+        Location location = event.getBlock().getLocation();
+
+        if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
+
+        Island island = registry.getIslandAt(location);
+        if (island == null)
+            return;
+
+        if (!event.getLine(1).equalsIgnoreCase("[welcome]"))
+            return;
+
+        island.setWarpLocation(GooseLocation.fromLocation(location));
     }
 
     @EventHandler

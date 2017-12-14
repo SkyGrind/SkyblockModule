@@ -339,6 +339,15 @@ public class IslandRegistry {
         return null;
     }
 
+    public Island findByUniqueId(final UUID uuid) {
+        for (Island island : this.playerIslands) {
+            if (island.getOwner().equals(uuid) || island.getMembers().contains(uuid)) {
+                return island;
+            }
+        }
+        return null;
+    }
+
     public void deleteIsland(Player player, Island island) {
 
         for (Player pl : Bukkit.getOnlinePlayers()) {

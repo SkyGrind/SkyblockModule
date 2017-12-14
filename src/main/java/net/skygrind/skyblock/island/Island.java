@@ -29,6 +29,7 @@ public class Island {
     private Integer islandLevel = 0;
     private Integer bankBalance = 0;
     private Boolean locked;
+    private GooseLocation warpLocation;
 
     public Island(UUID owner, Location spawn, IslandType type) {
         this.owner = owner;
@@ -42,6 +43,7 @@ public class Island {
             this.islandName = Bukkit.getPlayer(owner).getName();
         }
         this.locked = false;
+        this.warpLocation = null;
     }
 
     public int getIslandLevel() {
@@ -145,5 +147,13 @@ public class Island {
 
     public void setLocked(Boolean locked) {
         this.locked = locked;
+    }
+
+    public GooseLocation getWarpLocation() {
+        return warpLocation;
+    }
+
+    public void setWarpLocation(GooseLocation warpLocation) {
+        this.warpLocation = warpLocation;
     }
 }
