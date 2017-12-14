@@ -57,7 +57,7 @@ public class IslandKickCommand extends GooseCommand {
             target.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         }
         MessageUtil.sendServerTheme(player, ChatColor.GREEN + String.format("You have clicked %s from your island.", target.getName()));
-        MessageUtil.sendServerTheme(player, ChatColor.RED + String.format("You have been kicked from %s's island.", player.getName()));
+        MessageUtil.sendServerTheme(target, ChatColor.RED + String.format("You have been kicked from %s's island.", player.getName()));
         return;
     }
 }

@@ -42,14 +42,12 @@ public class IslandListener implements Listener {
                 if (placer.hasPermission("skyblock.bypass")) {
                     return;
                 }
-
-                placer.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "[!] " + ChatColor.GRAY + "You do not have permission to build here!");
+                placer.sendMessage(ChatColor.RED + "You do not have permissions to build in this island.");
                 event.setCancelled(true);
             }
         } else {
             event.setCancelled(true);
             if (location.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
-                MessageUtil.sendUrgent(placer, ChatColor.RED + "This is out of your islands region!");
                 placer.sendMessage(ChatColor.GREEN + "You cannot place outside of your island.");
                 MessageUtil.sendServerTheme(placer, ChatColor.GREEN + "To upgrade your islands size visit: http://shop.skyparadisemc.com");
             } else {
