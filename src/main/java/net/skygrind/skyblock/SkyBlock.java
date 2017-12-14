@@ -302,6 +302,9 @@ public class SkyBlock extends PluginModule {
         List<TabItem> items = new ArrayList<>();
 
         User user = API.getUserManager().findByUniqueId(player.getUniqueId());
+        if (user == null)
+            return items;
+
         Profile permissions = user.getProfile("permissions");
 
         items.add(new TextTabItem(" "));
