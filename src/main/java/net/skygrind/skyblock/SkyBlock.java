@@ -384,7 +384,11 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem("&b&lPlayer Info"));
-        items.add(new TextTabItem("&7Group: &f" + permissions.getString("group")));
+        if (permissions == null) {
+            items.add(new TextTabItem("&7Group: &f" + "Member"));
+        } else  {
+            items.add(new TextTabItem("&7Group: &f" + permissions.getString("group")));
+        }
         items.add(new TextTabItem("&7Balance: &f$" + format(getEconomy().getBalance(player))));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
