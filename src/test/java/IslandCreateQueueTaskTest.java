@@ -1,5 +1,3 @@
-package net.skygrind.skyblock.task;
-
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
@@ -9,54 +7,47 @@ import net.skygrind.skyblock.island.IslandType;
 import net.skygrind.skyblock.misc.LocationUtil;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.region.Region;
+import net.skygrind.skyblock.task.IslandCreateQueueTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import sun.applet.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class IslandCreateQueueTask extends BukkitRunnable {
-    private final Queue<QueueItem> islandQueue;
+public class IslandCreateQueueTaskTest implements Runnable {
+    private final Queue<QueueItemTest> islandQueue;
 
-    public IslandCreateQueueTask() {
-        this.islandQueue = new PriorityQueue<>((queueItem, t1) -> 0);
+    public static void main(String[] args) {
+        new IslandCreateQueueTaskTest();
+    }
+
+    public IslandCreateQueueTaskTest() {
+        this.islandQueue = new PriorityQueue<>();
+        for (int i = 0; i < 1000000; i++) {
+            queueIsland(null, IslandType.COBBLE_THRONE);
+            System.out.println("adding");
+        }
+        run();
     }
 
     public void queueIsland(final Player player, final IslandType type) {
-        this.islandQueue.add(new QueueItem(player, type));
+        this.islandQueue.add(new QueueItemTest(player, type));
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void run() {
-        for (QueueItem item : islandQueue) {
+        for (QueueItemTest item : islandQueue) {
 
-            if (item == null || item.getPlayer() == null || item.getType() == null) {
+            if (item == null || item.getPlayer() == null || item.getType() == null)
                 continue;
-            }
-
-//            int islandNumber = SkyBlock.getPlugin().getServerConfig().getIslandsEverCreated().incrementAndGet();
-//            int prime = SkyBlock.getPlugin().getGridUtil().getInts()[islandNumber];
-//
-//            int xZ = prime * 1000;
 
             Location center = getLocation();
 
             Player player = item.getPlayer();
-
-//            Location center;
-//
-//            if (SkyBlock.getPlugin().getIslandRegistry().getLastIsland() == null) {
-//                center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
-//            }
-//            else {
-//                center = SkyBlock.getPlugin().getIslandRegistry().nextIslandLocation(SkyBlock.getPlugin().getIslandRegistry().getLastIsland());
-//            }
 
             if (center == null) {
                 center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
@@ -64,10 +55,8 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 
             if (center.getWorld() == null || center.getWorld().getName().equalsIgnoreCase("world")) {
                 center = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
-                System.out.println("center null again");
             }
 
-            // For some reason this fixes it??
             center = center.clone().add(0, 0, 0);
             System.out.println(String.format("LOCATION SERIALIZED IS %s", LocationUtil.serialize(center)));
 
@@ -129,25 +118,25 @@ public class IslandCreateQueueTask extends BukkitRunnable {
         return next;
     }
 
-    private class QueueItem implements Comparable<QueueItem> {
+    private class QueueItemTest implements Comparable<QueueItemTest> {
         private final Player player;
         private final IslandType type;
 
-        QueueItem(final Player player, final IslandType type) {
+        public QueueItemTest(final Player player, final IslandType type) {
             this.player = player;
             this.type = type;
         }
 
-        Player getPlayer() {
+        public Player getPlayer() {
             return player;
         }
 
-        IslandType getType() {
+        public IslandType getType() {
             return type;
         }
 
         @Override
-        public int compareTo(QueueItem o) {
+        public int compareTo(QueueItemTest o) {
             return 0;
         }
     }
