@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 
 import java.util.*;
@@ -23,6 +24,13 @@ public class IslandOreGens implements Listener {
     private Random random = new Random();
 
     @EventHandler
+    public void onBlockForm(BlockFormEvent event) {
+        if (event.getBlock().getType() == Material.COBBLESTONE || event.getBlock().getType() == Material.OBSIDIAN) {
+            System.out.println("Form event called");
+        }
+    }
+
+    /*@EventHandler
     public void onChange(BlockFromToEvent event) {
         Block before = event.getBlock();
         int id = before.getTypeId();
@@ -103,7 +111,7 @@ public class IslandOreGens implements Listener {
                 });
             }
         }
-    }
+    }*/
 
     public boolean generatesCobble(Block block, Block toBlock) {
         Material mirrorID1 = (block.getType().equals(Material.WATER)) || (block.getType().equals(Material.STATIONARY_WATER)) ? Material.LAVA : Material.WATER;

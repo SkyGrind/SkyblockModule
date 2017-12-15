@@ -45,25 +45,25 @@ public class IslandLevelCommand extends GooseCommand {
             switch (block.getType()) {
 
                 case LAPIS_BLOCK:
-                    islandLevel += 0.045;
+                    islandLevel += 0.25;
                     break;
                 case GOLD_BLOCK:
-                    islandLevel += 0.073;
+                    islandLevel += 0.5;
                     break;
                 case IRON_BLOCK:
-                    islandLevel += 0.048;
+                    islandLevel += 0.5;
                     break;
                 case REDSTONE_BLOCK:
-                    islandLevel += 0.0066;
+                    islandLevel += 0.25;
                     break;
                 case DIAMOND_BLOCK:
-                    islandLevel += 0.07;
+                    islandLevel += 0.75;
                     break;
                 case COAL_BLOCK:
-                    islandLevel += 0.0058;
+                    islandLevel += 0.5;
                     break;
                 case EMERALD_BLOCK:
-                    islandLevel += 0.037;
+                    islandLevel += 1.0;
                     break;
             }
         }
