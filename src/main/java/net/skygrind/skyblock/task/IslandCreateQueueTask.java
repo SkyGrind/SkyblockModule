@@ -128,7 +128,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
         return next;
     }
 
-    private class QueueItem {
+    private class QueueItem implements Comparable<QueueItem> {
         private final Player player;
         private final IslandType type;
 
@@ -143,6 +143,11 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 
         public IslandType getType() {
             return type;
+        }
+
+        @Override
+        public int compareTo(QueueItem o) {
+            return 0;
         }
     }
 }
