@@ -17,7 +17,7 @@ import java.util.UUID;
 /**
  * Created by Matt on 2017-02-11.
  */
-public class Island {
+public class Island implements Comparable<Island> {
     private GooseLocation spawn;
     private Region container;
     private UUID owner;
@@ -155,5 +155,10 @@ public class Island {
 
     public void setWarpLocation(GooseLocation warpLocation) {
         this.warpLocation = warpLocation;
+    }
+
+    @Override
+    public int compareTo(Island island) {
+        return 0;
     }
 }
