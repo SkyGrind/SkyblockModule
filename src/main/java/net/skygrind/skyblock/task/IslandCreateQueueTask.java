@@ -17,6 +17,7 @@ import sun.applet.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -24,7 +25,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
     private final Queue<QueueItem> islandQueue;
 
     public IslandCreateQueueTask() {
-        this.islandQueue = new PriorityQueue<>();
+        this.islandQueue = new PriorityQueue<>((queueItem, t1) -> 0);
     }
 
     public void queueIsland(final Player player, final IslandType type) {
