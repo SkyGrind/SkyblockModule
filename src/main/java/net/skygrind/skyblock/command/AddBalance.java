@@ -10,12 +10,16 @@ import org.bukkit.entity.Player;
 
 public class AddBalance extends BukkitCommand {
     public AddBalance() {
-        super("addbalance");
+        super("setbalance");
     }
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
         Player player = (Player) sender;
+        if (!sender.hasPermission("essentials.setbalance")) {
+            sender.sendMessage(ChatColor.RED + "You do not have permission for this command.");
+            return true;
+        }
         if (args.length != 2) {
             sender.sendMessage(ChatColor.RED + "Usage: /setbalance <Player> <Amount>");
             return true;
