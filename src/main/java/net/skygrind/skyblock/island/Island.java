@@ -11,6 +11,7 @@ import org.bukkit.OfflinePlayer;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,6 +31,8 @@ public class Island implements Comparable<Island> {
     private Integer bankBalance = 0;
     private Boolean locked;
     private GooseLocation warpLocation;
+
+    private List<UUID> coop = new ArrayList<>();
 
     public Island(UUID owner, Location spawn, IslandType type) {
         this.owner = owner;
@@ -96,6 +99,14 @@ public class Island implements Comparable<Island> {
 
     public void setType(IslandType type) {
         this.type = type;
+    }
+
+    public List<UUID> getCoop() {
+        return coop;
+    }
+
+    public void setIslandName(String name) {
+        this.islandName = islandName;
     }
 
     public String getName() {

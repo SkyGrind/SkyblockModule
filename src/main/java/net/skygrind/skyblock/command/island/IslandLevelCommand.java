@@ -95,7 +95,7 @@ public class IslandLevelCommand extends GooseCommand {
         List<Block> blocks = new ArrayList<>();
 
         for (int x = minX; x < maxX; x++) {
-            for (int y = minY; y < maxY; y++) {
+            for (int y = 0; y < 256; y++) {
                 for (int z = minZ; z < maxZ; z++) {
 
                     Block block = SkyBlock.getPlugin().getIslandWorld().getBlockAt(x, y, z);

@@ -15,10 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -142,6 +139,14 @@ public class GeneralListener implements Listener {
         event.getPlayer().getInventory().addItem(items);
 
         MessageUtil.sendServerTheme(event.getPlayer(), ChatColor.GREEN + "You have opened your Christmas Present!");
+    }
+
+    @EventHandler
+    public void onEntitySpawn(CreatureSpawnEvent event) {
+        if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
+            event.getEntity().remove();
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
