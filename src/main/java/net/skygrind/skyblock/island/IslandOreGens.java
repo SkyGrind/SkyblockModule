@@ -25,7 +25,7 @@ public class IslandOreGens implements Listener {
 
     @EventHandler
     public void onBlockForm(BlockFormEvent event) {
-        if (event.getBlock().getType() == Material.COBBLESTONE || event.getBlock().getType() == Material.OBSIDIAN) {
+        if (event.getNewState().getBlock().getType() == Material.COBBLESTONE || event.getNewState().getBlock().getType() == Material.OBSIDIAN) {
             System.out.println("Form event called");
         }
     }
