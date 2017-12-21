@@ -7,7 +7,6 @@ import org.bukkit.Location;
  * Created by Matt on 2017-02-11.
  */
 public class Region {
-
     private final String name;
     private final GooseLocation min;
     private final GooseLocation max;

@@ -39,6 +39,8 @@ public class IslandListener implements Listener {
         if (registry.conflicts(location)) {
 
             Island conflict = registry.getIslandAt(location);
+            if (conflict == null)
+                return;
 
             if (!conflict.isMember(placer.getUniqueId())) {
 
@@ -92,6 +94,8 @@ public class IslandListener implements Listener {
         if (registry.conflicts(location)) {
 
             Island conflict = registry.getIslandAt(location);
+            if (conflict == null)
+                return;
 
             if (!conflict.isMember(placer.getUniqueId())) {
 
