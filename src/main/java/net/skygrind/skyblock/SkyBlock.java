@@ -229,6 +229,7 @@ public class SkyBlock extends PluginModule {
         registerCommand("balance", new BalanceCommand());
         registerCommand("pay", new PayCommand());
         registerCommand("setbalance", new AddBalance());
+        registerCommand("help", new HelpCommand());
     }
 
 //    private void initFiles() {
