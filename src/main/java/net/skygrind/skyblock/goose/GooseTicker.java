@@ -54,6 +54,9 @@ public class GooseTicker extends BukkitRunnable {
             if (scoreboard == null)
                 continue;
 
+            if (SkyBlock.getPlugin().getEconomy() == null)
+                continue;
+
             scoreboard.clear();
 
 
