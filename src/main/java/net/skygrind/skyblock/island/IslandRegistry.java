@@ -332,6 +332,9 @@ public class IslandRegistry {
 
     public Island getIslandAt(Location location) {
         for (Island island : playerIslands) {
+          if (island.getContainer() == null || island.getContainer().getMin() == null || island.getContainer().getMax() == null)
+                continue;
+
             if (location.toVector().isInAABB(island.getContainer().getMin().toVector(), island.getContainer().getMax().toVector())) {
                 return island;
             }
