@@ -359,7 +359,6 @@ public class IslandRegistry {
             if (inRegion(loc, conflict.getContainer().getMin(), conflict.getContainer().getMax())) {
                 return true;
             }
-            continue;
         }
         return false;
     }
