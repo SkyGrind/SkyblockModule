@@ -36,7 +36,7 @@ public class IslandGUIHandler implements Listener {
             return;
         }
 
-        if (event.getClickedInventory().getName().equalsIgnoreCase("Island Selection")) {
+        if (event.getClickedInventory().getTitle().equalsIgnoreCase("Island Selection")) {
 
 
             event.setCancelled(true);
@@ -53,7 +53,7 @@ public class IslandGUIHandler implements Listener {
                     SkyBlock.getPlugin().getIslandRegistry().createIsland(pl, type);
                 }
             }.runTaskAsynchronously(API.getPlugin());
-        } else if (event.getClickedInventory().getName().equalsIgnoreCase("Owner Selection")) {
+        } else if (event.getClickedInventory().getTitle().equalsIgnoreCase("Owner Selection")) {
 
             event.setCancelled(true);
 

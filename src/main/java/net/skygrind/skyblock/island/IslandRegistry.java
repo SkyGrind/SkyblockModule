@@ -308,31 +308,55 @@ public class IslandRegistry {
         return base;
     }
 
+    public boolean inRegion(Location loc, Location min, Location max) {
+
+        double minX = min.getX();
+        double minY = min.getY();
+        double minZ = min.getZ();
+
+        double maxX = max.getX();
+        double maxY = max.getY();
+        double maxZ = max.getZ();
+
+        return loc.getX() >= min.getX() && loc.getY() >= min.getY()
+                && loc.getZ() >= min.getZ() && loc.getX() <= max.getX()
+                && loc.getY() <= max.getY() && loc.getZ() <= max.getZ()
+                && loc.getWorld().getName().equalsIgnoreCase(max.getWorld().getName());
+
+    }
+
     public boolean conflicts(Island island) {
         for (Island conflict : playerIslands) {
-            if (conflict.getSpawn().toVector().isInAABB(island.getContainer().getMin().toVector(), island.getContainer().getMax().toVector()) ||
-                    island.getSpawn().toVector().isInAABB(conflict.getContainer().getMin().toVector(), conflict.getContainer().getMax().toVector())) {
+            if (inRegion(island.getSpawn(), conflict.getContainer().getMin(), conflict.getContainer().getMax())) {
                 return true;
             }
+            continue;
         }
         return false;
     }
 
     public boolean conflicts(Location loc) {
         for (Island conflict : playerIslands) {
-            if (conflict == null || conflict.getContainer() == null || loc.toVector() == null)
-                return true;
 
-            if (loc.toVector().isInAABB(conflict.getContainer().getMin().toVector(), conflict.getContainer().getMax().toVector())) {
+            if (loc == null) {
+                System.out.println("loc null");
+            }
+
+            if (conflict.getContainer() == null) {
+                System.out.println("Container"); //TODO this is true, it is not being loaded....
+            }
+
+            if (inRegion(loc, conflict.getContainer().getMin(), conflict.getContainer().getMax())) {
                 return true;
             }
+            continue;
         }
         return false;
     }
 
     public Island getIslandAt(Location location) {
         for (Island island : playerIslands) {
-          if (location == null || island.getContainer() == null || island.getContainer().getMin() == null || island.getContainer().getMax() == null)
+            if (location == null || island.getContainer() == null || island.getContainer().getMin() == null || island.getContainer().getMax() == null)
                 continue;
 
             if (location.toVector().isInAABB(island.getContainer().getMin().toVector(), island.getContainer().getMax().toVector())) {
