@@ -10,8 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
-public class SetIslandSize extends BukkitCommand {
-    public SetIslandSize() {
+public class SetIslandSizeCommand extends BukkitCommand {
+    public SetIslandSizeCommand() {
         super("setislandsize");
     }
 
