@@ -106,7 +106,7 @@ public class IslandListener implements Listener {
 
             if (event.getBlock() instanceof Sign) {
                 Sign sign = (Sign)event.getBlock();
-                if (!sign.getLine(1).equalsIgnoreCase("[welcome]"))
+                if (!sign.getLine(0).equalsIgnoreCase("[welcome]"))
                     return;
 
                 conflict.setWarpLocation(null);

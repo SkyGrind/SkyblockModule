@@ -90,6 +90,9 @@ public class GeneralListener implements Listener {
 
             event.setCancelled(true);
             event.setDamage(0);
+        } else if (damaged.getWorld().getName().equalsIgnoreCase("Skyblock")) {
+            event.setCancelled(true);
+            event.setDamage(0);
         }
     }
 
