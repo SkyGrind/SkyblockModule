@@ -9,6 +9,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.misc.MessageUtil;
+import net.skygrind.skyblock.region.Region;
 import net.skygrind.skyblock.task.IslandCreateQueueTask;
 import org.apache.commons.codec.binary.*;
 import org.bukkit.Bukkit;
@@ -111,6 +112,10 @@ public class IslandRegistry {
         return playerIslands;
     }
 
+    private Region repairRegion(final String json) {
+        return new GsonBuilder().setPrettyPrinting().create().fromJson(json, Region.class);
+    }
+
     private void loadIslands() {
         if (!islandDir.exists()) {
             islandDir.mkdir();
@@ -127,10 +132,11 @@ public class IslandRegistry {
             try (FileReader reader = new FileReader(file)) {
                 JsonElement element = parser.parse(reader);
                 Island island = new GsonBuilder().setPrettyPrinting().create().fromJson(element, Island.class);
+                String regionJson = new GsonBuilder().setPrettyPrinting().create().toJson(island.getContainer());
+                Region fixed = repairRegion(regionJson);
+                island.setContainer(fixed);
+
                 this.playerIslands.add(island);
-                System.out.println("=============================");
-                System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(island.getContainer()));
-                System.out.println("=============================");
             } catch (IOException e) {
                 e.printStackTrace();
             }
