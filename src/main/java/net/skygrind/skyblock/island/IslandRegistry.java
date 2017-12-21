@@ -353,7 +353,7 @@ public class IslandRegistry {
 
             if (conflict.getContainer() == null) {
                 System.out.println("Container"); //TODO this is true, it is not being loaded....
-                return true;
+                return false;
             }
 
             if (inRegion(loc, conflict.getContainer().getMin(), conflict.getContainer().getMax())) {

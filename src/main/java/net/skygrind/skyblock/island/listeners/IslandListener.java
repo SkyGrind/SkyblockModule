@@ -39,10 +39,8 @@ public class IslandListener implements Listener {
         if (registry.conflicts(location)) {
 
             Island conflict = registry.getIslandAt(location);
-            if (conflict == null)
-                return;
 
-            if (!conflict.isMember(placer.getUniqueId())) {
+            if (conflict == null || !conflict.isMember(placer.getUniqueId())) {
 
                 if (placer.hasPermission("skyblock.bypass")) {
                     return;
@@ -50,7 +48,6 @@ public class IslandListener implements Listener {
 
                 placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
                 event.setCancelled(true);
-                return;
             }
         } else {
             event.setCancelled(true);
