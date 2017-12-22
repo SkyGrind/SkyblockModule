@@ -7,6 +7,11 @@ import com.google.gson.JsonParser;
 import com.islesmc.modules.api.API;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.*;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.task.IslandCreateQueueTask;
@@ -21,12 +26,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.util.Vector;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.*;
 
 /**
  * Created by Matt on 2017-02-11.

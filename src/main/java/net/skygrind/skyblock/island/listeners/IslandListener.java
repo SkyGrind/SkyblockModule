@@ -133,7 +133,7 @@ public class IslandListener implements Listener {
 
                 Island conflict = registry.getIslandAt(block.getLocation());
 
-                if (!conflict.getMembers().contains(player.getUniqueId()) && !conflict.getOwner().equals(player.getUniqueId())) {
+                if (!conflict.getMembers().contains(player.getUniqueId()) && !conflict.getOwner().equals(player.getUniqueId()) && !player.hasPermission("skyblock.bypass")) {
                     player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
                     event.setCancelled(true);
                 }
