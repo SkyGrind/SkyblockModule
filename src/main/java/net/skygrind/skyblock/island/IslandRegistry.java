@@ -119,7 +119,7 @@ public class IslandRegistry {
 
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-`
+
             JsonParser parser = new JsonParser();
 
 
