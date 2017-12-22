@@ -10,6 +10,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.craftbukkit.v1_8_R3.block.CraftSign;
+import org.bukkit.craftbukkit.v1_8_R3.block.CraftSign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -65,6 +67,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onSignChange(final SignChangeEvent event) {
+        System.out.println("sign update event");
         Location location = event.getBlock().getLocation();
 
         if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
@@ -93,9 +96,10 @@ public class IslandListener implements Listener {
             Island conflict = registry.getIslandAt(location);
             if (conflict == null)
                 return;
-
+                
+            System.out.println("97");
             if (!conflict.isMember(placer.getUniqueId())) {
-
+                System.out.println("not a member");
                 if (placer.hasPermission("skyblock.bypass")) {
                     return;
                 }
@@ -104,11 +108,15 @@ public class IslandListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
+            System.out.println("107");
+            if (event.getBlock().getType().equals(Material.SIGN) || event.getBlock().getType().equals(Material.SIGN_POST) || event.getBlock().getType().equals(Material.WALL_SIGN)) {
+                System.out.println("is a sign");
+                Sign sign = (Sign)event.getBlock().getState();
 
-            if (event.getBlock() instanceof Sign) {
-                Sign sign = (Sign)event.getBlock();
                 if (!sign.getLine(0).equalsIgnoreCase("[welcome]"))
                     return;
+
+                    System.out.println("Setting location to null");
 
                 conflict.setWarpLocation(null);
             }
@@ -118,7 +126,6 @@ public class IslandListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block block = event.getClickedBlock();
