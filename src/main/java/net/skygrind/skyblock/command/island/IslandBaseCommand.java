@@ -17,7 +17,7 @@ public class IslandBaseCommand extends GooseCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (args.length == 0) {
-            player.sendMessage(ChatColor.AQUA.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+            player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
             player.sendMessage(ChatColor.AQUA + "Island Help Page");
             player.sendMessage(ChatColor.AQUA + " /island " + ChatColor.WHITE + "Displays this help page.");
             player.sendMessage(ChatColor.AQUA + " /island create " + ChatColor.WHITE + "Creates a new island.");
@@ -26,8 +26,7 @@ public class IslandBaseCommand extends GooseCommand {
             player.sendMessage(ChatColor.AQUA + " /island kick " + ChatColor.WHITE + "IslandKickCommand a member from your island.");
             player.sendMessage(ChatColor.AQUA + " /island level " + ChatColor.WHITE + "Check your islands current level.");
             player.sendMessage(ChatColor.AQUA + " /island top " + ChatColor.WHITE + "Displays the top islands");
-            player.sendMessage(ChatColor.AQUA.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
-
+            player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
         }
     }
 }

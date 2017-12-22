@@ -109,6 +109,10 @@ public class Island implements Comparable<Island> {
         this.islandName = islandName;
     }
 
+    public boolean isMember(UUID uuid) {
+        return members.contains(uuid) || owner.equals(uuid);
+    }
+
     public String getName() {
         if (Bukkit.getPlayer(owner) == null) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(owner);

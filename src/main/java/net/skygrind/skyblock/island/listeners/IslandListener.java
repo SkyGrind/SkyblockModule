@@ -40,12 +40,13 @@ public class IslandListener implements Listener {
 
             Island conflict = registry.getIslandAt(location);
 
-            if (!conflict.getMembers().contains(placer.getUniqueId()) && !conflict.getOwner().equals(placer.getUniqueId())) {
+            if (conflict == null || !conflict.isMember(placer.getUniqueId())) {
 
                 if (placer.hasPermission("skyblock.bypass")) {
                     return;
                 }
-                placer.sendMessage(ChatColor.RED + "You do not have permissions to build in this island.");
+
+                placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
                 event.setCancelled(true);
             }
         } else {
@@ -90,8 +91,10 @@ public class IslandListener implements Listener {
         if (registry.conflicts(location)) {
 
             Island conflict = registry.getIslandAt(location);
+            if (conflict == null)
+                return;
 
-            if (!conflict.getMembers().contains(placer.getUniqueId()) && !conflict.getOwner().equals(placer.getUniqueId())) {
+            if (!conflict.isMember(placer.getUniqueId())) {
 
                 if (placer.hasPermission("skyblock.bypass")) {
                     return;
@@ -104,11 +107,10 @@ public class IslandListener implements Listener {
 
             if (event.getBlock() instanceof Sign) {
                 Sign sign = (Sign)event.getBlock();
-                if (!sign.getLine(1).equalsIgnoreCase("[welcome]"))
+                if (!sign.getLine(0).equalsIgnoreCase("[welcome]"))
                     return;
 
                 conflict.setWarpLocation(null);
-                return;
             }
         }
     }

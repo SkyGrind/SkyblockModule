@@ -25,6 +25,6 @@ public class PlayerJoinListener implements Listener {
             user.getAllProfiles().add(profile);
         }
 
-        SimpleTabList tab = SkyBlock.getPlugin().getTabbed().newSimpleTabList(player, 80);
+        SkyBlock.getPlugin().getTabbed().newSimpleTabList(player, 80);
     }
 }
