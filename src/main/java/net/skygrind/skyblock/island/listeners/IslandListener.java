@@ -73,7 +73,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (!event.getLine(1).equalsIgnoreCase("[welcome]"))
+        if (!event.getLine(0).equalsIgnoreCase("[welcome]"))
             return;
 
         island.setWarpLocation(GooseLocation.fromLocation(location));

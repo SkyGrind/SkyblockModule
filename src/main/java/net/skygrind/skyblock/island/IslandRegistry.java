@@ -14,7 +14,6 @@ import java.lang.reflect.Field;
 import java.util.*;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.misc.MessageUtil;
-import net.skygrind.skyblock.region.Region;
 import net.skygrind.skyblock.task.IslandCreateQueueTask;
 import org.apache.commons.codec.binary.*;
 import org.bukkit.Bukkit;
@@ -111,10 +110,6 @@ public class IslandRegistry {
         return playerIslands;
     }
 
-    private Region repairRegion(final String json) {
-        return new GsonBuilder().setPrettyPrinting().create().fromJson(json, Region.class);
-    }
-
     private void loadIslands() {
         if (!islandDir.exists()) {
             islandDir.mkdir();
@@ -124,17 +119,13 @@ public class IslandRegistry {
 
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-
+`
             JsonParser parser = new JsonParser();
 
 
             try (FileReader reader = new FileReader(file)) {
                 JsonElement element = parser.parse(reader);
                 Island island = new GsonBuilder().setPrettyPrinting().create().fromJson(element, Island.class);
-                String regionJson = new GsonBuilder().setPrettyPrinting().create().toJson(island.getContainer());
-                Region fixed = repairRegion(regionJson);
-                island.setContainer(fixed);
-
                 this.playerIslands.add(island);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -316,46 +307,22 @@ public class IslandRegistry {
         return base;
     }
 
-    public boolean inRegion(Location loc, Location min, Location max) {
-
-        double minX = min.getX();
-        double minY = min.getY();
-        double minZ = min.getZ();
-
-        double maxX = max.getX();
-        double maxY = max.getY();
-        double maxZ = max.getZ();
-
-        return loc.getX() >= min.getX() && loc.getY() >= min.getY()
-                && loc.getZ() >= min.getZ() && loc.getX() <= max.getX()
-                && loc.getY() <= max.getY() && loc.getZ() <= max.getZ()
-                && loc.getWorld().getName().equalsIgnoreCase(max.getWorld().getName());
-
-    }
-
     public boolean conflicts(Island island) {
         for (Island conflict : playerIslands) {
-            if (inRegion(island.getSpawn(), conflict.getContainer().getMin(), conflict.getContainer().getMax())) {
+            if (conflict.getSpawn().toVector().isInAABB(island.getContainer().getMin().toVector(), island.getContainer().getMax().toVector()) ||
+                    island.getSpawn().toVector().isInAABB(conflict.getContainer().getMin().toVector(), conflict.getContainer().getMax().toVector())) {
                 return true;
             }
-            continue;
         }
         return false;
     }
 
     public boolean conflicts(Location loc) {
         for (Island conflict : playerIslands) {
+            if (conflict == null || conflict.getContainer() == null || loc.toVector() == null)
+                return true;
 
-            if (loc == null) {
-                System.out.println("loc null");
-            }
-
-            if (conflict.getContainer() == null) {
-                System.out.println("Container"); //TODO this is true, it is not being loaded....
-                return false;
-            }
-
-            if (inRegion(loc, conflict.getContainer().getMin(), conflict.getContainer().getMax())) {
+            if (loc.toVector().isInAABB(conflict.getContainer().getMin().toVector(), conflict.getContainer().getMax().toVector())) {
                 return true;
             }
         }
@@ -364,7 +331,7 @@ public class IslandRegistry {
 
     public Island getIslandAt(Location location) {
         for (Island island : playerIslands) {
-            if (location == null || island.getContainer() == null || island.getContainer().getMin() == null || island.getContainer().getMax() == null)
+          if (location == null || island.getContainer() == null || island.getContainer().getMin() == null || island.getContainer().getMax() == null)
                 continue;
 
             if (location.toVector().isInAABB(island.getContainer().getMin().toVector(), island.getContainer().getMax().toVector())) {
