@@ -10,6 +10,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.craftbukkit.v1_8_R3.block.CraftSign;
+import org.bukkit.craftbukkit.v1_8_R3.block.CraftSign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -65,6 +67,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onSignChange(final SignChangeEvent event) {
+        System.out.println("sign update event");
         Location location = event.getBlock().getLocation();
 
         if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
@@ -73,7 +76,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (!event.getLine(1).equalsIgnoreCase("[welcome]"))
+        if (!event.getLine(0).equalsIgnoreCase("[welcome]"))
             return;
 
         island.setWarpLocation(GooseLocation.fromLocation(location));
@@ -93,9 +96,10 @@ public class IslandListener implements Listener {
             Island conflict = registry.getIslandAt(location);
             if (conflict == null)
                 return;
-
+                
+            System.out.println("97");
             if (!conflict.isMember(placer.getUniqueId())) {
-
+                System.out.println("not a member");
                 if (placer.hasPermission("skyblock.bypass")) {
                     return;
                 }
@@ -104,11 +108,15 @@ public class IslandListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
+            System.out.println("107");
+            if (event.getBlock().getType().equals(Material.SIGN) || event.getBlock().getType().equals(Material.SIGN_POST) || event.getBlock().getType().equals(Material.WALL_SIGN)) {
+                System.out.println("is a sign");
+                Sign sign = (Sign)event.getBlock().getState();
 
-            if (event.getBlock() instanceof Sign) {
-                Sign sign = (Sign)event.getBlock();
                 if (!sign.getLine(0).equalsIgnoreCase("[welcome]"))
                     return;
+
+                    System.out.println("Setting location to null");
 
                 conflict.setWarpLocation(null);
             }
@@ -135,7 +143,7 @@ public class IslandListener implements Listener {
 
                 Island conflict = registry.getIslandAt(block.getLocation());
 
-                if (!conflict.getMembers().contains(player.getUniqueId()) && !conflict.getOwner().equals(player.getUniqueId())) {
+                if (!conflict.getMembers().contains(player.getUniqueId()) && !conflict.getOwner().equals(player.getUniqueId()) && !player.hasPermission("skyblock.bypass")) {
                     player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
                     event.setCancelled(true);
                 }

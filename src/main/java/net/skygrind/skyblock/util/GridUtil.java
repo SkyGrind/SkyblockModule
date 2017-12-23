@@ -24,7 +24,7 @@ public class GridUtil {
             }
         }
     }
-
+    
     public int[] getInts() {
         return ints;
     }
