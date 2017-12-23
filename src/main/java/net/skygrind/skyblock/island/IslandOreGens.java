@@ -30,7 +30,7 @@ public class IslandOreGens implements Listener {
         }
     }
 
-    /*@EventHandler
+    @EventHandler
     public void onChange(BlockFromToEvent event) {
         Block before = event.getBlock();
         int id = before.getTypeId();
@@ -40,15 +40,12 @@ public class IslandOreGens implements Listener {
             return;
         }
 
-        if (before.getType() == Material.WATER || before.getType() == Material.STATIONARY_WATER
-                || before.getType() == Material.LAVA || before.getType() == Material.STATIONARY_LAVA) {
+        if (before.getType() == Material.WATER || before.getType() == Material.STATIONARY_WATER || before.getType() == Material.LAVA || before.getType() == Material.STATIONARY_LAVA) {
+            if (generatesCobble(before, to)) {
 
 
-            if (to.getType().equals(Material.AIR) && generatesCobble(before, to)) {
-
-
-                final List<Block> prevBlock = new ArrayList<Block>();
-                final List<Material> prevMat = new ArrayList<Material>();
+                final List<Block> prevBlock = new ArrayList<>();
+                final List<Material> prevMat = new ArrayList<>();
                 for (BlockFace face : FACES) {
                     Block r = to.getRelative(face);
                     prevBlock.add(r);
@@ -56,62 +53,59 @@ public class IslandOreGens implements Listener {
 
                 }
 
-                Bukkit.getServer().getScheduler().runTask(API.getPlugin(), new Runnable() {
-                    @Override
-                    public void run() {
-                        Iterator<Block> blockIt = prevBlock.iterator();
-                        Iterator<Material> matIt = prevMat.iterator();
-                        while (blockIt.hasNext() && matIt.hasNext()) {
-                            Block block = blockIt.next();
-                            Material material = matIt.next();
-                            if (block.getType().equals(Material.COBBLESTONE) && !block.getType().equals(material)) {
+                Bukkit.getServer().getScheduler().runTask(API.getPlugin(), () -> {
+                    Iterator<Block> blockIt = prevBlock.iterator();
+                    Iterator<Material> matIt = prevMat.iterator();
+                    while (blockIt.hasNext() && matIt.hasNext()) {
+                        Block block = blockIt.next();
+                        Material material = matIt.next();
+                        if (block.getType().equals(Material.COBBLESTONE) && !block.getType().equals(material)) {
 
-                                double chance = 0;
+                            double chance = 0;
 
-                                double cobble = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.COBBLESTONE);
-                                double coal = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.COAL_ORE);
-                                double iron = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.IRON_ORE);
-                                double diamond = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.DIAMOND_ORE);
-                                double lapis = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.LAPIS_ORE);
-                                double redstone = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.REDSTONE_ORE);
-                                double gold = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.GOLD_ORE);
-                                double emerald = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.EMERALD_ORE);
+                            double cobble = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.COBBLESTONE);
+                            double coal = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.COAL_ORE);
+                            double iron = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.IRON_ORE);
+                            double diamond = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.DIAMOND_ORE);
+                            double lapis = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.LAPIS_ORE);
+                            double redstone = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.REDSTONE_ORE);
+                            double gold = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.GOLD_ORE);
+                            double emerald = SkyBlock.getPlugin().getOreGenerationConfig().getValue(Material.EMERALD_ORE);
 
-                                chance = chance + random.nextInt(100);
+                            chance = chance + random.nextInt(100);
 
-                                System.out.println("CHANCE: " + chance);
+                            System.out.println("CHANCE: " + chance);
 
-                                if (chance > 0 && chance <= emerald) {
-                                    to.setType(Material.EMERALD_ORE);
-                                }
-                                if (chance > emerald && chance <= diamond) {
-                                    to.setType(Material.DIAMOND_ORE);
-                                }
-                                if (chance > diamond && chance <= gold) {
-                                    to.setType(Material.GOLD_ORE);
-                                }
-                                if (chance > gold && chance <= iron) {
-                                    to.setType(Material.IRON_ORE);
-                                }
-                                if (chance > iron && chance <= redstone) {
-                                    to.setType(Material.REDSTONE_ORE);
-                                }
-                                if (chance > redstone && chance <= coal) {
-                                    to.setType(Material.COAL_ORE);
-                                }
-                                if (chance > coal && chance <= lapis) {
-                                    to.setType(Material.LAPIS_ORE);
-                                }
-                                if (chance > lapis && chance <= 100) {
-                                    to.setType(Material.COBBLESTONE);
-                                }
+                            if (chance > 0 && chance <= emerald) {
+                                to.setType(Material.EMERALD_ORE);
+                            }
+                            if (chance > emerald && chance <= diamond) {
+                                to.setType(Material.DIAMOND_ORE);
+                            }
+                            if (chance > diamond && chance <= gold) {
+                                to.setType(Material.GOLD_ORE);
+                            }
+                            if (chance > gold && chance <= iron) {
+                                to.setType(Material.IRON_ORE);
+                            }
+                            if (chance > iron && chance <= redstone) {
+                                to.setType(Material.REDSTONE_ORE);
+                            }
+                            if (chance > redstone && chance <= coal) {
+                                to.setType(Material.COAL_ORE);
+                            }
+                            if (chance > coal && chance <= lapis) {
+                                to.setType(Material.LAPIS_ORE);
+                            }
+                            if (chance > lapis && chance <= 100) {
+                                to.setType(Material.COBBLESTONE);
                             }
                         }
                     }
                 });
             }
         }
-    }*/
+    }
 
     public boolean generatesCobble(Block block, Block toBlock) {
         Material mirrorID1 = (block.getType().equals(Material.WATER)) || (block.getType().equals(Material.STATIONARY_WATER)) ? Material.LAVA : Material.WATER;

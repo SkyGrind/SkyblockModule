@@ -119,12 +119,12 @@ public class IslandListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block block = event.getClickedBlock();
 
             //Added to allow SkyBattles to work. -IcyRelic
-            if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
+            if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld())
+                return;
 
 
             if (!(block.getType() == Material.CHEST)) {
