@@ -2,6 +2,7 @@ package net.skygrind.skyblock.command;
 
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
+import net.skygrind.skyblock.region.Region;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -46,7 +47,12 @@ public class SetIslandSizeCommand extends BukkitCommand {
             return true;
         }
         Integer size = Integer.parseInt(sizeSTR);
+        Integer currentSize = island.getSize();
         island.setSize(size);
+        Integer addition = size - currentSize;
+        Region region = new Region(island.getContainer().getName(), island.getContainer().getMin().subtract(addition, 0, addition), island.getContainer().getMax().add(addition, 0, addition));
+        island.setContainer(region);
+        island.save();
         sender.sendMessage(ChatColor.GREEN + String.format("You have set %s's island size to %s.", args[0], args[1]));
         return true;
     }
