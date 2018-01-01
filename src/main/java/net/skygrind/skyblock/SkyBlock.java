@@ -171,7 +171,6 @@ public class SkyBlock extends PluginModule {
     @Override
     public void onDisable() {
 //        saveMissionsFile();
-        getServerConfig().save();
         islandRegistry.disable();
     }
 
