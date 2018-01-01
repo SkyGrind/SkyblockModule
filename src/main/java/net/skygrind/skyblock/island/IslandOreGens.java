@@ -36,6 +36,12 @@ public class IslandOreGens implements Listener {
         int id = before.getTypeId();
         Block to = event.getToBlock();
 
+        if (event.getBlock() == null)
+            return;
+
+        if (SkyBlock.getPlugin().getIslandWorld() == null)
+            return;
+
         if (!event.getBlock().getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
             return;
         }
