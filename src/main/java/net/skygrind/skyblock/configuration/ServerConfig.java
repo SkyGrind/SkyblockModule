@@ -24,6 +24,7 @@ public class ServerConfig {
     private GooseLocation spawn;
     private Integer playersJoined;
     private GooseLocation lastIslandLocation;
+    private String scoreboardName;
 
     public ServerConfig() {
         this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "config.json";
@@ -31,6 +32,7 @@ public class ServerConfig {
         this.spawn = GooseLocation.fromLocation(new Location(Bukkit.getWorld("world"), 0, 0, 0));
         this.playersJoined = 0;
         this.lastIslandLocation = null;
+        this.scoreboardName = "";
     }
 
     public Location getSpawnLocation() {
@@ -80,6 +82,8 @@ public class ServerConfig {
                 }
                 this.spawn = serverConfig.spawn;
                 this.lastIslandLocation = serverConfig.lastIslandLocation;
+                this.playersJoined = serverConfig.playersJoined;
+                this.scoreboardName = serverConfig.scoreboardName;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,4 +106,7 @@ public class ServerConfig {
         this.playersJoined =+ 1;
     }
 
+    public String getScoreboardName() {
+        return scoreboardName;
+    }
 }

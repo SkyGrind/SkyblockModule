@@ -1,6 +1,7 @@
 package net.skygrind.skyblock.goose;
 
 import com.islesmc.modules.api.API;
+import net.skygrind.skyblock.SkyBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,7 +33,7 @@ public class GooseHandler implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                GooseScoreboard gooseScoreboard = new GooseScoreboard(scoreboard, "&b&lSky&f&lParadise");
+                GooseScoreboard gooseScoreboard = new GooseScoreboard(scoreboard, SkyBlock.getPlugin().getServerConfig().getScoreboardName());
                 scoreboards.put(event.getPlayer(), gooseScoreboard);
             }
         }.runTaskAsynchronously(API.getPlugin());
