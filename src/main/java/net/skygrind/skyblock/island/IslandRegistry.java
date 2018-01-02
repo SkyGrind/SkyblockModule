@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.task.IslandCreateQueueTask;
 import org.apache.commons.codec.binary.*;
@@ -428,28 +429,30 @@ public class IslandRegistry {
         final int x = last.getBlockX();
         final int z = last.getBlockZ();
 
+        final int spacing = (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES ? 250 : 1000);
+
         final Location next = last;
         if (x < z) {
             if (-1 * x < z) {
-                next.setX(next.getX() + 1000);
+                next.setX(next.getX() + spacing);
                 return next;
             }
-            next.setZ(last.getZ() + 1000);
+            next.setZ(last.getZ() + spacing);
             return next;
         }
         if (x > z) {
             if (-1 * x >= z) {
-                next.setX(next.getX() - 1000);
+                next.setX(next.getX() - spacing);
                 return next;
             }
-            next.setZ(next.getZ() - 1000);
+            next.setZ(next.getZ() - spacing);
             return next;
         }
         if (x <= 0) {
-            next.setZ(next.getZ() + 1000);
+            next.setZ(next.getZ() + spacing);
             return next;
         }
-        next.setZ(next.getZ() - 1000);
+        next.setZ(next.getZ() - spacing);
         return next;
     }
 

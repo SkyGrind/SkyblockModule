@@ -325,10 +325,10 @@ public class SkyBlock extends PluginModule {
             items.add(new TextTabItem(" "));
         } else {
             items.add(new TextTabItem(island.getName()));
-            items.add(new TextTabItem("&7\u00BB&b Level&7: &f" + island.getIslandLevel()));
-            items.add(new TextTabItem("&7\u00BB&b Balance&7: &f" + island.getBankBalance()));
-            items.add(new TextTabItem("&7\u00BB&b Members&7: &f" + island.getMembers().size() + "/" + island.getMaxPlayers()));
-            items.add(new TextTabItem("&7\u00BB&b Type&7: &f" + island.getType().getRaw()));
+            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Level&7: &f" + island.getIslandLevel()));
+            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Balance&7: &f" + island.getBankBalance()));
+            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Members&7: &f" + island.getMembers().size() + "/" + island.getMaxPlayers()));
+            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Type&7: &f" + island.getType().getRaw()));
         }
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
