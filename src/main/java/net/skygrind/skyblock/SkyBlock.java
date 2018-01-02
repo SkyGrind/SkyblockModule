@@ -303,6 +303,7 @@ public class SkyBlock extends PluginModule {
     }
 
     public List<TabItem> getTabItems(final Player player) {
+        String primaryColor = getServerConfig().getPrimaryColor();
         List<TabItem> items = new ArrayList<>();
 
         User user = API.getUserManager().findByUniqueId(player.getUniqueId());
@@ -314,7 +315,7 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
-        items.add(new TextTabItem("&b&lIsland"));
+        items.add(new TextTabItem(primaryColor + "&lIsland"));
         Island island = getIslandRegistry().getIslandForPlayer(player);
         if (island == null) {
             items.add(new TextTabItem("&fNone"));
@@ -337,16 +338,16 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
-        items.add(new TextTabItem("&b&lCommunity"));
+        items.add(new TextTabItem(primaryColor + "&lCommunity"));
         items.add(new TextTabItem("&fSkyParadise-mc.com"));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
 
-        items.add(new TextTabItem("&b&lSky&f&lParadise"));
+        items.add(new TextTabItem(primaryColor + "&lSky&f&lParadise"));
         items.add(new TextTabItem("&fOnline: " + Bukkit.getOnlinePlayers().size()));
         items.add(new TextTabItem(" "));
-        items.add(new TextTabItem("&bTop Islands"));
+        items.add(new TextTabItem(primaryColor + "Top Islands"));
         // 4/21
         int i = 0;
         int max = 10;
@@ -379,7 +380,7 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
-        items.add(new TextTabItem("&b&lStore"));
+        items.add(new TextTabItem(primaryColor + "&lStore"));
         items.add(new TextTabItem("&fshop.skyparadisemc.com"));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
@@ -387,7 +388,7 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
-        items.add(new TextTabItem("&b&lPlayer Info"));
+        items.add(new TextTabItem(primaryColor + "&lPlayer Info"));
         if (permissions == null) {
             items.add(new TextTabItem("&7Group: &f" + "Member"));
         } else  {

@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import sun.applet.Main;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ import java.util.concurrent.TimeUnit;
 
 public class GooseTicker extends BukkitRunnable {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.0");
+    private final String primaryColor;
+
+    public GooseTicker() {
+        this.primaryColor = SkyBlock.getPlugin().getServerConfig().getPrimaryColor();
+    }
 
     public synchronized static String formatTime(long time) {
         if (time > 60000L)
@@ -64,22 +70,22 @@ public class GooseTicker extends BukkitRunnable {
 //            Profile profile = user.getProfile("Skyblock");
             scoreboard.add(translateString("&7&m---------"), translateString("&7&m---------"));
             double balance = SkyBlock.getPlugin().getEconomy().getBalance(player);
-            scoreboard.add(translateString("&bBalance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
+            scoreboard.add(translateString(primaryColor + "Balance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
             if (island == null) {
-                scoreboard.add(translateString("&bIsland&7: "), translateString("&fNone"));
+                scoreboard.add(translateString(primaryColor + "Island&7: "), translateString("&fNone"));
             } else {
                 String name = splitEqually(island.getName(), 13).get(0);
-                scoreboard.add(translateString("&bIsland&7: "), translateString("&f " + name));
-                scoreboard.add(translateString("&7\u00BB&b Level&7:"), translateString("&f " + island.getIslandLevel()));
-                scoreboard.add(translateString("&7\u00BB&b Balance&7:"), translateString("&f " + SkyBlock.getPlugin().format(island.getBankBalance())));
-                scoreboard.add(translateString("&7\u00BB&b Members&7:"), translateString("&f " + island.getMembers().size() + "/" + island.getMaxPlayers()));
-                scoreboard.add(translateString("&7\u00BB&b Type&7:"), translateString("&f " + island.getType().getRaw()));
+                scoreboard.add(translateString(primaryColor + "Island&7: "), translateString("&f " + name));
+                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Level&7:"), translateString("&f " + island.getIslandLevel()));
+                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Balance&7:"), translateString("&f " + SkyBlock.getPlugin().format(island.getBankBalance())));
+                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Members&7:"), translateString("&f " + island.getMembers().size() + "/" + island.getMaxPlayers()));
+                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Type&7:"), translateString("&f " + island.getType().getRaw()));
 
             }
 
             scoreboard.add("", "");
-            scoreboard.add(translateString("&bshop.skypara"), translateString("&bdisemc.com"));
+            scoreboard.add(translateString(primaryColor + "shop.skypara"), translateString(primaryColor + "disemc.com"));
             scoreboard.add(translateString("&7&m---------"), translateString("&7&m---------"));
             scoreboard.update();
         }
