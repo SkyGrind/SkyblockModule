@@ -1,6 +1,7 @@
 package net.skygrind.skyblock.island.listeners;
 
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandRegistry;
@@ -42,9 +43,19 @@ public class IslandListener implements Listener {
 
             Island conflict = registry.getIslandAt(location);
 
-            if (conflict == null || !conflict.isMember(placer.getUniqueId())) {
+            if (conflict == null) {
+                event.setBuild(false);
+                return;
+            }
+
+            if (!conflict.isMember(placer.getUniqueId())) {
 
                 if (placer.hasPermission("skyblock.bypass")) {
+                    return;
+                }
+
+                if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES && (conflict.getIslandLevel() > 5)) {
+                    event.setBuild(true);
                     return;
                 }
 
@@ -97,10 +108,12 @@ public class IslandListener implements Listener {
             if (conflict == null)
                 return;
                 
-            System.out.println("97");
             if (!conflict.isMember(placer.getUniqueId())) {
-                System.out.println("not a member");
                 if (placer.hasPermission("skyblock.bypass")) {
+                    return;
+                }
+
+                if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES && (conflict.getIslandLevel() > 5)) {
                     return;
                 }
 
@@ -108,15 +121,13 @@ public class IslandListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
-            System.out.println("107");
+
             if (event.getBlock().getType().equals(Material.SIGN) || event.getBlock().getType().equals(Material.SIGN_POST) || event.getBlock().getType().equals(Material.WALL_SIGN)) {
-                System.out.println("is a sign");
                 Sign sign = (Sign)event.getBlock().getState();
 
                 if (!sign.getLine(0).equalsIgnoreCase("[welcome]"))
                     return;
 
-                    System.out.println("Setting location to null");
 
                 conflict.setWarpLocation(null);
             }
@@ -133,7 +144,6 @@ public class IslandListener implements Listener {
             //Added to allow SkyBattles to work. -IcyRelic
             if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld())
                 return;
-
 
             if (!(block.getType() == Material.CHEST)) {
                 return;

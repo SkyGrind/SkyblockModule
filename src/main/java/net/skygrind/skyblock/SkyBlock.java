@@ -17,6 +17,7 @@ import net.skygrind.skyblock.command.mission.LevelCommand;
 import net.skygrind.skyblock.configuration.ChallengeConfig;
 import net.skygrind.skyblock.configuration.OreGenerationConfig;
 import net.skygrind.skyblock.configuration.ServerConfig;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseCommandHandler;
 import net.skygrind.skyblock.goose.GooseHandler;
 import net.skygrind.skyblock.goose.GooseTicker;
@@ -113,7 +114,12 @@ public class SkyBlock extends PluginModule {
             @Override
             public void run() {
                 // Was VoidWorld
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
+
+                if (getServerConfig().getServerType() == ServerType.ISLES) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
+                } else {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
+                }
                 islandWorld = Bukkit.getWorld("Skyblock");
                 setupEconomy();
             }
@@ -172,6 +178,7 @@ public class SkyBlock extends PluginModule {
     public void onDisable() {
 //        saveMissionsFile();
         islandRegistry.disable();
+        getServerConfig().save();
     }
 
     public ChallengeConfig getChallengeConfig() {

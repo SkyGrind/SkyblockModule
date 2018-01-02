@@ -25,6 +25,8 @@ public class ServerConfig {
     private Integer playersJoined;
     private GooseLocation lastIslandLocation;
     private String scoreboardName;
+    private String primaryColor;
+    private ServerType serverType;
 
     public ServerConfig() {
         this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "config.json";
@@ -33,6 +35,8 @@ public class ServerConfig {
         this.playersJoined = 0;
         this.lastIslandLocation = null;
         this.scoreboardName = "";
+        this.primaryColor = "&a";
+        this.serverType = ServerType.SKY;
     }
 
     public Location getSpawnLocation() {
@@ -84,6 +88,8 @@ public class ServerConfig {
                 this.lastIslandLocation = serverConfig.lastIslandLocation;
                 this.playersJoined = serverConfig.playersJoined;
                 this.scoreboardName = serverConfig.scoreboardName;
+                this.primaryColor = serverConfig.primaryColor;
+                this.serverType = serverConfig.serverType;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,5 +114,13 @@ public class ServerConfig {
 
     public String getScoreboardName() {
         return scoreboardName;
+    }
+
+    public String getPrimaryColor() {
+        return primaryColor;
+    }
+
+    public ServerType getServerType() {
+        return serverType;
     }
 }
