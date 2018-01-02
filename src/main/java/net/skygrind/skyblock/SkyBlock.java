@@ -109,17 +109,13 @@ public class SkyBlock extends PluginModule {
 //            disable();
 //
 
-
         new BukkitRunnable() {
             @Override
             public void run() {
-                // Was VoidWorld
-
-                if (getServerConfig().getServerType() == ServerType.ISLES) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
-                } else {
+                if (getServerConfig().getServerType() == ServerType.SKY) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
                 }
+
                 islandWorld = Bukkit.getWorld("Skyblock");
                 setupEconomy();
             }

@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 
 public class IslesRaidListener implements Listener {
+
     @EventHandler
     public void onVehicleMove(final VehicleMoveEvent event) {
         if (!event.getVehicle().getType().equals(EntityType.BOAT))
@@ -17,7 +18,6 @@ public class IslesRaidListener implements Listener {
 
         if ((event.getVehicle().getPassenger() instanceof Player))
             return;
-
 
         Player player = (Player) event.getVehicle().getPassenger();
 
