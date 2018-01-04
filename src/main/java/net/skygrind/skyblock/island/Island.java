@@ -106,7 +106,7 @@ public class Island implements Comparable<Island> {
     }
 
     public void setIslandName(String name) {
-        this.islandName = islandName;
+        this.islandName = name;
     }
 
     public boolean isMember(UUID uuid) {

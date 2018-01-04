@@ -37,7 +37,7 @@ public class GeneralListener implements Listener {
 
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
         player.sendMessage(" ");
-        player.sendMessage(ChatColor.YELLOW + " Welcome " + ChatColor.WHITE + player.getName() + ChatColor.YELLOW + " to " + ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise" + ChatColor.YELLOW + "!");
+        player.sendMessage(ChatColor.YELLOW + " Welcome " + ChatColor.WHITE + player.getName() + ChatColor.YELLOW + " to " + "!");
         player.sendMessage(" ");
         player.sendMessage(ChatColor.YELLOW + " Website:" + ChatColor.WHITE + " http://skyparadise-mc.com");
         player.sendMessage(ChatColor.YELLOW + " Discord:" + ChatColor.WHITE + " https://discord.gg/q8GZhgR");
