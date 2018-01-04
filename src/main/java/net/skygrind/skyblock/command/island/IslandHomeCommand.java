@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
  */
 public class IslandHomeCommand extends GooseCommand {
     public IslandHomeCommand() {
-        super("home", Lists.newArrayList(), true);
+        super("home", Lists.newArrayList("go"), true);
     }
 
     @Override
