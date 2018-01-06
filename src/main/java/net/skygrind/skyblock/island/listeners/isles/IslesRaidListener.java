@@ -16,6 +16,9 @@ public class IslesRaidListener implements Listener {
         if (!event.getVehicle().getType().equals(EntityType.BOAT))
             return;
 
+        if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() == event.getTo().getBlockZ() && event.getFrom().getBlockY() == event.getTo().getBlockY())
+            return;
+
         if (event.getVehicle().getPassenger() == null || (event.getVehicle().getPassenger() instanceof Player))
             return;
 
