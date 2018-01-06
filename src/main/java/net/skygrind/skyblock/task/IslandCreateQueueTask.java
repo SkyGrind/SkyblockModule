@@ -17,10 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import sun.applet.Main;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class IslandCreateQueueTask extends BukkitRunnable {
     private final Queue<QueueItem> islandQueue;
@@ -155,6 +152,21 @@ public class IslandCreateQueueTask extends BukkitRunnable {
         @Override
         public int compareTo(QueueItem o) {
             return 0;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+
+            if (o == null)
+                return false;
+
+            if (getClass() != o.getClass())
+                return false;
+
+            QueueItem item = (QueueItem)o;
+            return Objects.equals(this, item);
         }
     }
 }
