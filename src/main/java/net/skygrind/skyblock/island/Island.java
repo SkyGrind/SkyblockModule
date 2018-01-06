@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -175,5 +176,20 @@ public class Island implements Comparable<Island> {
     @Override
     public int compareTo(Island island) {
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null)
+            return false;
+
+        if (getClass() != o.getClass())
+            return false;
+
+        Island island = (Island)o;
+        return Objects.equals(this, island);
     }
 }
