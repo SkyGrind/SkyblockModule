@@ -75,13 +75,13 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             Island island = new Island(player.getUniqueId(), center, item.getType());
             island.setSize(SkyBlock.getPlugin().getIslandRegistry().getBaseIslandSize());
 
-            double minX = center.getBlockX() - island.getType().getSize() / 2;
-            double minY = 0;
-            double minZ = center.getBlockZ() - island.getType().getSize() / 2;
+            double minX = center.getBlockX() - island.getType().getSize() / 2D;
+            double minY = 0D;
+            double minZ = center.getBlockZ() - island.getType().getSize() / 2D;
 
-            double maxX = center.getBlockX() + island.getType().getSize() / 2;
-            double maxY = 256;
-            double maxZ = center.getBlockZ() + island.getType().getSize() / 2;
+            double maxX = center.getBlockX() + island.getType().getSize() / 2D;
+            double maxY = 256D;
+            double maxZ = center.getBlockZ() + island.getType().getSize() / 2D;
 
 
             Location min = new Location(SkyBlock.getPlugin().getIslandWorld(), minX, minY, minZ);
