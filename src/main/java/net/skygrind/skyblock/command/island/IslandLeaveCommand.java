@@ -44,7 +44,7 @@ public class IslandLeaveCommand extends GooseCommand {
         }
 
         if (island.getOwner().equals(player.getUniqueId())) {
-            if (island.getMembers().size() > 0) {
+            if (island.getMembers().isEmpty()) {
                 MessageUtil.sendGood(player, "Opening owner selection...");
                 openNewOwnerSelector(player, island);
                 return;
