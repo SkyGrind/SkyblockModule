@@ -3,6 +3,7 @@ package net.skygrind.skyblock.task;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandType;
@@ -91,7 +92,12 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             island.setMembers(new ArrayList<>());
             island.setIslandLevel(0);
 
-            island.setMaxPlayers(4);
+
+            int maxPlayers = 4;
+            if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES)
+                maxPlayers = 5;
+
+            island.setMaxPlayers(maxPlayers);
 
             try {
                 SkyBlock.getPlugin().getSchematicLoader().pasteSchematic(item.type.name().toLowerCase() + ".schematic", SkyBlock.getPlugin().getIslandWorld(), center.getBlockX(), 100, center.getBlockZ());
