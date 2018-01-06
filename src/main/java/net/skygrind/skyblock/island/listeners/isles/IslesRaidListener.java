@@ -25,6 +25,12 @@ public class IslesRaidListener implements Listener {
         if (toIsland == null)
             return;
 
+        Island raidersIsland = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
+        if (raidersIsland == null || raidersIsland.getIslandLevel() < 5) {
+            player.sendMessage(ChatColor.RED + "You cannot raid any islands until your island level is at-least level 5.");
+            return;
+        }
+
         if (toIsland.getIslandLevel() < 5) {
             if (!toIsland.getMembers().contains(player.getUniqueId()) || !toIsland.getOwner().equals(player.getUniqueId()))
                 return;
