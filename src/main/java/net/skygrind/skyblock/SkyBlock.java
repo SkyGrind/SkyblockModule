@@ -349,7 +349,7 @@ public class SkyBlock extends PluginModule {
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(" "));
 
-        items.add(new TextTabItem(primaryColor + "&lSky&f&lParadise"));
+        items.add(new TextTabItem("&b&lSky&f&lParadise"));
         items.add(new TextTabItem("&fOnline: " + Bukkit.getOnlinePlayers().size()));
         items.add(new TextTabItem(" "));
         items.add(new TextTabItem(primaryColor + "Top Islands"));
