@@ -429,7 +429,7 @@ public class IslandRegistry {
         final int x = last.getBlockX();
         final int z = last.getBlockZ();
 
-        final int spacing = (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES ? 250 : 1000);
+        final int spacing = (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES ? 450 : 1000);
 
         final Location next = last;
         if (x < z) {
