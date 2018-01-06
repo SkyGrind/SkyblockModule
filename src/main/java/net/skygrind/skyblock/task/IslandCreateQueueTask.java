@@ -168,5 +168,10 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             QueueItem item = (QueueItem)o;
             return Objects.equals(this, item);
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(player, type);
+        }
     }
 }
