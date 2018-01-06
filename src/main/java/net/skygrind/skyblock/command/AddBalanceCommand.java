@@ -8,8 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
-public class AddBalance extends BukkitCommand {
-    public AddBalance() {
+public class AddBalanceCommand extends BukkitCommand {
+    public AddBalanceCommand() {
         super("setbalance");
     }
 
