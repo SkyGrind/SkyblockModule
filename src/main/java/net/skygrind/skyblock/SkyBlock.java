@@ -238,6 +238,7 @@ public class SkyBlock extends PluginModule {
         registerCommand("setbalance", new AddBalanceCommand());
         registerCommand("help", new HelpCommand());
         registerCommand("setislandsize", new SetIslandSizeCommand());
+        registerCommand("setmaxmembers", new SetIslandMaxMembersCommand());
     }
 
 //    private void initFiles() {

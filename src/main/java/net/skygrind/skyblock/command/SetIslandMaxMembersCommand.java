@@ -2,7 +2,6 @@ package net.skygrind.skyblock.command;
 
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
-import net.skygrind.skyblock.region.Region;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,19 +10,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
-public class SetIslandSizeCommand extends BukkitCommand {
-    public SetIslandSizeCommand() {
-        super("setislandsize");
+public class SetIslandMaxMembersCommand extends BukkitCommand {
+    public SetIslandMaxMembersCommand() {
+        super("setmaxmembers");
     }
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        if (!sender.hasPermission("island.setsize")) {
+        if (!sender.hasPermission("island.setmax")) {
             sender.sendMessage(ChatColor.RED + "You do not have permission to execute this command.");
             return true;
         }
         if (args.length != 2) {
-            sender.sendMessage(ChatColor.RED + "Usage: /setislandsize <player> <size>");
+            sender.sendMessage(ChatColor.RED + "Usage: /setmaxmembers <player> <size>");
             return true;
         }
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
@@ -47,11 +46,7 @@ public class SetIslandSizeCommand extends BukkitCommand {
             return true;
         }
         Integer size = Integer.parseInt(sizeSTR);
-        Integer currentSize = island.getSize();
-        island.setSize(size);
-        Integer addition = size - currentSize;
-        Region region = new Region(island.getContainer().getName(), island.getContainer().getMin().subtract(addition, 0, addition), island.getContainer().getMax().add(addition, 0, addition));
-        island.setContainer(region);
+        island.setMaxPlayers(size);
         island.save();
         sender.sendMessage(ChatColor.GREEN + String.format("You have set %s's island size to %s.", args[0], args[1]));
         return true;
