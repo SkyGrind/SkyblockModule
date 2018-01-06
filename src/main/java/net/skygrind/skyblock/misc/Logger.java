@@ -8,7 +8,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class Logger {
     
-    // Test push for webhook
+    // Now it should work
 
     public static void info(String msg) {
         ((Plugin) API.getPlugin()).getLogger().info(msg);
