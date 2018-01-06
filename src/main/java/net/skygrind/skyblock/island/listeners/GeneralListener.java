@@ -1,30 +1,20 @@
 package net.skygrind.skyblock.island.listeners;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.misc.MessageUtil;
-import org.apache.commons.codec.binary.Base64;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
-
-import java.lang.reflect.Field;
-import java.util.UUID;
 
 
 public class GeneralListener implements Listener {
@@ -84,8 +74,7 @@ public class GeneralListener implements Listener {
         if (damaged.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
             event.setCancelled(true);
             event.setDamage(0);
-        }
-        else if (damaged.getWorld().getName().equalsIgnoreCase("Spawn")) {
+        } else if (damaged.getWorld().getName().equalsIgnoreCase("Spawn")) {
             MessageUtil.sendServerTheme(damager, "You cannot damage other players in spawn.");
 
             event.setCancelled(true);

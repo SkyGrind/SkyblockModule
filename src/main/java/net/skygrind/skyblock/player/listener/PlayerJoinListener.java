@@ -3,7 +3,6 @@ package net.skygrind.skyblock.player.listener;
 import com.islesmc.modules.api.API;
 import com.islesmc.modules.api.framework.user.User;
 import com.islesmc.modules.api.framework.user.profile.Profile;
-import com.keenant.tabbed.tablist.SimpleTabList;
 import net.skygrind.skyblock.SkyBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

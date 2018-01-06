@@ -1,6 +1,5 @@
 package net.skygrind.skyblock.command.island;
 
-import com.avaje.ebeaninternal.server.core.Message;
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;

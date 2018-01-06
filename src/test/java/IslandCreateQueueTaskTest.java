@@ -7,7 +7,6 @@ import net.skygrind.skyblock.island.IslandType;
 import net.skygrind.skyblock.misc.LocationUtil;
 import net.skygrind.skyblock.misc.MessageUtil;
 import net.skygrind.skyblock.region.Region;
-import net.skygrind.skyblock.task.IslandCreateQueueTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -20,10 +19,6 @@ import java.util.Queue;
 public class IslandCreateQueueTaskTest implements Runnable {
     private final Queue<QueueItemTest> islandQueue;
 
-    public static void main(String[] args) {
-        new IslandCreateQueueTaskTest();
-    }
-
     public IslandCreateQueueTaskTest() {
         this.islandQueue = new PriorityQueue<>();
         for (int i = 0; i < 1000000; i++) {
@@ -31,6 +26,10 @@ public class IslandCreateQueueTaskTest implements Runnable {
             System.out.println("adding");
         }
         run();
+    }
+
+    public static void main(String[] args) {
+        new IslandCreateQueueTaskTest();
     }
 
     public void queueIsland(final Player player, final IslandType type) {

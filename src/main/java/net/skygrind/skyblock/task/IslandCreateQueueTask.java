@@ -14,10 +14,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import sun.applet.Main;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class IslandCreateQueueTask extends BukkitRunnable {
     private final Queue<QueueItem> islandQueue;
@@ -165,7 +167,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             if (getClass() != o.getClass())
                 return false;
 
-            QueueItem item = (QueueItem)o;
+            QueueItem item = (QueueItem) o;
             return Objects.equals(this, item);
         }
 

@@ -11,8 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.v1_8_R3.block.CraftSign;
-import org.bukkit.craftbukkit.v1_8_R3.block.CraftSign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -107,7 +105,7 @@ public class IslandListener implements Listener {
             Island conflict = registry.getIslandAt(location);
             if (conflict == null)
                 return;
-                
+
             if (!conflict.isMember(placer.getUniqueId())) {
                 if (placer.hasPermission("skyblock.bypass")) {
                     return;
@@ -123,7 +121,7 @@ public class IslandListener implements Listener {
             }
 
             if (event.getBlock().getType().equals(Material.SIGN) || event.getBlock().getType().equals(Material.SIGN_POST) || event.getBlock().getType().equals(Material.WALL_SIGN)) {
-                Sign sign = (Sign)event.getBlock().getState();
+                Sign sign = (Sign) event.getBlock().getState();
 
                 if (!sign.getLine(0).equalsIgnoreCase("[welcome]"))
                     return;

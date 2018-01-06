@@ -9,9 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-import java.util.UUID;
-
 public class IslandCoopCommand extends GooseCommand {
 
     private IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
@@ -58,8 +55,7 @@ public class IslandCoopCommand extends GooseCommand {
             sender.sendMessage(ChatColor.GREEN + "Successfully added " + ChatColor.GOLD + player.getName() + ChatColor.GREEN + " as a CO-OP player to your island!");
             player.sendMessage(ChatColor.GREEN + "You have been added as a CO-OP player to " + ChatColor.GOLD + sender.getName() + ChatColor.RED + "'s island!");
             return;
-        }
-        else if (args[0].equalsIgnoreCase("remove")) {
+        } else if (args[0].equalsIgnoreCase("remove")) {
             if (!island.getCoop().contains(player.getUniqueId())) {
                 sender.sendMessage(ChatColor.RED + "This player is not CO-OP on your island!");
                 return;

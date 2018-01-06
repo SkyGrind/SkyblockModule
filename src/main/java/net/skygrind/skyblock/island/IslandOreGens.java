@@ -18,9 +18,8 @@ import java.util.*;
  */
 public class IslandOreGens implements Listener {
 
-    private SkyBlock plugin = SkyBlock.getPlugin();
-
     private final static List<BlockFace> FACES = Arrays.asList(BlockFace.SELF, BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST);
+    private SkyBlock plugin = SkyBlock.getPlugin();
     private Random random = new Random();
 
     @EventHandler

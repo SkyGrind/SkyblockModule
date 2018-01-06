@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Owned by SethyCorp, and KueMedia respectively.
@@ -109,7 +108,7 @@ public class ServerConfig {
     }
 
     public void incrementPlayersJoined() {
-        this.playersJoined =+ 1;
+        this.playersJoined = +1;
     }
 
     public String getScoreboardName() {

@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
  * Created by Matt on 2017-02-10.
  */
 public class Logger {
-    
+
     // Now it should work
 
     public static void info(String msg) {

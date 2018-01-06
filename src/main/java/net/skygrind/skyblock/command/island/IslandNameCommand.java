@@ -8,8 +8,6 @@ import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-
 public class IslandNameCommand extends GooseCommand {
 
     private IslandRegistry registry;
