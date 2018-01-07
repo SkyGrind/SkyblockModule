@@ -20,13 +20,26 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by Matt on 2017-02-25.
  */
 public class IslandListener implements Listener {
+    private final IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
+    private final List<Material> canMine;
 
-    private IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
+    public IslandListener() {
+        this.canMine = new ArrayList<>();
+        this.canMine.add(Material.EMERALD_BLOCK);
+        this.canMine.add(Material.IRON_BLOCK);
+        this.canMine.add(Material.DIAMOND_BLOCK);
+        this.canMine.add(Material.GOLD_BLOCK);
+        this.canMine.add(Material.LAPIS_BLOCK);
+        this.canMine.add(Material.REDSTONE_BLOCK);
+    }
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
@@ -113,7 +126,7 @@ public class IslandListener implements Listener {
 
                 if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES && (conflict.getIslandLevel() > 5)) {
                     // Can raid
-                    if (event.getBlock().getType().equals(Material.OBSIDIAN)) {
+                    if (!this.canMine.contains(event.getBlock().getType())) {
                         placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
                         event.setCancelled(true);
                         return;
