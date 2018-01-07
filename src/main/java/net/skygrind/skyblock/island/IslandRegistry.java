@@ -132,6 +132,7 @@ public class IslandRegistry {
             }
         }
 
+        this.playerIslands.forEach(Island::calculateIslandLevel);
 
 //        for (File islandFile : islandDir.listFiles()) {
 //            if (islandFile.getName().endsWith(".yml")) {
