@@ -166,6 +166,10 @@ public class IslandListener implements Listener {
                 return;
             }
 
+            if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
+                return;
+            }
+
             if (registry.conflicts(block.getLocation())) {
 
                 Island conflict = registry.getIslandAt(block.getLocation());
