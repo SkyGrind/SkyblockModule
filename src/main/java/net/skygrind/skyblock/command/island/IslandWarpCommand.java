@@ -3,6 +3,7 @@ package net.skygrind.skyblock.command.island;
 import com.google.common.collect.Lists;
 import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.island.Island;
@@ -44,6 +45,12 @@ public class IslandWarpCommand extends GooseCommand {
             sender.sendMessage(ChatColor.RED + String.format("No player with the name or UUID of '%s' was found.", args[0]));
             return;
         }
+
+        if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
+            sender.sendMessage(ChatColor.RED + "You cannot warp of other islands on this realm!");
+            return;
+        }
+
         doWarp(sender, target, false);
     }
 
