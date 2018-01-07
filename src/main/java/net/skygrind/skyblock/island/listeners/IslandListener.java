@@ -112,6 +112,12 @@ public class IslandListener implements Listener {
                 }
 
                 if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES && (conflict.getIslandLevel() > 5)) {
+                    // Can raid
+                    if (event.getBlock().getType().equals(Material.OBSIDIAN)) {
+                        placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
+                        event.setCancelled(true);
+                        return;
+                    }
                     return;
                 }
 
