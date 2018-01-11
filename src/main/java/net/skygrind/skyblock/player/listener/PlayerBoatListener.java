@@ -27,10 +27,7 @@ public class PlayerBoatListener implements Listener {
         Boat boat = (Boat) vehicle;
 
         double maxSpeed = boat.getMaxSpeed() * getSpeedMultiplier(player);
-
-        if (player.hasPermission("isles.boatspeed")) {
-            boat.setMaxSpeed(maxSpeed);
-        }
+        boat.setMaxSpeed(maxSpeed);
     }
 
 
