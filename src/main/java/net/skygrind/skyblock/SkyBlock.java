@@ -212,6 +212,7 @@ public class SkyBlock extends PluginModule {
             registerEvent(new IslesRaidListener());
             registerEvent(new CoordinateBookListener());
             registerEvent(new PlayerBoatListener());
+            registerCommand("givecoordinatebook", new GiveCoordinateBookCommand());
         }
 
         GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());

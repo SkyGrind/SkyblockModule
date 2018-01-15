@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class CoordinateBookListener implements Listener {
-    private static final String COORD_BOOK_UNSET = ChatColor.translateAlternateColorCodes('&', "&eUnset Coordinate Book &7(Right click & Sneak)");
+    public static final String COORD_BOOK_UNSET = ChatColor.translateAlternateColorCodes('&', "&eUnset Coordinate Book &7(Right click & Sneak)");
     private static final String COORD_BOOK_SET = ChatColor.translateAlternateColorCodes('&', "&eCoordinate book for %s");
 
     @EventHandler
