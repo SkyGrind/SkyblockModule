@@ -27,6 +27,7 @@ import net.skygrind.skyblock.island.IslandOreGens;
 import net.skygrind.skyblock.island.IslandRegistry;
 import net.skygrind.skyblock.island.listeners.GeneralListener;
 import net.skygrind.skyblock.island.listeners.IslandListener;
+import net.skygrind.skyblock.island.listeners.isles.CoordinateBookListener;
 import net.skygrind.skyblock.island.listeners.isles.IslesRaidListener;
 import net.skygrind.skyblock.player.listener.PlayerBoatListener;
 import net.skygrind.skyblock.player.listener.PlayerJoinListener;
@@ -206,10 +207,11 @@ public class SkyBlock extends PluginModule {
         registerEvent(new IslandOreGens());
         registerEvent(this.gooseHandler);
         registerEvent(new PlayerJoinListener());
-        registerEvent(new PlayerBoatListener());
 
         if (getServerConfig().getServerType() == ServerType.ISLES) {
             registerEvent(new IslesRaidListener());
+            registerEvent(new CoordinateBookListener());
+            registerEvent(new PlayerBoatListener());
         }
 
         GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());
