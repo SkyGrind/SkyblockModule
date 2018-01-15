@@ -32,7 +32,7 @@ public class CoordinateBookListener implements Listener {
         if (meta == null)
             return;
 
-        if (meta.getDisplayName() != null || !meta.getDisplayName().equalsIgnoreCase(COORD_BOOK_UNSET))
+        if (meta.getDisplayName() != null && !meta.getDisplayName().equalsIgnoreCase(COORD_BOOK_UNSET))
             return;
 
         Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(player.getLocation());
