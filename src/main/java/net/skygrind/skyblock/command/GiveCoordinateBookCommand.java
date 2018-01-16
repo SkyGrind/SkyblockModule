@@ -33,6 +33,7 @@ public class GiveCoordinateBookCommand extends BukkitCommand {
         ItemStack itemStack = new ItemStack(Material.BOOK);
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(CoordinateBookListener.COORD_BOOK_UNSET);
+        itemStack.setItemMeta(meta);
         target.getInventory().addItem(itemStack);
         sender.sendMessage(ChatColor.GREEN + String.format("You have given %s a coordinate book.", target.getName()));
         target.sendMessage(ChatColor.GREEN + "You have been given a coordinate book.");
