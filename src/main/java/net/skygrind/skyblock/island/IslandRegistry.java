@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.io.File;
@@ -132,7 +133,12 @@ public class IslandRegistry {
             }
         }
 
-        this.playerIslands.forEach(Island::calculateIslandLevel);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                playerIslands.forEach(Island::calculateIslandLevel);
+            }
+        }.runTaskLater(API.getPlugin(), 10L);
 
 //        for (File islandFile : islandDir.listFiles()) {
 //            if (islandFile.getName().endsWith(".yml")) {
