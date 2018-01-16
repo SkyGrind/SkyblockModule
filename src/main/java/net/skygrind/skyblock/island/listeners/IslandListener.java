@@ -45,45 +45,28 @@ public class IslandListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         Player placer = event.getPlayer();
 
+        if (placer.hasPermission("skyblock.bypass"))
+            return;
+
         Location location = event.getBlockPlaced().getLocation();
 
         //Added to allow SkyBattles to work. -IcyRelic
         if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
 
-        if (registry.conflicts(location)) {
+        Island conflict = registry.getIslandAt(location);
 
-            Island conflict = registry.getIslandAt(location);
-
-            if (conflict == null) {
-                event.setBuild(false);
-                return;
-            }
-
-            if (!conflict.isMember(placer.getUniqueId())) {
-
-                if (placer.hasPermission("skyblock.bypass")) {
-                    return;
-                }
-
-                if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES && (conflict.getIslandLevel() > 5)) {
-                    event.setBuild(true);
-                    return;
-                }
-
-                placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
-                event.setCancelled(true);
-            }
-        } else {
+        if (conflict == null) {
             event.setCancelled(true);
             if (location.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
                 placer.sendMessage(ChatColor.GREEN + "You cannot place outside of your island.");
                 MessageUtil.sendServerTheme(placer, ChatColor.GREEN + "To upgrade your islands size visit: http://shop.skyparadisemc.com");
-            } else {
-
-                if (!placer.hasPermission("islesmc.build")) {
-                    placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
-                }
             }
+            return;
+        }
+
+        if (!conflict.isMember(placer.getUniqueId())) {
+            placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
+            event.setCancelled(true);
         }
     }
 
@@ -111,44 +94,45 @@ public class IslandListener implements Listener {
         Location location = event.getBlock().getLocation();
 
         //Added to allow SkyBattles to work. -IcyRelic
-        if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
+        if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld())
+            return;
 
-        if (registry.conflicts(location)) {
+        if (placer.hasPermission("skyblock.bypass"))
+            return;
 
-            Island conflict = registry.getIslandAt(location);
-            if (conflict == null)
-                return;
+        Island conflict = registry.getIslandAt(location);
+        if (conflict == null)
+            return;
 
-            if (!conflict.isMember(placer.getUniqueId())) {
-                if (placer.hasPermission("skyblock.bypass")) {
-                    return;
-                }
+        if (conflict.isMember(placer.getUniqueId()))
+            return;
 
-                if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES && (conflict.getIslandLevel() > 5)) {
-                    // Can raid
-                    if (!this.canMine.contains(event.getBlock().getType())) {
-                        placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
-                        event.setCancelled(true);
-                        return;
-                    }
-                    return;
-                }
 
-                placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
+        System.out.println(String.format("conflicting w/ %s & !member", conflict.getName()));
+
+        if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) && (conflict.getIslandLevel() < 5)) {
+            // Can raid
+            System.out.println("can raid");
+            if (!this.canMine.contains(event.getBlock().getType())) {
+                System.out.println(String.format("%s cannot mine", placer.getName()));
+                placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
                 event.setCancelled(true);
                 return;
             }
-
-            if (event.getBlock().getType().equals(Material.SIGN) || event.getBlock().getType().equals(Material.SIGN_POST) || event.getBlock().getType().equals(Material.WALL_SIGN)) {
-                Sign sign = (Sign) event.getBlock().getState();
-
-                if (!sign.getLine(0).equalsIgnoreCase("[welcome]"))
-                    return;
-
-
-                conflict.setWarpLocation(null);
-            }
+            return;
         }
+
+        if (event.getBlock().getType().equals(Material.SIGN) || event.getBlock().getType().equals(Material.SIGN_POST) || event.getBlock().getType().equals(Material.WALL_SIGN)) {
+            Sign sign = (Sign) event.getBlock().getState();
+
+            if (sign.getLine(0).equalsIgnoreCase("[welcome]"))
+                conflict.setWarpLocation(null);
+
+        }
+
+        System.out.println(String.format("%s cannot mind", placer.getName()));
+        placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
+        event.setCancelled(true);
     }
 
     @EventHandler

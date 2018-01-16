@@ -3,11 +3,13 @@ package net.skygrind.skyblock.island.listeners.isles;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Boat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
+import org.bukkit.util.Vector;
 
 public class IslesRaidListener implements Listener {
 
@@ -16,10 +18,13 @@ public class IslesRaidListener implements Listener {
         if (!event.getVehicle().getType().equals(EntityType.BOAT))
             return;
 
+        Boat boat = (Boat) event.getVehicle();
+
         if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() == event.getTo().getBlockZ() && event.getFrom().getBlockY() == event.getTo().getBlockY())
             return;
 
-        if (event.getVehicle().getPassenger() == null || (event.getVehicle().getPassenger() instanceof Player))
+
+        if (event.getVehicle().getPassenger() == null || !(event.getVehicle().getPassenger() instanceof Player))
             return;
 
         Player player = (Player) event.getVehicle().getPassenger();
@@ -29,8 +34,10 @@ public class IslesRaidListener implements Listener {
             return;
 
         Island raidersIsland = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
-        if (raidersIsland == null || raidersIsland.getIslandLevel() < 5) {
+        if (!toIsland.getOwner().equals(raidersIsland.getOwner()) && raidersIsland.getIslandLevel() < 5) {
             player.sendMessage(ChatColor.RED + "You cannot raid any islands until your island level is at-least level 5.");
+            boat.setVelocity(new Vector(0, 0, 0));
+            boat.teleport(event.getFrom());
             return;
         }
 
@@ -38,7 +45,8 @@ public class IslesRaidListener implements Listener {
             if (!toIsland.getMembers().contains(player.getUniqueId()) || !toIsland.getOwner().equals(player.getUniqueId()))
                 return;
 
-            event.getVehicle().teleport(event.getFrom());
+            boat.setVelocity(new Vector(0, 0, 0));
+            boat.teleport(event.getFrom());
             player.sendMessage(ChatColor.RED + "You cannot raid this island until it's level 5; try come back later.");
             return;
         }
