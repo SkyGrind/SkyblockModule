@@ -5,5 +5,6 @@ package net.skygrind.skyblock.configuration;
  **/
 public enum ServerType {
     ISLES,
-    SKY
+    SKY,
+    BOTH
 }

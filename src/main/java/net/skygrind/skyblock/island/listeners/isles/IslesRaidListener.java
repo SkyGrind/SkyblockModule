@@ -36,8 +36,8 @@ public class IslesRaidListener implements Listener {
         Island raidersIsland = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
         if (!toIsland.getOwner().equals(raidersIsland.getOwner()) && raidersIsland.getIslandLevel() < 5) {
             player.sendMessage(ChatColor.RED + "You cannot raid any islands until your island level is at-least level 5.");
-            boat.setVelocity(new Vector(0, 0, 0));
-            boat.teleport(event.getFrom());
+            Vector difference = event.getFrom().subtract(event.getTo()).toVector();
+            event.getTo().subtract(difference);
             return;
         }
 
@@ -45,8 +45,8 @@ public class IslesRaidListener implements Listener {
             if (!toIsland.getMembers().contains(player.getUniqueId()) || !toIsland.getOwner().equals(player.getUniqueId()))
                 return;
 
-            boat.setVelocity(new Vector(0, 0, 0));
-            boat.teleport(event.getFrom());
+            Vector difference = event.getFrom().subtract(event.getTo()).toVector();
+            event.getTo().subtract(difference);
             player.sendMessage(ChatColor.RED + "You cannot raid this island until it's level 5; try come back later.");
             return;
         }

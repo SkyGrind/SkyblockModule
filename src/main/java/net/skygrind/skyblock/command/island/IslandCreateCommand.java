@@ -2,6 +2,7 @@ package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.IslandType;
 import net.skygrind.skyblock.misc.MessageUtil;
@@ -29,14 +30,17 @@ public class IslandCreateCommand extends GooseCommand {
         Inventory inv = Bukkit.createInventory(null, 9, "Island Selection");
 
         for (IslandType type : IslandType.values()) {
-            ItemStack item = new ItemStack(Material.PAPER, 1);
-            ItemMeta meta = item.getItemMeta();
+            if (type.getServerType().equals(ServerType.BOTH) || type.getServerType().equals(SkyBlock.getPlugin().getServerConfig().getServerType())) {
+                ItemStack item = new ItemStack(Material.PAPER, 1);
+                ItemMeta meta = item.getItemMeta();
 
-            meta.setDisplayName(type.getDisplay());
-            meta.setLore(Arrays.asList(type.getLore()));
-            item.setItemMeta(meta);
-            inv.addItem(item);
+                meta.setDisplayName(type.getDisplay());
+                meta.setLore(Arrays.asList(type.getLore()));
+                item.setItemMeta(meta);
+                inv.addItem(item);
+            }
         }
+        
         player.openInventory(inv);
     }
 
