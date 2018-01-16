@@ -69,6 +69,9 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 
             // For some reason this fixes it??
             center = center.clone().add(0, 0, 0);
+            if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
+                center = center.subtract(0, 2, 0);
+            }
             System.out.println(String.format("LOCATION SERIALIZED IS %s", LocationUtil.serialize(center)));
 
             Island island = new Island(player.getUniqueId(), center, item.getType());
@@ -98,8 +101,10 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 
             island.setMaxPlayers(maxPlayers);
 
+            int y = SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) ? 98 : 100;
+
             try {
-                SkyBlock.getPlugin().getSchematicLoader().pasteSchematic(item.type.name().toLowerCase() + ".schematic", SkyBlock.getPlugin().getIslandWorld(), center.getBlockX(), 100, center.getBlockZ());
+                SkyBlock.getPlugin().getSchematicLoader().pasteSchematic(item.type.name().toLowerCase() + ".schematic", SkyBlock.getPlugin().getIslandWorld(), center.getBlockX(), y, center.getBlockZ());
             } catch (DataException | IOException | MaxChangedBlocksException e) {
                 e.printStackTrace();
             }
