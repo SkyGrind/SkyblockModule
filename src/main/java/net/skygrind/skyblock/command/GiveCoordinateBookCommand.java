@@ -21,7 +21,7 @@ public class GiveCoordinateBookCommand extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + "You do not have permission to execute this command.");
             return true;
         }
-        if (args.length != 2) {
+        if (args.length != 1) {
             sender.sendMessage(ChatColor.RED + "Usage: /givecoordinatebook <player>");
             return true;
         }
