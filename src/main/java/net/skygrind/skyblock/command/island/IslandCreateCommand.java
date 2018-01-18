@@ -40,7 +40,7 @@ public class IslandCreateCommand extends GooseCommand {
                 inv.addItem(item);
             }
         }
-        
+
         player.openInventory(inv);
     }
 

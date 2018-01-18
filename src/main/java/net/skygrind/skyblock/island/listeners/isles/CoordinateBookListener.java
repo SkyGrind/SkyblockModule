@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+
 public class CoordinateBookListener implements Listener {
     public static final String COORD_BOOK_UNSET = ChatColor.translateAlternateColorCodes('&', "&eUnset Coordinate Book &7(Right click & Sneak)");
     private static final String COORD_BOOK_SET = ChatColor.translateAlternateColorCodes('&', "&eCoordinate book for %s");
@@ -44,6 +46,7 @@ public class CoordinateBookListener implements Listener {
         bookMeta.setDisplayName(String.format(COORD_BOOK_SET, island.getName()));
         bookMeta.setAuthor("CONSOLE");
         bookMeta.setTitle(String.format(COORD_BOOK_SET, island.getName()));
+        bookMeta.setPages(new ArrayList<>());
         bookMeta.addPage(String.format("Within this book entails the whereabouts of %s", island.getName()));
         bookMeta.addPage(String.format("The location is as follows: \nX: %s \nY: %s \nZ: %s", island.getSpawn().getBlockX(), island.getSpawn().getBlockY(), island.getSpawn().getBlockZ()));
         newBook.setItemMeta(bookMeta);

@@ -1,6 +1,7 @@
 package net.skygrind.skyblock.island.listeners;
 
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,7 +28,7 @@ public class GeneralListener implements Listener {
 
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
         player.sendMessage(" ");
-        player.sendMessage(ChatColor.YELLOW + " Welcome " + ChatColor.WHITE + player.getName() + ChatColor.YELLOW + " to " + "!");
+        player.sendMessage(ChatColor.YELLOW + " Welcome " + ChatColor.WHITE + player.getName() + ChatColor.YELLOW + " to " + (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) ? ChatColor.YELLOW + ChatColor.BOLD.toString() + "Isles" : ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky") + ChatColor.WHITE + "Realm" + ChatColor.YELLOW + "!");
         player.sendMessage(" ");
         player.sendMessage(ChatColor.YELLOW + " Website:" + ChatColor.WHITE + " http://skyparadise-mc.com");
         player.sendMessage(ChatColor.YELLOW + " Discord:" + ChatColor.WHITE + " https://discord.gg/q8GZhgR");
