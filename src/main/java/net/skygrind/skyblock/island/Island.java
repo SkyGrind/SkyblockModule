@@ -265,7 +265,7 @@ public class Island implements Comparable<Island> {
             return false;
 
         Island island = (Island) o;
-        return Objects.equals(this, island);
+        return this == island;
     }
 
     @Override
