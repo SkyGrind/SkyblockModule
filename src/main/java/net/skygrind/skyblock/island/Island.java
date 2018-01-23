@@ -254,21 +254,6 @@ public class Island implements Comparable<Island> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-
-        if (o == null)
-            return false;
-
-        if (getClass() != o.getClass())
-            return false;
-
-        Island island = (Island) o;
-        return this == island;
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(spawn, container, owner, maxPlayers, members, size, type, islandName, islandLevel, bankBalance, locked, warpLocation);
     }
