@@ -379,25 +379,26 @@ public class IslandRegistry {
         file.delete();
 
 
-        int minX = island.getContainer().getMin().getBlockX();
-        int minY = island.getContainer().getMin().getBlockY();
-        int minZ = island.getContainer().getMin().getBlockZ();
-
-        int maxX = island.getContainer().getMax().getBlockX();
-        int maxY = island.getContainer().getMax().getBlockY();
-        int maxZ = island.getContainer().getMax().getBlockZ();
-
-        for (int x = minX; x < maxX; x++) {
-
-            for (int y = minY; y < maxY; y++) {
-
-                for (int z = minZ; z < maxZ; z++) {
-
-                    Block block = SkyBlock.getPlugin().getIslandWorld().getBlockAt(x, y, z);
-                    block.setType(Material.AIR);
-                }
-            }
-        }
+        System.out.println("Don't need to delete old islands, this will cause un-needed lag.");
+//        int minX = island.getContainer().getMin().getBlockX();
+//        int minY = island.getContainer().getMin().getBlockY();
+//        int minZ = island.getContainer().getMin().getBlockZ();
+//
+//        int maxX = island.getContainer().getMax().getBlockX();
+//        int maxY = island.getContainer().getMax().getBlockY();
+//        int maxZ = island.getContainer().getMax().getBlockZ();
+//
+//        for (int x = minX; x < maxX; x++) {
+//
+//            for (int y = minY; y < maxY; y++) {
+//
+//                for (int z = minZ; z < maxZ; z++) {
+//
+//                    Block block = SkyBlock.getPlugin().getIslandWorld().getBlockAt(x, y, z);
+//                    block.setType(Material.AIR);
+//                }
+//            }
+//        }
 
 
         SkyBlock.getPlugin().getRegionHandler().deleteRegion(island.getContainer());
