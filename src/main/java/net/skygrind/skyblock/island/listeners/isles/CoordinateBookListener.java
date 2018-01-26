@@ -30,9 +30,10 @@ public class CoordinateBookListener implements Listener {
         if (hand == null || hand.getType().equals(Material.AIR))
             return;
 
-        ItemMeta meta = hand.getItemMeta();
-        if (meta == null)
+        if (!hand.hasItemMeta()) 
             return;
+        
+        ItemMeta meta = hand.getItemMeta();
 
         if (meta.getDisplayName() == null)
             return;
