@@ -207,7 +207,6 @@ public class SkyBlock extends PluginModule {
         registerEvent(new IslandOreGens());
         registerEvent(this.gooseHandler);
         registerEvent(new PlayerJoinListener());
-        API.getServerConfig().
 
         if (getServerConfig().getServerType().equals(ServerType.ISLES)) {
             registerEvent(new IslesRaidListener());
