@@ -56,6 +56,9 @@ public class IslandListener implements Listener {
         Island conflict = registry.getIslandAt(location);
 
         if (conflict == null) {
+            if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
+                return;
+            }
             event.setCancelled(true);
             if (location.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
                 placer.sendMessage(ChatColor.GREEN + "You cannot place outside of your island.");
@@ -65,6 +68,9 @@ public class IslandListener implements Listener {
         }
 
         if (!conflict.isMember(placer.getUniqueId())) {
+            if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) && (conflict.getIslandLevel() >= 5)) {
+                return;
+            }
             placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
             event.setCancelled(true);
         }
