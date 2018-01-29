@@ -68,9 +68,6 @@ public class IslandListener implements Listener {
         }
 
         if (!conflict.isMember(placer.getUniqueId())) {
-            if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) && (conflict.getIslandLevel() >= 5)) {
-                return;
-            }
             placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
             event.setCancelled(true);
         }
