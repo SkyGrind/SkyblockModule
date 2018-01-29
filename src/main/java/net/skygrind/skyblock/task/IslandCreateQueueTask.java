@@ -113,7 +113,6 @@ public class IslandCreateQueueTask extends BukkitRunnable {
                 center = center.clone().add(4, 8, 6);
                 System.out.println("default island");
             }
-            center = center.getWorld().getHighestBlockAt(center).getLocation();
             island.setSpawn(center);
             island.save();
 
