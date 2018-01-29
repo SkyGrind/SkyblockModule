@@ -207,8 +207,9 @@ public class SkyBlock extends PluginModule {
         registerEvent(new IslandOreGens());
         registerEvent(this.gooseHandler);
         registerEvent(new PlayerJoinListener());
+        API.getServerConfig().
 
-        if (getServerConfig().getServerType() == ServerType.ISLES) {
+        if (getServerConfig().getServerType().equals(ServerType.ISLES)) {
             registerEvent(new IslesRaidListener());
             registerEvent(new CoordinateBookListener());
             registerEvent(new PlayerBoatListener());
