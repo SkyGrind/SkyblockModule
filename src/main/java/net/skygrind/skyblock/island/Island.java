@@ -156,7 +156,6 @@ public class Island implements Comparable<Island> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(json);
     }
 
     public Boolean getLocked() {

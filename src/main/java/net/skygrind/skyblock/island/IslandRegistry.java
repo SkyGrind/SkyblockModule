@@ -175,7 +175,6 @@ public class IslandRegistry {
 //                registerIsland(ownerID, island);
 //            }
 //        }
-        System.out.println("Loaded: " + playerIslands.size());
         if (playerIslands.isEmpty()) {
             this.lastIsland = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
         } else {
@@ -373,13 +372,11 @@ public class IslandRegistry {
         File file = new File(SkyBlock.getPlugin().getModuleDir().toString() + File.separator + "islands" + File.separator + island.getOwner().toString().replace("-", "") + ".json");
 
         if (!file.exists()) {
-            System.out.println("island doesn't exist");
             return;
         }
         file.delete();
 
 
-        System.out.println("Don't need to delete old islands, this will cause un-needed lag.");
 //        int minX = island.getContainer().getMin().getBlockX();
 //        int minY = island.getContainer().getMin().getBlockY();
 //        int minZ = island.getContainer().getMin().getBlockZ();
