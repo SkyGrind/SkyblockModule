@@ -34,6 +34,7 @@ import net.skygrind.skyblock.player.listener.PlayerJoinListener;
 import net.skygrind.skyblock.region.RegionHandler;
 import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
+import net.skygrind.skyblock.task.IslandLevelTask;
 import net.skygrind.skyblock.util.GridUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -48,6 +49,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Matt on 2017-02-10.
@@ -132,6 +134,7 @@ public class SkyBlock extends PluginModule {
         //TODO load player data
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
+        new IslandLevelTask().runTaskTimerAsynchronously(API.getPlugin(), 20L, TimeUnit.MINUTES.toMillis(10) * 20L);
         new BukkitRunnable() {
             @Override
             public void run() {

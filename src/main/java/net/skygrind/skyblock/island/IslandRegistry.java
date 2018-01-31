@@ -133,13 +133,6 @@ public class IslandRegistry {
             }
         }
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                playerIslands.forEach(Island::calculateIslandLevel);
-            }
-        }.runTaskLater(API.getPlugin(), 10L);
-
 //        for (File islandFile : islandDir.listFiles()) {
 //            if (islandFile.getName().endsWith(".yml")) {
 //                //ISLAND!!
