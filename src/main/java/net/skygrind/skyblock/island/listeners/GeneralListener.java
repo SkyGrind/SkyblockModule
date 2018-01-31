@@ -72,15 +72,11 @@ public class GeneralListener implements Listener {
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
-        if (damaged.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName())) {
+        if (damaged.getWorld().getName().equalsIgnoreCase(SkyBlock.getPlugin().getIslandWorld().getName()) && !SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
             event.setCancelled(true);
             event.setDamage(0);
         } else if (damaged.getWorld().getName().equalsIgnoreCase("Spawn")) {
             MessageUtil.sendServerTheme(damager, "You cannot damage other players in spawn.");
-
-            event.setCancelled(true);
-            event.setDamage(0);
-        } else if (damaged.getWorld().getName().equalsIgnoreCase("Skyblock")) {
             event.setCancelled(true);
             event.setDamage(0);
         }

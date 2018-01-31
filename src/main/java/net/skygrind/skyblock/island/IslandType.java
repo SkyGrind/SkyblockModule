@@ -1,7 +1,9 @@
 package net.skygrind.skyblock.island;
 
 import net.skygrind.skyblock.configuration.ServerType;
+import net.skygrind.skyblock.goose.GooseLocation;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 
 /**
  * Created by Matt on 2017-02-11.

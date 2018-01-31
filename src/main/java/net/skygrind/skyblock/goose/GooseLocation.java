@@ -27,6 +27,10 @@ public class GooseLocation {
         return new GooseLocation(location.getWorld().getUID(), location.getX(), location.getY(), location.getZ(), (double) location.getYaw());
     }
 
+    public static GooseLocation of(final UUID uuid, Double x, Double y, Double z, Double yaw) {
+        return new GooseLocation(uuid, x, y, z, yaw);
+    }
+
     public UUID getWorld() {
         return world;
     }
