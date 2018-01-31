@@ -88,6 +88,7 @@ public class IslandListener implements Listener {
             return;
 
         island.setWarpLocation(GooseLocation.fromLocation(location));
+        event.setLine(0, ChatColor.GREEN + "[Welcome]");
     }
 
     @EventHandler
