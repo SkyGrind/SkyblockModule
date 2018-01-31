@@ -28,6 +28,12 @@ public class IslandAcceptCommand extends GooseCommand {
             return;
         }
 
+        Island island = registry.getIslandForPlayer(player);
+        if (island != null) {
+            player.sendMessage(ChatColor.RED + "You cannot join this island while you're already in an island.");
+            return;
+        }
+
         Island invite = registry.getInviteFor(player);
 
         invite.getMembers().add(player.getUniqueId());
