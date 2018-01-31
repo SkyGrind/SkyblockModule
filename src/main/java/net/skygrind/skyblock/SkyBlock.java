@@ -34,6 +34,7 @@ import net.skygrind.skyblock.player.listener.PlayerJoinListener;
 import net.skygrind.skyblock.region.RegionHandler;
 import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
+import net.skygrind.skyblock.task.FlyCheckTask;
 import net.skygrind.skyblock.task.IslandLevelTask;
 import net.skygrind.skyblock.util.GridUtil;
 import org.bukkit.Bukkit;
@@ -216,6 +217,8 @@ public class SkyBlock extends PluginModule {
             registerEvent(new CoordinateBookListener());
             registerEvent(new PlayerBoatListener());
             registerCommand("givecoordinatebook", new GiveCoordinateBookCommand());
+
+            new FlyCheckTask().runTaskTimerAsynchronously(API.getPlugin(), 1L, 5L);
         }
 
         GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());
