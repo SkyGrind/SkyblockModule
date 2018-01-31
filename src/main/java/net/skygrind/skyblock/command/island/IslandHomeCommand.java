@@ -37,7 +37,7 @@ public class IslandHomeCommand extends GooseCommand {
         Location spawn = playerIsland.getSpawn();
         System.out.println(" ");
         
-        Location teleport = new Location(spawn.getWorld(), spawn.getBlockX(), spawn.getWorld().getHighestBlockYAt(spawn.getBlockX(), spawn.getBlockZ()) + 1, spawn.getZ());
+        Location teleport = new Location(spawn.getWorld(), spawn.getBlockX(), spawn.getWorld().getHighestBlockYAt(spawn.getBlockX(), spawn.getBlockZ()) + 2, spawn.getZ());
         
         player.teleport(teleport);
         player.sendMessage(ChatColor.GREEN + "You have been teleported to your island's home.");
