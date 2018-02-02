@@ -18,6 +18,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -104,6 +106,25 @@ public class IslandListener implements Listener {
             return;
 
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerDamage(final EntityDamageByEntityEvent event) {
+         if (!(event.getEntity() instanceof Player))
+             return;
+
+         if (!(event.getDamager() instanceof Player))
+             return;
+
+        Player damager = (Player) event.getDamager();
+        Player damaged = (Player) event.getEntity();
+
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(damaged);
+        if (!island.getMembers().contains(damager.getUniqueId())) {
+            return;
+        }
+        event.setDamage(0);
+        damager.sendMessage(ChatColor.RED + String.format("Warning: %s is in your island.", damaged.getName()));
     }
 
     @EventHandler
