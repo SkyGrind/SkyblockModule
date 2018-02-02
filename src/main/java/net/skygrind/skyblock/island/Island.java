@@ -205,6 +205,9 @@ public class Island implements Comparable<Island> {
                 for (int z = minZ; z < maxZ; z++) {
 
                     Block block = SkyBlock.getPlugin().getIslandWorld().getBlockAt(x, y, z);
+                    if (block.getType().equals(Material.BARRIER))
+                        block.setType(Material.AIR);
+
                     if (isIslandLevelBlock(block)) {
                         blocks.add(block);
                     }
