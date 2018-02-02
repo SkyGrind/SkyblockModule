@@ -18,6 +18,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
@@ -89,6 +90,20 @@ public class IslandListener implements Listener {
 
         island.setWarpLocation(GooseLocation.fromLocation(location));
         event.setLine(0, ChatColor.GREEN + "[Welcome]");
+    }
+
+    @EventHandler
+    public void onBucketPlace(final PlayerBucketEmptyEvent event) {
+        Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
+        if (island == null) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (island.getMembers().contains(event.getPlayer().getUniqueId()))
+            return;
+
+        event.setCancelled(true);
     }
 
     @EventHandler
