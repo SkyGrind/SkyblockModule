@@ -9,13 +9,13 @@ import org.bukkit.Location;
  * Created by Matt on 2017-02-11.
  */
 public enum IslandType {
-    DEFAULT("Default", ChatColor.GREEN + ChatColor.BOLD.toString() + "Default", "skyblock.island.default", new String[]{ChatColor.GOLD + "A basic Skyblock island."}, 80, ServerType.BOTH),
-    MODERN_HOUSE("Modern House", ChatColor.YELLOW + ChatColor.BOLD.toString() + "Modern House", "skyblock.island.modernhouse", new String[]{ChatColor.GOLD + "Modern house Skyblock island"}, 80, ServerType.SKY),
-    END_SHIP("End Ship", ChatColor.BLUE + ChatColor.BOLD.toString() + "End Ship", "skyblock.island.endship", new String[]{ChatColor.GOLD + "End ship Skyblock island"}, 80, ServerType.SKY),
-    COBBLE_THRONE("Cobble Throne", ChatColor.GRAY + ChatColor.BOLD.toString() + "Cobble Throne", "skyblock.island.cobblethrone", new String[]{ChatColor.GOLD + "Cobble throne Skyblock island"}, 80, ServerType.SKY),
-    PURPLE_LAVA("Purple Lava", ChatColor.DARK_PURPLE + ChatColor.BOLD.toString() + "Purple Lava", "skyblock.island.purplelava", new String[]{ChatColor.GOLD + "Purple lava Skyblock island"}, 80, ServerType.SKY),
-    DESERT("Desert", ChatColor.DARK_BLUE + ChatColor.BOLD.toString() + "Desert", "skyblock.island.desert", new String[]{ChatColor.GOLD + "Desert Skyblock island"}, 80, ServerType.SKY),
-    CASTLE("Castle", ChatColor.GRAY + ChatColor.BOLD.toString() + "Castle", "skyblock.island.castle", new String[]{ChatColor.GOLD + "Castle Skyblock island"}, 90, ServerType.ISLES);
+    DEFAULT("Default", ChatColor.GREEN + ChatColor.BOLD.toString() + "Default", "skyblock.island.default", new String[]{ChatColor.GOLD + "A basic Skyblock island."}, 100, ServerType.BOTH),
+    MODERN_HOUSE("Modern House", ChatColor.YELLOW + ChatColor.BOLD.toString() + "Modern House", "skyblock.island.modernhouse", new String[]{ChatColor.GOLD + "Modern house Skyblock island"}, 100, ServerType.SKY),
+    END_SHIP("End Ship", ChatColor.BLUE + ChatColor.BOLD.toString() + "End Ship", "skyblock.island.endship", new String[]{ChatColor.GOLD + "End ship Skyblock island"}, 100, ServerType.SKY),
+    COBBLE_THRONE("Cobble Throne", ChatColor.GRAY + ChatColor.BOLD.toString() + "Cobble Throne", "skyblock.island.cobblethrone", new String[]{ChatColor.GOLD + "Cobble throne Skyblock island"}, 100, ServerType.SKY),
+    PURPLE_LAVA("Purple Lava", ChatColor.DARK_PURPLE + ChatColor.BOLD.toString() + "Purple Lava", "skyblock.island.purplelava", new String[]{ChatColor.GOLD + "Purple lava Skyblock island"}, 100, ServerType.SKY),
+    DESERT("Desert", ChatColor.DARK_BLUE + ChatColor.BOLD.toString() + "Desert", "skyblock.island.desert", new String[]{ChatColor.GOLD + "Desert Skyblock island"}, 100, ServerType.SKY),
+    CASTLE("Castle", ChatColor.GRAY + ChatColor.BOLD.toString() + "Castle", "skyblock.island.castle", new String[]{ChatColor.GOLD + "Castle Skyblock island"}, 100, ServerType.ISLES);
 
 
     private final String raw, display, permRequired;
