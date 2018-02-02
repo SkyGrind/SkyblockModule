@@ -101,7 +101,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
 
             island.setMaxPlayers(maxPlayers);
 
-            int y = SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) ? 106 : 100;
+            int y = SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) ? 46 : 100;
 
             try {
                 SkyBlock.getPlugin().getSchematicLoader().pasteSchematic(item.type.name().toLowerCase() + ".schematic", SkyBlock.getPlugin().getIslandWorld(), center.getBlockX(), y, center.getBlockZ());
