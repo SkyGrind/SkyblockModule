@@ -67,7 +67,7 @@ public class GooseTicker extends BukkitRunnable {
 
 //            User user = API.getUserManager().findByUniqueId(player.getUniqueId());
 //            Profile profile = user.getProfile("Skyblock");
-            scoreboard.add(translateString("&7&m---------"), translateString("&7&m---------"));
+            scoreboard.add(translateString("&7&m-----------"), translateString("&7&m-----------"));
             double balance = SkyBlock.getPlugin().getEconomy().getBalance(player);
             scoreboard.add(translateString(primaryColor + "Balance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
@@ -85,7 +85,7 @@ public class GooseTicker extends BukkitRunnable {
 
             scoreboard.add("", "");
             scoreboard.add(translateString(primaryColor + "shop.skypara"), translateString(primaryColor + "disemc.com"));
-            scoreboard.add(translateString("&7&m---------"), translateString("&7&m---------"));
+            scoreboard.add(translateString("&7&m-----------"), translateString("&7&m-----------"));
             scoreboard.update();
         }
     }
