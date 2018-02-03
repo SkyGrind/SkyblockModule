@@ -23,6 +23,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +118,20 @@ public class IslandListener implements Listener {
             return;
 
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerMove(final PlayerMoveEvent event) {
+        if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
+            Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
+
+            if ((island == null) || island.getMembers().contains(event.getPlayer().getUniqueId()) || !island.getLocked()) {
+                return;
+            }
+
+            event.setTo(event.getFrom());
+            event.getPlayer().sendMessage(ChatColor.RED + "This island is currently locked.");
+        }
     }
 
     @EventHandler
