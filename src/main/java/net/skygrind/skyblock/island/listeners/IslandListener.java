@@ -125,7 +125,7 @@ public class IslandListener implements Listener {
         if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
 
-            if ((island == null) || island.getMembers().contains(event.getPlayer().getUniqueId())  || island.getOwner().equals(event.getPlayer().getUniqueId()) || !island.getLocked()) {
+            if ((island == null) || island.isMember(event.getPlayer().getUniqueId())  || island.getOwner().equals(event.getPlayer().getUniqueId()) || !island.getLocked()) {
                 return;
             }
 
