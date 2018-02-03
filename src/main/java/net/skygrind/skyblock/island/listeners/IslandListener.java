@@ -148,11 +148,11 @@ public class IslandListener implements Listener {
             return;
 
 
-        System.out.println(String.format("conflicting w/ %s & !member", conflict.getName()));
+        // System.out.println(String.format("conflicting w/ %s & !member", conflict.getName()));
 
         if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) && (conflict.getIslandLevel() < 5)) {
             // Can raid
-            System.out.println("can raid");
+           // System.out.println("can raid");
             if (!this.canMine.contains(event.getBlock().getType())) {
                 System.out.println(String.format("%s cannot mine", placer.getName()));
                 placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
