@@ -129,6 +129,9 @@ public class Island implements Comparable<Island> {
     }
     
     public boolean isExpelled(UUID uuid) {
+        if (expelled == null)
+            expelled = new ArrayList<>();
+
         return expelled.contains(uuid);
     }
 
