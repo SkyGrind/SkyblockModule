@@ -79,7 +79,7 @@ public class IslandOreGens implements Listener {
 
                             chance = chance + random.nextInt(100);
 
-                            System.out.println("CHANCE: " + chance);
+                            // spamming chat System.out.println("CHANCE: " + chance);
 
                             if (chance > 0 && chance <= emerald) {
                                 to.setType(Material.EMERALD_ORE);
