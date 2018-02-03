@@ -124,6 +124,10 @@ public class Island implements Comparable<Island> {
     public boolean isMember(UUID uuid) {
         return members.contains(uuid) || owner.equals(uuid);
     }
+    
+    public boolean isExpelled(UUID uuid) {
+        return expelled.contains(uuid);
+    }
 
     public String getName() {
         if (Bukkit.getPlayer(owner) == null) {

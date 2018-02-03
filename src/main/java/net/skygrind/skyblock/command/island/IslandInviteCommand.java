@@ -53,7 +53,7 @@ public class IslandInviteCommand extends GooseCommand {
             return;
         }
         
-        if (island.getExpelled().contains(target.getUniqueId())) {
+        if (island.isExpelled(target.getUniqueId())) {
             player.sendMessage(ChatColor.RED + "You cannot invite that player, they are expelled!");
             return;
         }

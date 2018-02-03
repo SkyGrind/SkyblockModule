@@ -48,6 +48,7 @@ public class IslandExpelCommand extends GooseCommand {
         if (island.getExpelled().contains(player.getUniqueId())) {
             owner.sendMessage(ChatColor.GREEN + "You have un-expelled " + player.getName());
             player.sendMessage(ChatColor.BOLD.toString() + ChatColor.GREEN + "You have been unbanned from " + island.getName() + "'s island");
+            island.getExpelled().remove(player.getUniqueId());
             return;
         }
         
