@@ -97,10 +97,8 @@ public class IslandListener implements Listener {
     @EventHandler
     public void onBucketPlace(final PlayerBucketEmptyEvent event) {
         Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
-        if (island == null) {
-            event.setCancelled(true);
+        if (island == null)
             return;
-        }
 
         if (island.getMembers().contains(event.getPlayer().getUniqueId()))
             return;
