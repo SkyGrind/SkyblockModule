@@ -16,6 +16,6 @@ public class BackupTask extends BukkitRunnable {
         SkyBlock.getPlugin().getIslandWorld().save();
         SkyBlock.getPlugin().getIslandRegistry().getPlayerIslands().forEach(Island::save);
         SkyBlock.getPlugin().getServerConfig().save();
-        Bukkit.broadcastMessage(ChatColor.RED + "[Backup] We hae successfully saved all of our data.");
+        Bukkit.broadcastMessage(ChatColor.RED + "[Backup] We have successfully saved all of our data.");
     }
 }
