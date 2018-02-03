@@ -92,6 +92,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             Region container = SkyBlock.getPlugin().getRegionHandler().createRegion(island.getName(), min, max);
             island.setContainer(container);
             island.setMembers(new ArrayList<>());
+            island.setExpelled(new ArrayList<>());
             island.setIslandLevel(0);
 
 
