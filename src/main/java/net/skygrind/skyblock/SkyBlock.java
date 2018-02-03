@@ -240,6 +240,7 @@ public class SkyBlock extends PluginModule {
         commandHandler.addSubCommand("warp", new IslandWarpCommand());
         commandHandler.addSubCommand("sethome", new IslandSetHomeCommand());
         commandHandler.addSubCommand("force", new IslandForceJoin());
+        commandHandler.addSubCommand("expel", new IslandExpelCommand());
 
         registerCommand("island", commandHandler);
 
