@@ -243,6 +243,7 @@ public class SkyBlock extends PluginModule {
         commandHandler.addSubCommand("sethome", new IslandSetHomeCommand());
         commandHandler.addSubCommand("force", new IslandForceJoin());
         commandHandler.addSubCommand("expel", new IslandExpelCommand());
+        commandHandler.addSubCommand("coop", new IslandCoopCommand());
 
         registerCommand("island", commandHandler);
 
