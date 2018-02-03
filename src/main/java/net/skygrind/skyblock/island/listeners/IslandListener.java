@@ -117,12 +117,20 @@ public class IslandListener implements Listener {
              return;
 
         Player damager = (Player) event.getDamager();
+        if (damager == null)
+            return;
+
         Player damaged = (Player) event.getEntity();
 
         Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(damaged);
-        if (!island.getMembers().contains(damager.getUniqueId())) {
+
+        if (island == null)
             return;
-        }
+
+
+        if (!island.getMembers().contains(damager.getUniqueId()))
+            return;
+
         event.setDamage(0);
         damager.sendMessage(ChatColor.RED + String.format("Warning: %s is in your island.", damaged.getName()));
     }
