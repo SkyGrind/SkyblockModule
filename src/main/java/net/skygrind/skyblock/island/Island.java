@@ -51,6 +51,10 @@ public class Island implements Comparable<Island> {
         }
         this.locked = false;
         this.warpLocation = null;
+        
+        if (this.expelled == null) {
+        	this.expelled = new ArrayList<>();
+        }
     }
 
     public int getIslandLevel() {
