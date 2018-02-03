@@ -35,7 +35,7 @@ public class IslandExpelCommand extends GooseCommand {
     private void handleExpell(Player owner, Player player) {
         Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(owner);
         
-        if (island.getOwner() != owner.getUniqueId()) {
+        if (!island.getOwner().equals(owner.getUniqueId())) {
             owner.sendMessage(ChatColor.RED + "You cannot expel a player!");
             return;
         }
