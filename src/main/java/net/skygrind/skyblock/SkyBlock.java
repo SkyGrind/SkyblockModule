@@ -34,6 +34,7 @@ import net.skygrind.skyblock.player.listener.PlayerJoinListener;
 import net.skygrind.skyblock.region.RegionHandler;
 import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
+import net.skygrind.skyblock.task.BackupTask;
 import net.skygrind.skyblock.task.FlyCheckTask;
 import net.skygrind.skyblock.task.IslandLevelTask;
 import net.skygrind.skyblock.util.GridUtil;
@@ -135,6 +136,7 @@ public class SkyBlock extends PluginModule {
         //TODO load player data
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
+        new BackupTask().runTaskTimer(API.getPlugin(), TimeUnit.MINUTES.toMillis(7L), TimeUnit.MINUTES.toMillis(7L));
 //        new IslandLevelTask().runTaskTimer(API.getPlugin(), 20L, TimeUnit.MINUTES.toMillis(10) * 20L);
 
         new BukkitRunnable() {
