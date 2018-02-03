@@ -46,6 +46,8 @@ public class IslandForceJoin extends GooseCommand {
             pLayer.sendMessage(ChatColor.RED + "Player does not currently have an island");
             return;
         }
+        
+        island.getMembers().add(island.getOwner());
 
         targetIsland.getMembers().add(pLayer.getUniqueId());
         targetIsland.setOwner(pLayer.getUniqueId());

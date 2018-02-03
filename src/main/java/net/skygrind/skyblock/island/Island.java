@@ -266,6 +266,6 @@ public class Island implements Comparable<Island> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(spawn, container, owner, maxPlayers, members, size, type, islandName, islandLevel, bankBalance, locked, warpLocation);
+        return Objects.hash(spawn, container, owner, maxPlayers, members, size, expelled, type, islandName, islandLevel, bankBalance, locked, warpLocation);
     }
 }
