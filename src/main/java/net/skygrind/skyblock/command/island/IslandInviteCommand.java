@@ -33,6 +33,11 @@ public class IslandInviteCommand extends GooseCommand {
 
         Player target = Bukkit.getPlayer(args[0]);
 
+        if (target.getUniqueId().equals(player.getUniqueId())) {
+            player.sendMessage(ChatColor.RED + "You cannot invite yourself.");
+            return;
+        }
+
         IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
 
         if (!registry.hasIsland(player)) {
