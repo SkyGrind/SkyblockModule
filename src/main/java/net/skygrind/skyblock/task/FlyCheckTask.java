@@ -22,13 +22,14 @@ public class FlyCheckTask extends BukkitRunnable {
                 disableFlight(player);
                 return;
             }
+
+            if (island.isAllowed(player.getUniqueId()))
+                return;
             
             if (island.getLocked()) {
                 doNotEnter(player);
             }
-
-            if (island.getMembers().contains(player.getUniqueId()))
-                return;
+            
 
             disableFlight(player);
         }

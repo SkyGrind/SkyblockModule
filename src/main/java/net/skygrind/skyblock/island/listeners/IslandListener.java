@@ -72,7 +72,7 @@ public class IslandListener implements Listener {
             return;
         }
 
-        if (!conflict.isMember(placer.getUniqueId())) {
+        if (!conflict.isAllowed(placer.getUniqueId())) {
             placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
             event.setCancelled(true);
         }
@@ -102,7 +102,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (island.getMembers().contains(event.getPlayer().getUniqueId()) || island.getOwner().equals(event.getPlayer().getUniqueId()))
+        if (island.isAllowed(event.getPlayer().getUniqueId()))
             return;
 
         event.setCancelled(true);
@@ -114,7 +114,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (island.getMembers().contains(event.getPlayer().getUniqueId()) || island.getOwner().equals(event.getPlayer().getUniqueId()))
+        if (island.isAllowed(event.getPlayer().getUniqueId()))
             return;
 
         event.setCancelled(true);
@@ -125,7 +125,7 @@ public class IslandListener implements Listener {
         if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
 
-            if ((island == null) || island.isMember(event.getPlayer().getUniqueId())  || island.getOwner().equals(event.getPlayer().getUniqueId()) || !island.getLocked()) {
+            if ((island == null) || !island.isAllowed(event.getPlayer().getUniqueId()) || !island.getLocked()) {
                 return;
             }
 
