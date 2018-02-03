@@ -102,7 +102,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (island.getMembers().contains(event.getPlayer().getUniqueId()))
+        if (island.getMembers().contains(event.getPlayer().getUniqueId()) || island.getOwner().equals(event.getPlayer().getUniqueId()))
             return;
 
         event.setCancelled(true);
@@ -114,7 +114,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (island.getMembers().contains(event.getPlayer().getUniqueId()))
+        if (island.getMembers().contains(event.getPlayer().getUniqueId()) || island.getOwner().equals(event.getPlayer().getUniqueId()))
             return;
 
         event.setCancelled(true);
@@ -125,7 +125,7 @@ public class IslandListener implements Listener {
         if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
 
-            if ((island == null) || island.getMembers().contains(event.getPlayer().getUniqueId()) || !island.getLocked()) {
+            if ((island == null) || island.getMembers().contains(event.getPlayer().getUniqueId())  || island.getOwner().equals(event.getPlayer().getUniqueId()) || !island.getLocked()) {
                 return;
             }
 
@@ -153,8 +153,10 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-
         if (!island.getMembers().contains(damager.getUniqueId()))
+            return;
+
+        if (!island.getOwner().equals(damager.getUniqueId()))
             return;
 
         event.setDamage(0);
