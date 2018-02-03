@@ -14,6 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -158,6 +159,15 @@ public class GeneralListener implements Listener {
         }
 
         event.setCancelled(true);
+    }
+    
+    @EventHandler
+    public void onVoid(PlayerMoveEvent event) {
+        if (!(SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.SKY)) return;
+        
+        if (event.getPlayer().getLocation().getY() < 0) {
+            event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+        }
     }
 }
 
