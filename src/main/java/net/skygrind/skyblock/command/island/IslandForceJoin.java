@@ -16,7 +16,7 @@ public class IslandForceJoin extends GooseCommand {
 
     @Override
     public void execute(Player pLayer, String[] args) {
-        if (args.length != 2) {
+        if (args.length != 1) {
             pLayer.sendMessage(ChatColor.RED + "/is force <playerInIsland>");
             return;
         }
