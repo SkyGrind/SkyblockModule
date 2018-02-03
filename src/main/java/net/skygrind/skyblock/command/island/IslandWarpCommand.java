@@ -64,7 +64,7 @@ public class    IslandWarpCommand extends GooseCommand {
             sender.sendMessage(ChatColor.RED + String.format("The island '%s' is currently locked.", target.getName()));
             return;
         }
-        if (island.getExpelled().contains(sender.getUniqueId())) {
+        if (island.isExpelled(sender.getUniqueId())) {
             sender.sendMessage(ChatColor.RED + "You cannot warp to that island, you are expelled!");
             return;
         }
