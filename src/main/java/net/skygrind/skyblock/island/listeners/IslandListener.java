@@ -21,6 +21,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
@@ -96,6 +97,18 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onBucketPlace(final PlayerBucketEmptyEvent event) {
+        Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
+        if (island == null)
+            return;
+
+        if (island.getMembers().contains(event.getPlayer().getUniqueId()))
+            return;
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerBucketFill(final PlayerBucketFillEvent event) {
         Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
         if (island == null)
             return;
