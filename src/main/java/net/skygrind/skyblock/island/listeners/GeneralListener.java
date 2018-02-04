@@ -2,6 +2,8 @@ package net.skygrind.skyblock.island.listeners;
 
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.configuration.ServerType;
+import net.skygrind.skyblock.island.ChatMode;
+import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,14 +14,48 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class GeneralListener implements Listener {
+
+    public static final Map<UUID, ChatMode> CHAT_MODE_MAP = new HashMap<>();
+
+    @EventHandler
+    public void onAsyncChat(final AsyncPlayerChatEvent event) {
+        ChatMode chatMode = CHAT_MODE_MAP.get(event.getPlayer().getUniqueId());
+        if (chatMode == null) {
+            chatMode = ChatMode.PUBLIC;
+            CHAT_MODE_MAP.put(event.getPlayer().getUniqueId(), ChatMode.PUBLIC);
+        }
+
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(event.getPlayer());
+        if (island == null)
+            chatMode = ChatMode.PUBLIC;
+
+        if (chatMode == ChatMode.PUBLIC)
+            return;
+
+        event.setCancelled(true);
+
+        for (UUID uuid : island.getMembers()) {
+            Player player = Bukkit.getPlayer(uuid);
+            if (player == null)
+                continue;
+
+            player.sendMessage(ChatColor.AQUA + "[Island] " + ChatColor.WHITE + event.getPlayer().getName() + ChatColor.GOLD + " \u00BB " + ChatColor.WHITE + event.getMessage());
+        }
+
+        Player owner = Bukkit.getPlayer(island.getOwner());
+        if (owner != null) {
+            owner.sendMessage(ChatColor.AQUA + "[Island] " + ChatColor.WHITE + event.getPlayer().getName() + ChatColor.GOLD + " \u00BB " + ChatColor.WHITE + event.getMessage());
+        }
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
