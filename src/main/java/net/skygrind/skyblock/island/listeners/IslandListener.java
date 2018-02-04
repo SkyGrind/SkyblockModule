@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -124,7 +125,7 @@ public class IslandListener implements Listener {
             if (island == null)
                 return;
 
-            if (island.isMember(event.getPlayer().getUniqueId()))
+            if (island.isAllowed(event.getPlayer().getUniqueId()))
                 return;
 
             if (!island.getLocked())
@@ -144,7 +145,7 @@ public class IslandListener implements Listener {
         if (to == null)
             return;
 
-        if (to.isMember(event.getPlayer().getUniqueId()))
+        if (to.isAllowed(event.getPlayer().getUniqueId()))
             return;
 
         if (!to.isExpelled(event.getPlayer().getUniqueId()))
@@ -169,7 +170,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (island.isMember(damager.getUniqueId()))
+        if (island.isAllowed(damager.getUniqueId()))
             return;
 
         event.setDamage(0D);
@@ -195,7 +196,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (!island.isMember(damager.getUniqueId()))
+        if (!island.isAllowed(damager.getUniqueId()))
             return;
 
         event.setDamage(0);
@@ -219,7 +220,7 @@ public class IslandListener implements Listener {
         if (conflict == null)
             return;
 
-        if (conflict.isMember(placer.getUniqueId()))
+        if (conflict.isAllowed(placer.getUniqueId()))
             return;
 
 
@@ -272,11 +273,16 @@ public class IslandListener implements Listener {
             if (registry.conflicts(block.getLocation())) {
 
                 Island conflict = registry.getIslandAt(block.getLocation());
+                if (conflict.isAllowed(player.getUniqueId()))
+                    return;
 
-                if (!conflict.getMembers().contains(player.getUniqueId()) && !conflict.getOwner().equals(player.getUniqueId()) && !player.hasPermission("skyblock.bypass")) {
-                    player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
-                    event.setCancelled(true);
-                }
+                if (player.hasPermission("skyblock.bypass"))
+                    return;
+
+
+                player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
+                event.setCancelled(true);
+                event.setUseInteractedBlock(Event.Result.DENY);
             }
         }
     }
