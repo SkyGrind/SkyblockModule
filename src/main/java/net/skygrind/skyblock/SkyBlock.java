@@ -136,7 +136,7 @@ public class SkyBlock extends PluginModule {
         //TODO load player data
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
-        new BackupTask().runTaskTimer(API.getPlugin(), TimeUnit.MINUTES.toMillis(7L), TimeUnit.MINUTES.toMillis(7L));
+        new BackupTask().runTaskTimer(API.getPlugin(), TimeUnit.MINUTES.toSeconds(7L) * 20L, TimeUnit.MINUTES.toSeconds(7L) * 20L);
 //        new IslandLevelTask().runTaskTimer(API.getPlugin(), 20L, TimeUnit.MINUTES.toMillis(10) * 20L);
 
         new BukkitRunnable() {
@@ -236,7 +236,6 @@ public class SkyBlock extends PluginModule {
         commandHandler.addSubCommand("leave", new IslandLeaveCommand());
         commandHandler.addSubCommand("level", new IslandLevelCommand());
         commandHandler.addSubCommand("invite", new IslandInviteCommand());
-//        commandHandler.addSubCommand(new IslandLockCommand());
         commandHandler.addSubCommand("top", new IslandTopCommand());
         commandHandler.addSubCommand("lock", new IslandLockCommand());
         commandHandler.addSubCommand("warp", new IslandWarpCommand());
@@ -244,6 +243,7 @@ public class SkyBlock extends PluginModule {
         commandHandler.addSubCommand("force", new IslandForceJoin());
         commandHandler.addSubCommand("expel", new IslandExpelCommand());
         commandHandler.addSubCommand("coop", new IslandCoopCommand());
+        commandHandler.addSubCommand("members", new IslandMembersCommand());
 
         registerCommand("island", commandHandler);
 
