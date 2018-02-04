@@ -21,6 +21,7 @@ public class IslandBaseCommand extends GooseCommand {
             player.sendMessage(ChatColor.AQUA + "Island Help Page");
             player.sendMessage(ChatColor.AQUA + " /island " + ChatColor.WHITE + "Displays this help page.");
             player.sendMessage(ChatColor.AQUA + " /island accept " + ChatColor.WHITE + "Accept a current island invite.");
+            player.sendMessage(ChatColor.AQUA + " /island ban " + ChatColor.WHITE + "Ban somebody from your island.");
             player.sendMessage(ChatColor.AQUA + " /island coop " + ChatColor.WHITE + "Add a Co-op player to your island.");
             player.sendMessage(ChatColor.AQUA + " /island create " + ChatColor.WHITE + "Creates a new island.");
             player.sendMessage(ChatColor.AQUA + " /island decline " + ChatColor.WHITE + "Decline a current island invite.");

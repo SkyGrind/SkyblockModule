@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -20,8 +21,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class IslandListener implements Listener {
             return;
         }
 
-        if (!conflict.isMember(placer.getUniqueId())) {
+        if (!conflict.isAllowed(placer.getUniqueId())) {
             placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
             event.setCancelled(true);
         }
@@ -97,15 +97,84 @@ public class IslandListener implements Listener {
     @EventHandler
     public void onBucketPlace(final PlayerBucketEmptyEvent event) {
         Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
-        if (island == null) {
-            event.setCancelled(true);
+        if (island == null)
             return;
-        }
 
-        if (island.getMembers().contains(event.getPlayer().getUniqueId()))
+        if (island.isAllowed(event.getPlayer().getUniqueId()))
             return;
 
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerBucketFill(final PlayerBucketFillEvent event) {
+        Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
+        if (island == null)
+            return;
+
+        if (island.isAllowed(event.getPlayer().getUniqueId()))
+            return;
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerMove(final PlayerMoveEvent event) {
+        if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
+            Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
+            if (island == null)
+                return;
+
+            if (island.isAllowed(event.getPlayer().getUniqueId()))
+                return;
+
+            if (!island.getLocked())
+                return;
+
+            if (!island.isExpelled(event.getPlayer().getUniqueId()))
+                return;
+
+            event.setTo(event.getFrom());
+            event.getPlayer().sendMessage(ChatColor.RED + "This island is currently locked.");
+        }
+    }
+
+    @EventHandler
+    public void onTeleport(final PlayerTeleportEvent event) {
+        Island to = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
+        if (to == null)
+            return;
+
+        if (to.isAllowed(event.getPlayer().getUniqueId()))
+            return;
+
+        if (!to.isExpelled(event.getPlayer().getUniqueId()))
+            return;
+
+
+        if (!to.getLocked())
+            return;
+
+        event.setTo(event.getFrom());
+        event.getPlayer().sendMessage(ChatColor.RED + "You cannot teleport because the island you are teleporting to is locked.");
+    }
+
+    @EventHandler
+    public void onEntityDamage(final EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player))
+            return;
+
+        Player damager = (Player) event.getDamager();
+
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getEntity().getLocation());
+        if (island == null)
+            return;
+
+        if (island.isAllowed(damager.getUniqueId()))
+            return;
+
+        event.setDamage(0D);
+        damager.sendMessage(ChatColor.RED + "You cannot attack entities on this island.");
     }
 
     @EventHandler
@@ -117,12 +186,19 @@ public class IslandListener implements Listener {
              return;
 
         Player damager = (Player) event.getDamager();
+        if (damager == null)
+            return;
+
         Player damaged = (Player) event.getEntity();
 
         Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(damaged);
-        if (!island.getMembers().contains(damager.getUniqueId())) {
+
+        if (island == null)
             return;
-        }
+
+        if (!island.isAllowed(damager.getUniqueId()))
+            return;
+
         event.setDamage(0);
         damager.sendMessage(ChatColor.RED + String.format("Warning: %s is in your island.", damaged.getName()));
     }
@@ -144,15 +220,15 @@ public class IslandListener implements Listener {
         if (conflict == null)
             return;
 
-        if (conflict.isMember(placer.getUniqueId()))
+        if (conflict.isAllowed(placer.getUniqueId()))
             return;
 
 
-        System.out.println(String.format("conflicting w/ %s & !member", conflict.getName()));
+        // System.out.println(String.format("conflicting w/ %s & !member", conflict.getName()));
 
         if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) && (conflict.getIslandLevel() < 5)) {
             // Can raid
-            System.out.println("can raid");
+           // System.out.println("can raid");
             if (!this.canMine.contains(event.getBlock().getType())) {
                 System.out.println(String.format("%s cannot mine", placer.getName()));
                 placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
@@ -197,11 +273,16 @@ public class IslandListener implements Listener {
             if (registry.conflicts(block.getLocation())) {
 
                 Island conflict = registry.getIslandAt(block.getLocation());
+                if (conflict.isAllowed(player.getUniqueId()))
+                    return;
 
-                if (!conflict.getMembers().contains(player.getUniqueId()) && !conflict.getOwner().equals(player.getUniqueId()) && !player.hasPermission("skyblock.bypass")) {
-                    player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
-                    event.setCancelled(true);
-                }
+                if (player.hasPermission("skyblock.bypass"))
+                    return;
+
+
+                player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
+                event.setCancelled(true);
+                event.setUseInteractedBlock(Event.Result.DENY);
             }
         }
     }

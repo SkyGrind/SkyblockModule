@@ -14,13 +14,17 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Matt on 2017-02-25.
  */
 public class IslandCreateCommand extends GooseCommand {
 
+    public static final List<UUID> ISLAND_MAKING = new ArrayList<>();
 
     public IslandCreateCommand() {
         super("create", Lists.newArrayList(), true);
@@ -46,7 +50,6 @@ public class IslandCreateCommand extends GooseCommand {
 
     @Override
     public void execute(Player player, String[] args) {
-
         if (args.length > 0) {
             player.sendMessage(ChatColor.RED + "Usage: /island create");
             return;
@@ -56,6 +59,12 @@ public class IslandCreateCommand extends GooseCommand {
             player.sendMessage(ChatColor.RED + "You already have an island.");
             return;
         }
+
+        if (ISLAND_MAKING.contains(player.getUniqueId())) {
+            player.sendMessage(ChatColor.RED + "You already have an island.");
+            return;
+        }
+
         MessageUtil.sendServerTheme(player, ChatColor.GREEN + "Opening island selection...");
         openIslandGUI(player);
         return;

@@ -23,8 +23,13 @@ public class FlyCheckTask extends BukkitRunnable {
                 return;
             }
 
-            if (island.getMembers().contains(player.getUniqueId()))
+            if (island.isAllowed(player.getUniqueId()))
                 return;
+            
+            if (island.getLocked()) {
+                doNotEnter(player);
+            }
+            
 
             disableFlight(player);
         }
@@ -36,5 +41,18 @@ public class FlyCheckTask extends BukkitRunnable {
             player.setFlying(false);
             player.sendMessage(ChatColor.RED + "You are only allowed to fly in your island.");
         }
+    }
+    
+    private void doNotEnter(final Player player) {
+        player.sendMessage(ChatColor.RED + "You cannot enter this island as it is locked..");
+        Island playerIsland = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
+        
+        Location location = playerIsland.getSpawn();
+        
+        if (location == null) {
+            player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
+        }
+        
+        player.teleport(location);
     }
 }

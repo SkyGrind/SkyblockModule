@@ -1,6 +1,7 @@
 package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
+import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
@@ -11,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +107,16 @@ public class IslandLevelCommand extends GooseCommand {
 //            }
 //        }
 
-        island.calculateIslandLevel();
+        SkyBlock.getPlugin().getIslandWorld().setAutoSave(false);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                island.calculateIslandLevel();
+            }
+        }.runTaskAsynchronously(API.getPlugin());
+        SkyBlock.getPlugin().getIslandWorld().setAutoSave(true);
+
+
         MessageUtil.sendServerTheme(player, ChatColor.GREEN + String.format("Your island is currently level %s.", island.getIslandLevel()));
     }
 }

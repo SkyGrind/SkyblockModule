@@ -3,6 +3,7 @@ package net.skygrind.skyblock.island;
 import com.islesmc.modules.api.API;
 import net.md_5.bungee.api.ChatColor;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.command.island.IslandCreateCommand;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -48,6 +49,7 @@ public class IslandGUIHandler implements Listener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
+                    IslandCreateCommand.ISLAND_MAKING.add(pl.getUniqueId());
                     SkyBlock.getPlugin().getIslandRegistry().createIsland(pl, type);
                 }
             }.runTaskAsynchronously(API.getPlugin());

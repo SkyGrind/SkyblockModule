@@ -34,6 +34,7 @@ public class Island implements Comparable<Island> {
     private Integer bankBalance = 0;
     private Boolean locked;
     private GooseLocation warpLocation;
+    private List<UUID> expelled;
 
     private List<UUID> coop = new ArrayList<>();
 
@@ -50,6 +51,9 @@ public class Island implements Comparable<Island> {
         }
         this.locked = false;
         this.warpLocation = null;
+
+
+        this.expelled = new ArrayList<>();
     }
 
     public int getIslandLevel() {
@@ -87,10 +91,14 @@ public class Island implements Comparable<Island> {
     public List<UUID> getMembers() {
         return members;
     }
+    
+    public List<UUID> getExpelled() { return expelled; }
 
     public void setMembers(List<UUID> members) {
         this.members = members;
     }
+    
+    public void setExpelled(List<UUID> expelled) { this.expelled = expelled; }
 
     public int getSize() {
         return size;
@@ -118,6 +126,17 @@ public class Island implements Comparable<Island> {
 
     public boolean isMember(UUID uuid) {
         return members.contains(uuid) || owner.equals(uuid);
+    }
+    
+    public boolean isAllowed(UUID uuid) {
+        return members.contains(uuid) || owner.equals(uuid) || coop.contains(uuid);
+    }
+    
+    public boolean isExpelled(UUID uuid) {
+        if (expelled == null)
+            expelled = new ArrayList<>();
+
+        return expelled.contains(uuid);
     }
 
     public String getName() {
@@ -257,6 +276,6 @@ public class Island implements Comparable<Island> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(spawn, container, owner, maxPlayers, members, size, type, islandName, islandLevel, bankBalance, locked, warpLocation);
+        return Objects.hash(spawn, container, owner, maxPlayers, members, size, expelled, type, islandName, islandLevel, bankBalance, locked, warpLocation);
     }
 }

@@ -32,6 +32,15 @@ public class IslandInviteCommand extends GooseCommand {
         }
 
         Player target = Bukkit.getPlayer(args[0]);
+        if (target == null) {
+            player.sendMessage(ChatColor.RED + String.format("No player with the name or UUID of '%s' is online.", args[0]));
+            return;
+        }
+
+        if (target.getUniqueId().equals(player.getUniqueId())) {
+            player.sendMessage(ChatColor.RED + "You cannot invite yourself.");
+            return;
+        }
 
         IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
 
@@ -42,14 +51,14 @@ public class IslandInviteCommand extends GooseCommand {
 
         Island island = registry.getIslandForPlayer(player);
 
-        if (target == null) {
-            player.sendMessage(ChatColor.RED + String.format("No player with the name or UUID of '%s' is online.", args[0]));
-            return;
-        }
-
         if (island.getMembers().size() >= island.getMaxPlayers()) {
             player.sendMessage(ChatColor.RED + String.format("Your island is currently limited to %s island members..", island.getMaxPlayers()));
             MessageUtil.sendServerTheme(player, "To increase this limit visit http://shop.skyparadisemc.com");
+            return;
+        }
+        
+        if (island.isExpelled(target.getUniqueId())) {
+            player.sendMessage(ChatColor.RED + "You cannot invite that player, they are expelled!");
             return;
         }
 

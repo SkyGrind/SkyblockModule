@@ -3,6 +3,7 @@ package net.skygrind.skyblock.task;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.data.DataException;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.command.island.IslandCreateCommand;
 import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.island.Island;
@@ -92,6 +93,7 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             Region container = SkyBlock.getPlugin().getRegionHandler().createRegion(island.getName(), min, max);
             island.setContainer(container);
             island.setMembers(new ArrayList<>());
+            island.setExpelled(new ArrayList<>());
             island.setIslandLevel(0);
 
 
@@ -123,6 +125,8 @@ public class IslandCreateQueueTask extends BukkitRunnable {
             SkyBlock.getPlugin().getIslandRegistry().setLastIsland(center);
             SkyBlock.getPlugin().getServerConfig().setLastIslandLocation(GooseLocation.fromLocation(center));
             SkyBlock.getPlugin().getServerConfig().save();
+
+            IslandCreateCommand.ISLAND_MAKING.remove(player.getUniqueId());
         }
     }
 
