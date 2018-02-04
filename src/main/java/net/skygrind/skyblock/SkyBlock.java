@@ -135,7 +135,6 @@ public class SkyBlock extends PluginModule {
         //TODO load player data
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
-//        new IslandLevelTask().runTaskTimer(API.getPlugin(), 20L, TimeUnit.MINUTES.toMillis(10) * 20L);
 
         new BukkitRunnable() {
             @Override
