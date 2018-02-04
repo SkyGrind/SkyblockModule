@@ -22,6 +22,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,11 @@ public class IslandListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Player placer = event.getPlayer();
+
+        if (placer.getItemInHand().getType().equals(Material.BARRIER)) {
+            placer.setItemInHand(new ItemStack(Material.AIR));
+            event.setBuild(false);
+        }
 
         if (placer.hasPermission("skyblock.bypass"))
             return;
