@@ -27,14 +27,14 @@ public class OreGenerationConfig {
     public OreGenerationConfig() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.generationMap = new HashMap<>();
-        this.generationMap.put(Material.COBBLESTONE, 81.4);
-        this.generationMap.put(Material.COAL_ORE, 5.4);
-        this.generationMap.put(Material.IRON_ORE, 1.7);
-        this.generationMap.put(Material.DIAMOND_ORE, 0.7);
-        this.generationMap.put(Material.LAPIS_ORE, 7.6);
-        this.generationMap.put(Material.REDSTONE_ORE, 2.1);
-        this.generationMap.put(Material.GOLD_ORE, 1.0);
-        this.generationMap.put(Material.EMERALD_ORE, 0.3);
+        this.generationMap.put(Material.COBBLESTONE, 35.0);
+        this.generationMap.put(Material.COAL_ORE, 15.0);
+        this.generationMap.put(Material.IRON_ORE, 10.0);
+        this.generationMap.put(Material.DIAMOND_ORE, 5.0);
+        this.generationMap.put(Material.LAPIS_ORE, 10.0);
+        this.generationMap.put(Material.REDSTONE_ORE, 10.0);
+        this.generationMap.put(Material.GOLD_ORE, 10.0);
+        this.generationMap.put(Material.EMERALD_ORE, 5.0);
         this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "ores.json";
     }
 

@@ -128,6 +128,10 @@ public class Island implements Comparable<Island> {
         return members.contains(uuid) || owner.equals(uuid);
     }
     
+    public boolean isAllowed(UUID uuid) {
+        return members.contains(uuid) || owner.equals(uuid) || coop.contains(uuid);
+    }
+    
     public boolean isExpelled(UUID uuid) {
         if (expelled == null)
             expelled = new ArrayList<>();
