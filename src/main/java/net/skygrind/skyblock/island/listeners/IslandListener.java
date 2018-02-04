@@ -20,10 +20,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerBucketFillEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,6 +129,44 @@ public class IslandListener implements Listener {
             event.setTo(event.getFrom());
             event.getPlayer().sendMessage(ChatColor.RED + "This island is currently locked.");
         }
+    }
+
+    @EventHandler
+    public void onTeleport(final PlayerTeleportEvent event) {
+        Island to = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
+        if (to == null)
+            return;
+
+        if (to.isMember(event.getPlayer().getUniqueId()))
+            return;
+
+        if (!to.isExpelled(event.getPlayer().getUniqueId()))
+            return;
+
+
+        if (!to.getLocked())
+            return;
+
+        event.setTo(event.getFrom());
+        event.getPlayer().sendMessage(ChatColor.RED + "You cannot teleport because the island you are teleporting to is locked.");
+    }
+
+    @EventHandler
+    public void onEntityDamage(final EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player))
+            return;
+
+        Player damager = (Player) event.getDamager();
+
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getEntity().getLocation());
+        if (island == null)
+            return;
+
+        if (island.isMember(damager.getUniqueId()))
+            return;
+
+        event.setDamage(0D);
+        damager.sendMessage(ChatColor.RED + "You cannot attack entities on this island.");
     }
 
     @EventHandler
