@@ -121,10 +121,17 @@ public class IslandListener implements Listener {
     public void onPlayerMove(final PlayerMoveEvent event) {
         if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
-
-            if ((island == null) || !island.isAllowed(event.getPlayer().getUniqueId()) || !island.getLocked()) {
+            if (island == null)
                 return;
-            }
+
+            if (island.isMember(event.getPlayer().getUniqueId()))
+                return;
+
+            if (!island.getLocked())
+                return;
+
+            if (!island.isExpelled(event.getPlayer().getUniqueId()))
+                return;
 
             event.setTo(event.getFrom());
             event.getPlayer().sendMessage(ChatColor.RED + "This island is currently locked.");
@@ -188,10 +195,7 @@ public class IslandListener implements Listener {
         if (island == null)
             return;
 
-        if (!island.getMembers().contains(damager.getUniqueId()))
-            return;
-
-        if (!island.getOwner().equals(damager.getUniqueId()))
+        if (!island.isMember(damager.getUniqueId()))
             return;
 
         event.setDamage(0);
