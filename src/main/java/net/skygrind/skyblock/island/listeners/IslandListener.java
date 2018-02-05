@@ -83,7 +83,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onSignChange(final SignChangeEvent event) {
-        System.out.println("sign update event");
+       // System.out.println("sign update event");
         Location location = event.getBlock().getLocation();
 
         if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
