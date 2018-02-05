@@ -60,8 +60,6 @@ public class SkyBlock extends PluginModule {
 
     private static SkyBlock plugin;
     public SchematicLoader schematicLoader;
-    private File challenges;
-    private FileConfiguration challengesConfig;
     private RegionHandler regionHandler;
     private IslandRegistry islandRegistry;
     private ShopHandler shopHandler;
@@ -79,26 +77,22 @@ public class SkyBlock extends PluginModule {
         return plugin;
     }
 
-    /**
-     * TODO List for tomorrow
-     * <p>
-     * Finish Region Command (IslandCreateCommand /region create [name] /region delete [name] dispose of active sessions.)
-     * Test Schem loading
-     * Allow Schems to take a region ?
-     */
+    private static synchronized void setPlugin(final SkyBlock skyBlock) {
+        plugin = skyBlock;
+    }
 
     @Override
     public void onEnable() {
+        setPlugin(this);
+
         getModuleDir().toFile().mkdir();
-        plugin = this;
         this.regionHandler = new RegionHandler();
         this.shopHandler = new ShopHandler();
         this.oreGenerationConfig = new OreGenerationConfig();
         this.oreGenerationConfig.loadValues();
-        this.serverConfig = new ServerConfig();
-        this.serverConfig.load();
 
-        this.islandRegistry = new IslandRegistry();
+        serverConfig = new ServerConfig();
+        serverConfig.load();
 
         this.challengeConfig = new ChallengeConfig();
         this.challengeConfig.load();
@@ -112,32 +106,25 @@ public class SkyBlock extends PluginModule {
 
         worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 
-//        if (Bukkit.getPluginManager().getPlugin("Multiverse-Core") != null && !Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
-//            disable();
-//
-
         new BukkitRunnable() {
             @Override
             public void run() {
                 if (getServerConfig().getServerType() == ServerType.SKY) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mv create Skyblock normal -g VoidWorld");
                 }
-
                 islandWorld = Bukkit.getWorld("Skyblock");
+
                 setupEconomy();
+                islandRegistry = new IslandRegistry();
             }
         }.runTaskLater(API.getPlugin(), 20L);
 
         schematicLoader = new SchematicLoader();
-
-//        initFiles();
         setupShit();
-        //TODO load schems
-        //TODO load player data
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
         new BackupTask().runTaskTimer(API.getPlugin(), TimeUnit.MINUTES.toSeconds(7L) * 20L, TimeUnit.MINUTES.toSeconds(7L) * 20L);
-//        new IslandLevelTask().runTaskTimer(API.getPlugin(), 20L, TimeUnit.MINUTES.toMillis(10) * 20L);
+
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -181,7 +168,6 @@ public class SkyBlock extends PluginModule {
 
     @Override
     public void onDisable() {
-//        saveMissionsFile();
         islandRegistry.disable();
         getServerConfig().save();
     }
@@ -258,46 +244,6 @@ public class SkyBlock extends PluginModule {
         registerCommand("setislandsize", new SetIslandSizeCommand());
         registerCommand("setmaxmembers", new SetIslandMaxMembersCommand());
     }
-
-//    private void initFiles() {
-//        File missionsDir = new File(getModuleDir().toString(), "challenges");
-//
-//        if (!(missionsDir.exists())) {
-//            missionsDir.mkdir();
-//        }
-//
-//        challenges = new File(missionsDir, "challenges.yml");
-//        challengesConfig = YamlConfiguration.loadConfiguration(challenges);
-//
-//        challengesConfig.options().copyDefaults(true);
-//
-//        if (!(challenges.exists())) {
-//            try {
-//                System.out.println("Missions file not found. Creating....");
-//                challenges.createNewFile();
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//        challengesConfig.options().copyDefaults(true);
-//    }
-//    public void saveMissionsFile() {
-//        try {
-//            if (challenges == null) {
-//                System.out.println("No data inside of missions file!");
-//                return;
-//            }
-//            challengesConfig.save(challenges);
-//        } catch (IOException ex) {
-//            System.out.println("There was a problem saving " + challenges.toString());
-//        }
-//    }
-//
-//    public void reloadMissions() {
-//        saveMissionsFile();
-//        YamlConfiguration.loadConfiguration(challenges);
-//    }
-
 
     public Economy getEconomy() {
         return this.economy;

@@ -171,6 +171,24 @@ public class IslandRegistry {
         if (playerIslands.isEmpty()) {
             this.lastIsland = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
         } else {
+            if (SkyBlock.getPlugin() == null) {
+                System.out.println("Skyblock instance null");
+            }
+
+            if (SkyBlock.getPlugin().getServerConfig() == null) {
+                System.out.println("config null");
+            }
+
+            if (SkyBlock.getPlugin().getServerConfig().getLastIslandLocation() == null) {
+                this.lastIsland = new Location(SkyBlock.getPlugin().getIslandWorld(), 0, 100, 0);
+                return;
+            }
+
+            if (SkyBlock.getPlugin().getServerConfig().getLastIslandLocation().toLocation() == null) {
+                System.out.println("last island null");
+            }
+
+
             this.lastIsland = SkyBlock.getPlugin().getServerConfig().getLastIslandLocation().toLocation();
         }
     }
@@ -404,6 +422,9 @@ public class IslandRegistry {
 
     public Island getIslandForPlayer(Player player) {
         for (Island island : playerIslands) {
+            if (island == null)
+                continue;
+
             if (island.getOwner().equals(player.getUniqueId()) || island.getMembers().contains(player.getUniqueId())) {
                 return island;
             }

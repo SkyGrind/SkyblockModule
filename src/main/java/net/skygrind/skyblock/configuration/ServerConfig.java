@@ -32,7 +32,7 @@ public class ServerConfig {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.spawn = GooseLocation.fromLocation(new Location(Bukkit.getWorld("world"), 0, 0, 0));
         this.playersJoined = 0;
-        this.lastIslandLocation = null;
+        this.lastIslandLocation = GooseLocation.of(null, 0D, 0D, 0D, 0D);
         this.scoreboardName = "";
         this.primaryColor = "&a";
         this.serverType = ServerType.SKY;

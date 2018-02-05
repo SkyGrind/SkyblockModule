@@ -28,6 +28,8 @@ public class GooseLocation {
     }
 
     public static GooseLocation of(final UUID uuid, Double x, Double y, Double z, Double yaw) {
+        if (uuid == null)
+            return null;
         return new GooseLocation(uuid, x, y, z, yaw);
     }
 
@@ -48,6 +50,8 @@ public class GooseLocation {
     }
 
     public Location toLocation() {
+        if (world == null)
+            return null;
         return new Location(Bukkit.getWorld(world), x, y, z, yaw.floatValue(), 0f);
     }
 }

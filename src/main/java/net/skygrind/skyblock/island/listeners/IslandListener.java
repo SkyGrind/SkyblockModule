@@ -32,7 +32,6 @@ import java.util.List;
  * Created by Matt on 2017-02-25.
  */
 public class IslandListener implements Listener {
-    private final IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
     private final List<Material> canMine;
 
     public IslandListener() {
@@ -62,7 +61,7 @@ public class IslandListener implements Listener {
         //Added to allow SkyBattles to work. -IcyRelic
         if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
 
-        Island conflict = registry.getIslandAt(location);
+        Island conflict = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(location);
 
         if (conflict == null) {
             if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
@@ -89,7 +88,7 @@ public class IslandListener implements Listener {
 
         if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
 
-        Island island = registry.getIslandAt(location);
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(location);
         if (island == null)
             return;
 
@@ -102,7 +101,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onBucketPlace(final PlayerBucketEmptyEvent event) {
-        Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getBlockClicked().getLocation());
         if (island == null)
             return;
 
@@ -114,7 +113,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onPlayerBucketFill(final PlayerBucketFillEvent event) {
-        Island island = registry.getIslandAt(event.getBlockClicked().getLocation());
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getBlockClicked().getLocation());
         if (island == null)
             return;
 
@@ -206,6 +205,7 @@ public class IslandListener implements Listener {
             return;
 
         event.setDamage(0);
+        event.setCancelled(true);
         damager.sendMessage(ChatColor.RED + String.format("Warning: %s is in your island.", damaged.getName()));
     }
 
@@ -222,7 +222,7 @@ public class IslandListener implements Listener {
         if (placer.hasPermission("skyblock.bypass"))
             return;
 
-        Island conflict = registry.getIslandAt(location);
+        Island conflict = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(location);
         if (conflict == null)
             return;
 
@@ -268,7 +268,7 @@ public class IslandListener implements Listener {
             if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld())
                 return;
 
-            if (!(block.getType() == Material.CHEST)) {
+            if (!(block.getType() == Material.CHEST) || !(block.getType() == Material.TRAPPED_CHEST)) {
                 return;
             }
 
@@ -276,9 +276,9 @@ public class IslandListener implements Listener {
                 return;
             }
 
-            if (registry.conflicts(block.getLocation())) {
+            if (SkyBlock.getPlugin().getIslandRegistry().conflicts(block.getLocation())) {
 
-                Island conflict = registry.getIslandAt(block.getLocation());
+                Island conflict = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(block.getLocation());
                 if (conflict.isAllowed(player.getUniqueId()))
                     return;
 

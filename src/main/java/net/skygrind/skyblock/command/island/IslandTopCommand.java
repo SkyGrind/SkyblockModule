@@ -37,6 +37,10 @@ public class IslandTopCommand extends GooseCommand implements Listener {
         Map<Island, Integer> islands = new HashMap<>();
 
         for (Island island : SkyBlock.getPlugin().getIslandRegistry().getPlayerIslands()) {
+            if (island == null)
+                continue;
+
+
             islands.put(island, island.getIslandLevel());
         }
 
