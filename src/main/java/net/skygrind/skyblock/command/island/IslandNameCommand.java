@@ -10,11 +10,8 @@ import org.bukkit.entity.Player;
 
 public class IslandNameCommand extends GooseCommand {
 
-    private IslandRegistry registry;
-
     public IslandNameCommand() {
         super("name", Lists.newArrayList(), true);
-        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     @Override
@@ -26,7 +23,7 @@ public class IslandNameCommand extends GooseCommand {
         }
 
         String name = args[0];
-        Island island = registry.getIslandForPlayer(sender);
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(sender);
 
         if (island == null) {
             sender.sendMessage(ChatColor.RED + "You do not have an island to name!");

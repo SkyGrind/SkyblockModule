@@ -21,12 +21,8 @@ import java.util.UUID;
  * Created by Matt on 2017-02-25.
  */
 public class IslandLeaveCommand extends GooseCommand {
-
-    private final IslandRegistry registry;
-
     public IslandLeaveCommand() {
         super("leave", Lists.newArrayList(), true);
-        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     @Override
@@ -36,7 +32,7 @@ public class IslandLeaveCommand extends GooseCommand {
             return;
         }
 
-        Island island = registry.getIslandForPlayer(player);
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
 
         if (island == null) {
             player.sendMessage(ChatColor.RED + "You do not currently have an island.");
@@ -49,8 +45,7 @@ public class IslandLeaveCommand extends GooseCommand {
                 openNewOwnerSelector(player, island);
                 return;
             } else {
-                registry.deleteIsland(player, island);
-
+                SkyBlock.getPlugin().getIslandRegistry().deleteIsland(player, island);
 //                Bukkit.broadcastMessage(ChatColor.GRAY + ChatColor.BOLD.toString() + island.getName() + " Status: " + ChatColor.RED + ChatColor.BOLD.toString() + "[FALLEN]");
             }
         } else {

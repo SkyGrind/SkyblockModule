@@ -13,21 +13,19 @@ import org.bukkit.entity.Player;
  * Created by Matt on 2017-02-25.
  */
 public class IslandDeclineCommand extends GooseCommand {
-    private final IslandRegistry registry;
 
     public IslandDeclineCommand() {
         super("decline", Lists.newArrayList(), true);
-        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     @Override
     public void execute(Player player, String[] strings) {
-        if (!registry.hasInvite(player)) {
+        if (!SkyBlock.getPlugin().getIslandRegistry().hasInvite(player)) {
             player.sendMessage(ChatColor.RED + "You do not have any pending invitations.");
             return;
         }
 
-        Island invite = registry.getInviteFor(player);
+        Island invite = SkyBlock.getPlugin().getIslandRegistry().getInviteFor(player);
 
         player.sendMessage(ChatColor.GREEN + String.format("You have declined %s's invite.", invite.getName()));
         Player owner = Bukkit.getPlayer(invite.getOwner());
@@ -37,7 +35,7 @@ public class IslandDeclineCommand extends GooseCommand {
         }
 
         owner.sendMessage(ChatColor.GREEN + String.format("%s has declined his invitation to your island.", player.getName()));
-        registry.getIslandInvites().remove(player.getUniqueId());
+        SkyBlock.getPlugin().getIslandRegistry().getIslandInvites().remove(player.getUniqueId());
         return;
     }
 }

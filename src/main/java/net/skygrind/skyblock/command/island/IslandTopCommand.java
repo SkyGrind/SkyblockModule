@@ -24,12 +24,10 @@ import java.util.*;
  * Created by Matt on 17/04/2017.
  */
 public class IslandTopCommand extends GooseCommand implements Listener {
-    private final IslandRegistry registry;
     private Inventory islandTop = Bukkit.createInventory(null, 36, "Top Islands");
 
     public IslandTopCommand() {
         super("top", Lists.newArrayList(), true);
-        this.registry = SkyBlock.getPlugin().getIslandRegistry();
         SkyBlock.getPlugin().registerEvent(this);
     }
 

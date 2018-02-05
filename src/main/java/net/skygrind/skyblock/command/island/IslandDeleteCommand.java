@@ -14,11 +14,9 @@ import org.bukkit.event.Listener;
  * Created by Matt on 2017-02-25.
  */
 public class IslandDeleteCommand extends GooseCommand implements Listener {
-    private final IslandRegistry registry;
 
     public IslandDeleteCommand() {
         super("delete", Lists.newArrayList(), true);
-        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
 
@@ -28,7 +26,7 @@ public class IslandDeleteCommand extends GooseCommand implements Listener {
             player.sendMessage(ChatColor.RED + "Usage: /island delete");
         }
 
-        Island island = registry.getIslandForPlayer(player);
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
 
         if (island == null) {
             player.sendMessage(ChatColor.RED + "You do not have an island to delete.");
@@ -40,7 +38,7 @@ public class IslandDeleteCommand extends GooseCommand implements Listener {
             return;
         }
 
-        registry.deleteIsland(player, island);
+        SkyBlock.getPlugin().getIslandRegistry().deleteIsland(player, island);
         MessageUtil.sendServerTheme(player, "You have successfully deleted your island.");
         return;
     }

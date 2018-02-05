@@ -14,11 +14,9 @@ import org.bukkit.entity.Player;
  * Created by Matt on 2017-02-25.
  */
 public class IslandKickCommand extends GooseCommand {
-    private final IslandRegistry registry;
 
     public IslandKickCommand() {
         super("kick", Lists.newArrayList(), true);
-        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     @Override
@@ -28,7 +26,7 @@ public class IslandKickCommand extends GooseCommand {
             return;
         }
 
-        Island island = registry.getIslandForPlayer(player);
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
 
         if (island == null) {
             player.sendMessage(ChatColor.RED + "You do not currently have an island.");
@@ -53,7 +51,7 @@ public class IslandKickCommand extends GooseCommand {
         }
 
         island.getMembers().remove(target.getUniqueId());
-        if (registry.isInIslandRegion(island, target.getLocation())) {
+        if (SkyBlock.getPlugin().getIslandRegistry().isInIslandRegion(island, target.getLocation())) {
             target.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         }
         MessageUtil.sendServerTheme(player, ChatColor.GREEN + String.format("You have clicked %s from your island.", target.getName()));

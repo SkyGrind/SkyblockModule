@@ -11,11 +11,8 @@ import org.bukkit.entity.Player;
 
 public class IslandCoopCommand extends GooseCommand {
 
-    private IslandRegistry registry = SkyBlock.getPlugin().getIslandRegistry();
-
     public IslandCoopCommand() {
         super("coop", Lists.newArrayList(), true);
-        this.registry = SkyBlock.getPlugin().getIslandRegistry();
     }
 
     @Override
@@ -24,7 +21,7 @@ public class IslandCoopCommand extends GooseCommand {
             return;
         }
 
-        Island island = registry.getIslandForPlayer(sender);
+        Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(sender);
 
         if (island == null) {
             sender.sendMessage(ChatColor.RED + "You do not have an island to do this!");
