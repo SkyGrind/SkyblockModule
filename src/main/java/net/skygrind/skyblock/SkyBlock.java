@@ -123,7 +123,7 @@ public class SkyBlock extends PluginModule {
         setupShit();
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
-        new BackupTask().runTaskTimer(API.getPlugin(), TimeUnit.MINUTES.toSeconds(7L) * 20L, TimeUnit.MINUTES.toSeconds(7L) * 20L);
+        new BackupTask().runTaskTimer(API.getPlugin(), TimeUnit.MINUTES.toSeconds(25L) * 20L, TimeUnit.MINUTES.toSeconds(25L) * 20L);
 
         new BukkitRunnable() {
             @Override

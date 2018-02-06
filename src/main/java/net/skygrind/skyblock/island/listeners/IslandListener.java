@@ -257,6 +257,13 @@ public class IslandListener implements Listener {
         event.setCancelled(true);
     }
 
+    private boolean isChest(Block block) {
+        if(block.getType().equals(Material.CHEST)) {
+            return true;
+        }
+        return block.getType().equals(Material.TRAPPED_CHEST);
+    }
+
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
@@ -268,13 +275,8 @@ public class IslandListener implements Listener {
             if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld())
                 return;
 
-            if (!(block.getType() == Material.CHEST)) {
+            if (!isChest(block))
                 return;
-            }
-
-            if (!(block.getType() == Material.TRAPPED_CHEST)) {
-                return;
-            }
 
             if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
                 return;
