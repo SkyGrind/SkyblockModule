@@ -214,6 +214,7 @@ public class SkyBlock extends PluginModule {
         commandHandler.addSubCommand("coop", new IslandCoopCommand());
         commandHandler.addSubCommand("members", new IslandMembersCommand());
         commandHandler.addSubCommand("chat", new IslandChatCommand());
+        commandHandler.addSubCommand("reload", new IslandReloadCommand());
 
         registerCommand("island", commandHandler);
 
