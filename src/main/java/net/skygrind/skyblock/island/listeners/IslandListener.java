@@ -289,6 +289,7 @@ public class IslandListener implements Listener {
                 player.sendMessage(ChatColor.RED + "You do not have permission to open containers here!");
                 event.setCancelled(true);
                 event.setUseInteractedBlock(Event.Result.DENY);
+                event.setUseItemInHand(Event.Result.DENY);
             }
         }
     }
