@@ -31,9 +31,10 @@ public class IslandMembersCommand extends GooseCommand {
         }
 
         sender.sendMessage(ChatColor.YELLOW + String.format("%s's Members:", island.getName()));
-        Player owner = Bukkit.getPlayer(island.getOwner());
-        //                  Null in this case is if they are online, owner can never not exist
-        sender.sendMessage(ChatColor.GRAY + " \u00BB " + (owner == null ? ChatColor.RED + owner.getName() + " (Owner)" : ChatColor.GREEN + owner.getName() + " (Owner)"));
+
+        // can't be completely null, worse case scenario is they are offline
+        OfflinePlayer owner = Bukkit.getOfflinePlayer(island.getOwner());
+        sender.sendMessage(ChatColor.GRAY + " \u00BB " + (!owner.isOnline() ? ChatColor.RED + owner.getName() + " (Owner)" : ChatColor.GREEN + owner.getName() + " (Owner)"));
         
         for (UUID uuid : island.getMembers()) {
             Player player = Bukkit.getPlayer(uuid);
@@ -45,7 +46,7 @@ public class IslandMembersCommand extends GooseCommand {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
             if (offlinePlayer == null)
                 continue;
-            
+
             sender.sendMessage(ChatColor.GRAY + " \u00BB " + ChatColor.RED + offlinePlayer.getName());
         }
     }
