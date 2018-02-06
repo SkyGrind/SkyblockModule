@@ -38,6 +38,10 @@ public class OreGenerationConfig {
         this.fileName = SkyBlock.getPlugin().getModuleDir() + File.separator + "ores.json";
     }
 
+    public Map<Material, Double> getGenerationMap() {
+        return generationMap;
+    }
+
     public Double getValue(final Material key) {
         return generationMap.get(key);
     }
