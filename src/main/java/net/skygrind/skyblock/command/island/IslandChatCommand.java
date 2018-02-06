@@ -17,7 +17,7 @@ public class IslandChatCommand extends GooseCommand {
     @Override
     public void execute(Player sender, String[] args) {
         if (args.length != 1) {
-            sender.sendMessage(ChatColor.RED + "Usage: /island chat <chatMode>");
+            sender.sendMessage(ChatColor.RED + "Usage: /island chat <island/Public>");
             return;
         }
 
@@ -32,7 +32,7 @@ public class IslandChatCommand extends GooseCommand {
             case "i":
             case "island": {
                 GeneralListener.CHAT_MODE_MAP.put(sender.getUniqueId(), ChatMode.ISLAND);
-                sender.sendMessage(ChatColor.YELLOW + "You are now speaking in " + ChatColor.GREEN + "Island " + ChatColor.YELLOW + " chat.");
+                sender.sendMessage(ChatColor.YELLOW + "You are now speaking in " + ChatColor.GREEN + "Island " + ChatColor.YELLOW + "chat.");
                 break;
             }
             case "g":
@@ -40,7 +40,11 @@ public class IslandChatCommand extends GooseCommand {
             case "public":
             case "p": {
                 GeneralListener.CHAT_MODE_MAP.put(sender.getUniqueId(), ChatMode.PUBLIC);
-                sender.sendMessage(ChatColor.YELLOW + "You are now speaking in " + ChatColor.GREEN + "Public " + ChatColor.YELLOW + " chat.");
+                sender.sendMessage(ChatColor.YELLOW + "You are now speaking in " + ChatColor.GREEN + "Public " + ChatColor.YELLOW + "chat.");
+                break;
+            }
+            default: {
+                sender.sendMessage(ChatColor.RED + "Usage: /island chat <island/Public>");
                 break;
             }
         }
