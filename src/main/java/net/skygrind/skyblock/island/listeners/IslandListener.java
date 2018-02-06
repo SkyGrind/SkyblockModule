@@ -268,7 +268,11 @@ public class IslandListener implements Listener {
             if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld())
                 return;
 
-            if (!(block.getType() == Material.CHEST) || !(block.getType() == Material.TRAPPED_CHEST)) {
+            if (!(block.getType() == Material.CHEST)) {
+                return;
+            }
+
+            if (!(block.getType() == Material.TRAPPED_CHEST)) {
                 return;
             }
 
