@@ -37,6 +37,7 @@ import net.skygrind.skyblock.shop.ShopHandler;
 import net.skygrind.skyblock.task.BackupTask;
 import net.skygrind.skyblock.task.FlyCheckTask;
 import net.skygrind.skyblock.task.IslandLevelTask;
+import net.skygrind.skyblock.task.TabUpdateTask;
 import net.skygrind.skyblock.util.GridUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -124,24 +125,7 @@ public class SkyBlock extends PluginModule {
 
         new GooseTicker().runTaskTimerAsynchronously(API.getPlugin(), 1L, 1L);
         new BackupTask().runTaskTimer(API.getPlugin(), TimeUnit.MINUTES.toSeconds(25L) * 20L, TimeUnit.MINUTES.toSeconds(25L) * 20L);
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-
-                    SimpleTabList tab = (SimpleTabList) getTabbed().getTabList(player);
-                    int i = 0;
-                    for (TabItem tabItem : getTabItems(player)) {
-                        if (tab == null || tabItem == null)
-                            continue;
-
-                        tab.set(i, new TextTabItem(ChatColor.translateAlternateColorCodes('&', tabItem.getText())));
-                        i++;
-                    }
-                }
-            }
-        }.runTaskTimerAsynchronously(API.getPlugin(), 20L, 20L);
+        new TabUpdateTask().runTaskTimerAsynchronously(API.getPlugin(), 1L, 20L);
     }
 
     private boolean setupEconomy() {
@@ -270,117 +254,6 @@ public class SkyBlock extends PluginModule {
 
     public GooseHandler getGooseHandler() {
         return gooseHandler;
-    }
-
-    public List<TabItem> getTabItems(final Player player) {
-        String primaryColor = getServerConfig().getPrimaryColor();
-        List<TabItem> items = new ArrayList<>();
-
-        User user = API.getUserManager().findByUniqueId(player.getUniqueId());
-        if (user == null)
-            return items;
-
-        Profile permissions = user.getProfile("permissions");
-
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(primaryColor + "&lIsland"));
-        Island island = getIslandRegistry().getIslandForPlayer(player);
-        if (island == null) {
-            items.add(new TextTabItem("&fNone"));
-            items.add(new TextTabItem(" "));
-            items.add(new TextTabItem(" "));
-            items.add(new TextTabItem(" "));
-            items.add(new TextTabItem(" "));
-        } else {
-            items.add(new TextTabItem(island.getName()));
-            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Level&7: &f" + island.getIslandLevel()));
-            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Balance&7: &f" + island.getBankBalance()));
-            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Members&7: &f" + island.getMembers().size() + "/" + island.getMaxPlayers()));
-            items.add(new TextTabItem("&7\u00BB" + primaryColor + " Type&7: &f" + island.getType().getRaw()));
-        }
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(primaryColor + "&lCommunity"));
-        items.add(new TextTabItem("&fSkyParadise-mc.com"));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-
-        items.add(new TextTabItem("&b&lSky&f&lParadise"));
-        items.add(new TextTabItem("&fOnline: " + Bukkit.getOnlinePlayers().size()));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(primaryColor + "Top Islands"));
-        // 4/21
-        int i = 0;
-        int max = 10;
-        if (SkyBlock.getPlugin().getIslandRegistry().playerIslands.size() < 10) {
-            max = SkyBlock.getPlugin().getIslandRegistry().playerIslands.size();
-        }
-        for (Map.Entry<Island, Integer> entry : IslandTopCommand.getTopIslands().subList(0, max)) {
-            i++;
-            items.add(new TextTabItem("&f" + entry.getKey().getName() + " (" + entry.getKey().getIslandLevel() + ")"));
-        }
-        while (i <= 13) {
-            i++;
-            items.add(new TextTabItem(" "));
-        }
-
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(primaryColor + "&lStore"));
-        items.add(new TextTabItem("&fshop.skyparadisemc.com"));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(primaryColor + "&lPlayer Info"));
-        if (permissions == null) {
-            items.add(new TextTabItem("&7Group: &f" + "Member"));
-        } else {
-            items.add(new TextTabItem("&7Group: &f" + permissions.getString("group")));
-        }
-        items.add(new TextTabItem("&7Balance: &f$" + format(getEconomy().getBalance(player))));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        items.add(new TextTabItem(" "));
-        return items;
     }
 
     public Tabbed getTabbed() {
