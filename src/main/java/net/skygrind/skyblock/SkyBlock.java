@@ -2,13 +2,8 @@ package net.skygrind.skyblock;
 
 import com.google.common.collect.Lists;
 import com.islesmc.modules.api.API;
-import com.islesmc.modules.api.framework.user.User;
-import com.islesmc.modules.api.framework.user.profile.Profile;
 import com.islesmc.modules.api.module.PluginModule;
 import com.keenant.tabbed.Tabbed;
-import com.keenant.tabbed.item.TabItem;
-import com.keenant.tabbed.item.TextTabItem;
-import com.keenant.tabbed.tablist.SimpleTabList;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import net.milkbowl.vault.economy.Economy;
 import net.skygrind.skyblock.command.*;
@@ -21,7 +16,6 @@ import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseCommandHandler;
 import net.skygrind.skyblock.goose.GooseHandler;
 import net.skygrind.skyblock.goose.GooseTicker;
-import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.island.IslandGUIHandler;
 import net.skygrind.skyblock.island.IslandOreGens;
 import net.skygrind.skyblock.island.IslandRegistry;
@@ -36,22 +30,14 @@ import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
 import net.skygrind.skyblock.task.BackupTask;
 import net.skygrind.skyblock.task.FlyCheckTask;
-import net.skygrind.skyblock.task.IslandLevelTask;
 import net.skygrind.skyblock.task.TabUpdateTask;
 import net.skygrind.skyblock.util.GridUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.File;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -209,7 +195,7 @@ public class SkyBlock extends PluginModule {
         commandHandler.addSubCommand("lock", new IslandLockCommand());
         commandHandler.addSubCommand("warp", new IslandWarpCommand());
         commandHandler.addSubCommand("sethome", new IslandSetHomeCommand());
-        commandHandler.addSubCommand("force", new IslandForceJoin());
+        commandHandler.addSubCommand("force", new IslandForceJoinCommand());
         commandHandler.addSubCommand("expel", new IslandExpelCommand());
         commandHandler.addSubCommand("coop", new IslandCoopCommand());
         commandHandler.addSubCommand("members", new IslandMembersCommand());

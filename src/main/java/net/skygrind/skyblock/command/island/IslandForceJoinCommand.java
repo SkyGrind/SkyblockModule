@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class IslandForceJoin extends GooseCommand {
+public class IslandForceJoinCommand extends GooseCommand {
 
-    public IslandForceJoin() {
+    public IslandForceJoinCommand() {
         super("force", Lists.newArrayList("join"), true);
     }
 
