@@ -26,51 +26,6 @@ public class IslandLevelCommand extends GooseCommand {
         super("level", Lists.newArrayList(), true);
     }
 
-//    private boolean isIslandLevelBlock(Block block) {
-//        Material type = block.getType();
-//
-//        return type == Material.IRON_BLOCK
-//                || type == Material.GOLD_BLOCK
-//                || type == Material.LAPIS_BLOCK
-//                || type == Material.REDSTONE_BLOCK
-//                || type == Material.DIAMOND_BLOCK
-//                || type == Material.COAL_BLOCK
-//                || type == Material.EMERALD_BLOCK;
-//    }
-
-//    private int handleBlock(List<Block> blocks) {
-//        double islandLevel = 0;
-//
-//        for (Block block : blocks) {
-//
-//            switch (block.getType()) {
-//
-//                case LAPIS_BLOCK:
-//                    islandLevel += 0.25;
-//                    break;
-//                case GOLD_BLOCK:
-//                    islandLevel += 0.5;
-//                    break;
-//                case IRON_BLOCK:
-//                    islandLevel += 0.5;
-//                    break;
-//                case REDSTONE_BLOCK:
-//                    islandLevel += 0.25;
-//                    break;
-//                case DIAMOND_BLOCK:
-//                    islandLevel += 0.75;
-//                    break;
-//                case COAL_BLOCK:
-//                    islandLevel += 0.5;
-//                    break;
-//                case EMERALD_BLOCK:
-//                    islandLevel += 1.0;
-//                    break;
-//            }
-//        }
-//        return (int) Math.ceil(islandLevel);
-//    }
-
     @Override
     public void execute(Player player, String[] strings) {
         if (!SkyBlock.getPlugin().getIslandRegistry().hasIsland(player)) {
@@ -79,33 +34,6 @@ public class IslandLevelCommand extends GooseCommand {
         }
 
         Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
-
-//        Region region = island.getContainer();
-//
-//        Location min = region.getMin();
-//        Location max = region.getMax();
-//
-//        int minX = min.getBlockX();
-//        int minY = min.getBlockY();
-//        int minZ = min.getBlockZ();
-//
-//        int maxX = max.getBlockX();
-//        int maxY = max.getBlockY();
-//        int maxZ = max.getBlockZ();
-//
-//        List<Block> blocks = new ArrayList<>();
-//
-//        for (int x = minX; x < maxX; x++) {
-//            for (int y = 0; y < 256; y++) {
-//                for (int z = minZ; z < maxZ; z++) {
-//
-//                    Block block = SkyBlock.getPlugin().getIslandWorld().getBlockAt(x, y, z);
-//                    if (isIslandLevelBlock(block)) {
-//                        blocks.add(block);
-//                    }
-//                }
-//            }
-//        }
 
         SkyBlock.getPlugin().getIslandWorld().setAutoSave(false);
         new BukkitRunnable() {
