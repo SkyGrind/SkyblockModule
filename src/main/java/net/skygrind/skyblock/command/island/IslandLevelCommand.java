@@ -112,11 +112,9 @@ public class IslandLevelCommand extends GooseCommand {
             @Override
             public void run() {
                 island.calculateIslandLevel();
+                MessageUtil.sendServerTheme(player, ChatColor.GREEN + String.format("Your island is currently level %s.", island.getIslandLevel()));
             }
         }.runTaskAsynchronously(API.getPlugin());
         SkyBlock.getPlugin().getIslandWorld().setAutoSave(true);
-
-
-        MessageUtil.sendServerTheme(player, ChatColor.GREEN + String.format("Your island is currently level %s.", island.getIslandLevel()));
     }
 }
