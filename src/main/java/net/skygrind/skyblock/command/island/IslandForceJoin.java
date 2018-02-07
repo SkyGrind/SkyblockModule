@@ -6,7 +6,10 @@ import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class IslandForceJoin extends GooseCommand {
 
@@ -32,15 +35,20 @@ public class IslandForceJoin extends GooseCommand {
             pLayer.sendMessage(ChatColor.RED + "You have to leave your current island first");
             return;
         }
-
+        
         Player target = Bukkit.getPlayer(args[0]);
+        
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(target.getUniqueId());
+        
 
-        if (target == null) {
+        if (offlinePlayer == null) {
             pLayer.sendMessage(ChatColor.RED + "Requested player could not be found");
             return;
         }
 
-        Island targetIsland = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(target);
+        UUID playerUUID = offlinePlayer.getUniqueId();
+
+        Island targetIsland = SkyBlock.getPlugin().getIslandRegistry().findByUniqueId(playerUUID);
 
         if (targetIsland == null) {
             pLayer.sendMessage(ChatColor.RED + "Player does not currently have an island");
