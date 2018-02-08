@@ -179,6 +179,7 @@ public class IslandListener implements Listener {
             return;
 
         event.setDamage(0D);
+        event.setCancelled(true);
         damager.sendMessage(ChatColor.RED + "You cannot attack entities on this island.");
     }
 
