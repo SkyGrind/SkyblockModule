@@ -237,7 +237,6 @@ public class IslandListener implements Listener {
             // Can raid
            // System.out.println("can raid");
             if (!this.canMine.contains(event.getBlock().getType())) {
-                System.out.println(String.format("%s cannot mine", placer.getName()));
                 placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
                 event.setCancelled(true);
                 return;
@@ -253,7 +252,6 @@ public class IslandListener implements Listener {
 
         }
 
-        System.out.println(String.format("%s cannot mind", placer.getName()));
         placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
         event.setCancelled(true);
     }
