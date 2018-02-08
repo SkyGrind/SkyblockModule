@@ -258,10 +258,7 @@ public class IslandListener implements Listener {
     }
 
     private boolean isChest(Block block) {
-        if(block.getType().equals(Material.CHEST)) {
-            return true;
-        }
-        return block.getType().equals(Material.TRAPPED_CHEST);
+        return block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.CHEST;
     }
 
     @EventHandler
