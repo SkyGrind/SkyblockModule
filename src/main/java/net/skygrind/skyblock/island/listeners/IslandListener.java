@@ -258,7 +258,7 @@ public class IslandListener implements Listener {
         event.setCancelled(true);
     }
 
-    private boolean isChest(Block block) {
+    private boolean isInteractable(Block block) {
         return block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.CHEST 
                 || block.getType() == Material.FENCE_GATE || block.getType() == Material.TRAP_DOOR;
     }
@@ -274,7 +274,7 @@ public class IslandListener implements Listener {
             if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld())
                 return;
 
-            if (!isChest(block))
+            if (!isInteractable(block))
                 return;
 
             if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {
