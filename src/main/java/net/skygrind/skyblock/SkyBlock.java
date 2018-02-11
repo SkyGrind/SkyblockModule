@@ -24,10 +24,7 @@ import net.skygrind.skyblock.island.listeners.GeneralListener;
 import net.skygrind.skyblock.island.listeners.IslandListener;
 import net.skygrind.skyblock.island.listeners.isles.CoordinateBookListener;
 import net.skygrind.skyblock.island.listeners.isles.IslesRaidListener;
-import net.skygrind.skyblock.player.listener.PlayerBoatListener;
-import net.skygrind.skyblock.player.listener.PlayerDamageListener;
-import net.skygrind.skyblock.player.listener.PlayerDeathListener;
-import net.skygrind.skyblock.player.listener.PlayerJoinListener;
+import net.skygrind.skyblock.player.listener.*;
 import net.skygrind.skyblock.region.RegionHandler;
 import net.skygrind.skyblock.schematic.SchematicLoader;
 import net.skygrind.skyblock.shop.ShopHandler;
@@ -179,6 +176,7 @@ public class SkyBlock extends PluginModule {
         registerEvent(new PlayerJoinListener());
         registerEvent(new PlayerDamageListener());
         registerEvent(new PlayerDeathListener());
+        registerEvent(new PlayerInteractListener());
 
         if (getServerConfig().getServerType().equals(ServerType.ISLES)) {
             registerEvent(new IslesRaidListener());

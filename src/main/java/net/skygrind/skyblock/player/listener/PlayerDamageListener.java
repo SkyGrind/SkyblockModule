@@ -23,6 +23,15 @@ public class PlayerDamageListener implements Listener {
 
         Player damaged = (Player) event.getEntity();
 
+        if (damaged.isFlying()) {
+            damaged.setFlying(false);
+        }
+
+        if (damaged.getAllowFlight()) {
+            damaged.setAllowFlight(false);
+        }
+
+
         Timer timer = SkyBlock.getPlugin().getTimerHandler().getTimer(damaged, TimerType.COMBAT_TAG);
         if (timer != null && timer.getTime() > 0)
             timer.setTime(TimeUnit.SECONDS.toMillis(30L) + System.currentTimeMillis());
@@ -33,6 +42,14 @@ public class PlayerDamageListener implements Listener {
             return;
 
         Player damager = (Player) event.getDamager();
+
+        if (damager.isFlying()) {
+            damager.setFlying(false);
+        }
+
+        if (damager.getAllowFlight()) {
+            damager.setAllowFlight(false);
+        }
 
         Timer timer1 = SkyBlock.getPlugin().getTimerHandler().getTimer(damager, TimerType.COMBAT_TAG);
         if (timer1 != null && timer1.getTime() > 0)

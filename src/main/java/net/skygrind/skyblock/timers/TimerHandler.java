@@ -2,10 +2,7 @@ package net.skygrind.skyblock.timers;
 
 import org.bukkit.entity.Player;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class TimerHandler {
@@ -16,6 +13,8 @@ public class TimerHandler {
     }
 
     public List<Timer> getPlayerTimers(Player player) {
+        if (!timers.containsKey(player.getUniqueId()))
+            this.timers.put(player.getUniqueId(),new ArrayList<>());
         return this.timers.get(player.getUniqueId());
     }
 
