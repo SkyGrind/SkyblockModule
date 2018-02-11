@@ -60,7 +60,7 @@ public class IslandWarpCommand extends GooseCommand {
             sender.sendMessage(ChatColor.RED + String.format("No Island with the Owner or Member of '%s' could be found.", target.getName()));
             return;
         }
-        if (island.getLocked()) {
+        if (island.getLocked() && !force) {
             sender.sendMessage(ChatColor.RED + String.format("The island '%s' is currently locked.", target.getName()));
             return;
         }
