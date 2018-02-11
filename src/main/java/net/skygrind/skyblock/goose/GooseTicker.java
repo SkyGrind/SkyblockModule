@@ -78,17 +78,14 @@ public class GooseTicker extends BukkitRunnable {
                 scoreboard.add(translateString(primaryColor + "Balance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
                 scoreboard.add(translateString(primaryColor + "Kills&7: "), translateString("&f" + profile.getDouble("kills").intValue()));
                 scoreboard.add(translateString(primaryColor + "Deaths&7: "), translateString("&f" + profile.getDouble("deaths").intValue()));
-                if(profile.getDouble("killstreak") != null && profile.getDouble("killstreak") > 0D)
+                if (profile.getDouble("killstreak") != null && profile.getDouble("killstreak") > 0D)
                     scoreboard.add(translateString(primaryColor + "KillStreak"), translateString("&7: &f") + profile.getDouble("killstreak").intValue());
 
-                if (hasAnyTimers(player))
-                {
+                if (hasAnyTimers(player)) {
                     scoreboard.add("", "");
                     List<Timer> defaultTimers = SkyBlock.getPlugin().getTimerHandler().getPlayerTimers(player);
-                    for (Timer timer : defaultTimers)
-                    {
-                        if (timer.getTime() > 0)
-                        {
+                    for (Timer timer : defaultTimers) {
+                        if (timer.getTime() > 0) {
                             String left = translateString(timer.getTimerType().getScore());
                             String right = translateString("&7:&f ") + formatTime(timer.getTime());
                             scoreboard.add(left, right);
