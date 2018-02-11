@@ -21,8 +21,19 @@ public class PlayerJoinListener implements Listener {
         if (profile == null) {
             profile = new Profile("skyblock");
             profile.set("achievements", new ArrayList<>());
+            profile.set("kills", 0.0D);
+            profile.set("deaths", 0.0D);
+            profile.set("killstreak", 0.0D);
             user.getAllProfiles().add(profile);
         }
+
+        if (profile.getDouble("kills") == null) {
+            profile.set("achievements", new ArrayList<>());
+            profile.set("kills", 0.0D);
+            profile.set("deaths", 0.0D);
+            profile.set("killstreak", 0.0D);
+        }
+        user.update();
 
         SkyBlock.getPlugin().getTabbed().newSimpleTabList(player, 80);
     }

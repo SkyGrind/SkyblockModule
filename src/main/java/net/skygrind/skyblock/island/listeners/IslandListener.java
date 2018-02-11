@@ -4,7 +4,6 @@ import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseLocation;
 import net.skygrind.skyblock.island.Island;
-import net.skygrind.skyblock.island.IslandRegistry;
 import net.skygrind.skyblock.misc.MessageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -20,7 +19,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -83,7 +81,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onSignChange(final SignChangeEvent event) {
-       // System.out.println("sign update event");
+        // System.out.println("sign update event");
         Location location = event.getBlock().getLocation();
 
         if (location.getWorld() != SkyBlock.getPlugin().getIslandWorld()) return;
@@ -125,7 +123,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(final PlayerMoveEvent event) {
-        if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
+        if (event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
             if (island == null)
                 return;
@@ -185,11 +183,11 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onPlayerDamage(final EntityDamageByEntityEvent event) {
-         if (!(event.getEntity() instanceof Player))
-             return;
+        if (!(event.getEntity() instanceof Player))
+            return;
 
-         if (!(event.getDamager() instanceof Player))
-             return;
+        if (!(event.getDamager() instanceof Player))
+            return;
 
         Player damager = (Player) event.getDamager();
         if (damager == null)
@@ -235,7 +233,7 @@ public class IslandListener implements Listener {
 
         if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES) && (conflict.getIslandLevel() < 5)) {
             // Can raid
-           // System.out.println("can raid");
+            // System.out.println("can raid");
             if (!this.canMine.contains(event.getBlock().getType())) {
                 placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
                 event.setCancelled(true);
@@ -257,7 +255,7 @@ public class IslandListener implements Listener {
     }
 
     private boolean isInteractable(Block block) {
-        return block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.CHEST 
+        return block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.CHEST
                 || block.getType() == Material.FENCE_GATE || block.getType() == Material.TRAP_DOOR;
     }
 

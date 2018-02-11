@@ -56,7 +56,7 @@ public class IslandInviteCommand extends GooseCommand {
             MessageUtil.sendServerTheme(player, "To increase this limit visit http://shop.skyparadisemc.com");
             return;
         }
-        
+
         if (island.isExpelled(target.getUniqueId())) {
             player.sendMessage(ChatColor.RED + "You cannot invite that player, they are expelled!");
             return;

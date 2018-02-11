@@ -11,19 +11,19 @@ import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
 public class PlayerBoatListener implements Listener {
-    
+
     @EventHandler
     public void onBoatMove(VehicleMoveEvent event) {
         if (!(SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES)) return;
-        
+
         Vehicle vehicle = event.getVehicle();
-        
+
         if (!(vehicle.getPassenger() instanceof Player)) return;
-        
+
         Player player = (Player) vehicle.getPassenger();
-        
+
         if (!(vehicle instanceof Boat)) return;
-        
+
         Boat boat = (Boat) vehicle;
 
         double maxSpeed = boat.getMaxSpeed() * getSpeedMultiplier(player);

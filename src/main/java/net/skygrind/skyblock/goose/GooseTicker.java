@@ -1,7 +1,11 @@
 package net.skygrind.skyblock.goose;
 
+import com.islesmc.modules.api.API;
+import com.islesmc.modules.api.framework.user.User;
+import com.islesmc.modules.api.framework.user.profile.Profile;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
+import net.skygrind.skyblock.timers.Timer;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -65,28 +69,59 @@ public class GooseTicker extends BukkitRunnable {
             scoreboard.clear();
 
 
-//            User user = API.getUserManager().findByUniqueId(player.getUniqueId());
-//            Profile profile = user.getProfile("Skyblock");
+            User user = API.getUserManager().findByUniqueId(player.getUniqueId());
+            Profile profile = user.getProfile("Skyblock");
             scoreboard.add(translateString("&7&m-----------"), translateString("&7&m-----------"));
-            double balance = SkyBlock.getPlugin().getEconomy().getBalance(player);
-            scoreboard.add(translateString(primaryColor + "Balance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
-            Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
-            if (island == null) {
-                scoreboard.add(translateString(primaryColor + "Island&7: "), translateString("&fNone"));
-            } else {
-                String name = splitEqually(island.getName(), 13).get(0);
-                scoreboard.add(translateString(primaryColor + "Island&7: "), translateString("&f " + name));
-                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Level&7:"), translateString("&f " + island.getIslandLevel()));
-                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Balance&7:"), translateString("&f " + SkyBlock.getPlugin().format(island.getBankBalance())));
-                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Members&7:"), translateString("&f " + island.getMembers().size() + "/" + island.getMaxPlayers()));
-                scoreboard.add(translateString("&7\u00BB" + primaryColor + " Type&7:"), translateString("&f " + island.getType().getRaw()));
 
+            if (player.getLocation().getWorld().getName().equalsIgnoreCase("pvp")) {
+                double balance = SkyBlock.getPlugin().getEconomy().getBalance(player);
+                scoreboard.add(translateString(primaryColor + "Balance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
+                scoreboard.add(translateString(primaryColor + "Kills&7: "), translateString("&f" + profile.getDouble("kills").intValue()));
+                scoreboard.add(translateString(primaryColor + "Deaths&7: "), translateString("&f" + profile.getDouble("deaths").intValue()));
+                if(profile.getDouble("killstreak") != null && profile.getDouble("killstreak") > 0D)
+                    scoreboard.add(translateString(primaryColor + "KillStreak"), translateString("&7: &f") + profile.getDouble("killstreak").intValue());
+
+                if (hasAnyTimers(player))
+                {
+                    scoreboard.add("", "");
+                    List<Timer> defaultTimers = SkyBlock.getPlugin().getTimerHandler().getPlayerTimers(player);
+                    for (Timer timer : defaultTimers)
+                    {
+                        if (timer.getTime() > 0)
+                        {
+                            String left = translateString(timer.getTimerType().getScore());
+                            String right = translateString("&7:&f ") + formatTime(timer.getTime());
+                            scoreboard.add(left, right);
+                        }
+                    }
+                }
+
+            } else {
+                double balance = SkyBlock.getPlugin().getEconomy().getBalance(player);
+                scoreboard.add(translateString(primaryColor + "Balance&7: "), translateString("&f$" + SkyBlock.getPlugin().format(balance)));
+                Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
+                if (island == null) {
+                    scoreboard.add(translateString(primaryColor + "Island&7: "), translateString("&fNone"));
+                } else {
+                    String name = splitEqually(island.getName(), 13).get(0);
+                    scoreboard.add(translateString(primaryColor + "Island&7: "), translateString("&f " + name));
+                    scoreboard.add(translateString("&7\u00BB" + primaryColor + " Level&7:"), translateString("&f " + island.getIslandLevel()));
+                    scoreboard.add(translateString("&7\u00BB" + primaryColor + " Members&7:"), translateString("&f " + island.getMembers().size() + "/" + island.getMaxPlayers()));
+                    scoreboard.add(translateString("&7\u00BB" + primaryColor + " Type&7:"), translateString("&f " + island.getType().getRaw()));
+
+                }
             }
+
 
             scoreboard.add("", "");
             scoreboard.add(translateString(primaryColor + "shop.skypara"), translateString(primaryColor + "disemc.com"));
             scoreboard.add(translateString("&7&m-----------"), translateString("&7&m-----------"));
             scoreboard.update();
         }
+    }
+
+
+    private boolean hasAnyTimers(Player player) {
+        return SkyBlock.getPlugin().getTimerHandler().getPlayerTimers(player).stream().filter(timer -> timer.getTime() > 0).count() > 0;
     }
 }

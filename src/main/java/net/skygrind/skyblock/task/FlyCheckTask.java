@@ -25,11 +25,11 @@ public class FlyCheckTask extends BukkitRunnable {
 
             if (island.isAllowed(player.getUniqueId()))
                 return;
-            
+
             if (island.getLocked()) {
                 doNotEnter(player);
             }
-            
+
 
             disableFlight(player);
         }
@@ -42,7 +42,7 @@ public class FlyCheckTask extends BukkitRunnable {
             player.sendMessage(ChatColor.RED + "You are only allowed to fly in your island.");
         }
     }
-    
+
     private void doNotEnter(final Player player) {
         player.sendMessage(ChatColor.RED + "You cannot enter this island as it is locked..");
         // Teleport to self (not moving) instead of tp'ing to spawn 

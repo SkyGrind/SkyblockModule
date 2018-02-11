@@ -6,8 +6,6 @@ import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 /**
@@ -36,12 +34,12 @@ public class IslandHomeCommand extends GooseCommand {
         System.out.println(playerIsland.getName());
         Location spawn = playerIsland.getSpawn();
         System.out.println(" ");
-        
+
         Location teleport = new Location(spawn.getWorld(), spawn.getBlockX(), spawn.getWorld().getHighestBlockYAt(spawn.getBlockX(), spawn.getBlockZ()) + 2, spawn.getZ());
-        
+
         player.teleport(teleport);
         player.sendMessage(ChatColor.GREEN + "You have been teleported to your island's home.");
         return;
     }
-    
+
 }

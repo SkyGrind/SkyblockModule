@@ -4,9 +4,7 @@ import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.island.Island;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 public class BackupTask extends BukkitRunnable {
 

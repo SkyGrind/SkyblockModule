@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
-import net.skygrind.skyblock.island.IslandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

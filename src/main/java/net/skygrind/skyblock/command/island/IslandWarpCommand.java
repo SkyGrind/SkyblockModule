@@ -13,7 +13,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class    IslandWarpCommand extends GooseCommand {
+public class IslandWarpCommand extends GooseCommand {
     public IslandWarpCommand() {
         super("warp", Lists.newArrayList(), true);
     }

@@ -35,11 +35,11 @@ public class IslandForceJoinCommand extends GooseCommand {
             pLayer.sendMessage(ChatColor.RED + "You have to leave your current island first");
             return;
         }
-        
+
         Player target = Bukkit.getPlayer(args[0]);
-        
+
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(target.getUniqueId());
-        
+
 
         if (offlinePlayer == null) {
             pLayer.sendMessage(ChatColor.RED + "Requested player could not be found");
@@ -54,7 +54,7 @@ public class IslandForceJoinCommand extends GooseCommand {
             pLayer.sendMessage(ChatColor.RED + "Player does not currently have an island");
             return;
         }
-        
+
         island.getMembers().add(island.getOwner());
 
         targetIsland.getMembers().add(pLayer.getUniqueId());

@@ -16,6 +16,7 @@ import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseCommandHandler;
 import net.skygrind.skyblock.goose.GooseHandler;
 import net.skygrind.skyblock.goose.GooseTicker;
+import net.skygrind.skyblock.handler.CombatLogHandler;
 import net.skygrind.skyblock.island.IslandGUIHandler;
 import net.skygrind.skyblock.island.IslandOreGens;
 import net.skygrind.skyblock.island.IslandRegistry;
@@ -24,6 +25,8 @@ import net.skygrind.skyblock.island.listeners.IslandListener;
 import net.skygrind.skyblock.island.listeners.isles.CoordinateBookListener;
 import net.skygrind.skyblock.island.listeners.isles.IslesRaidListener;
 import net.skygrind.skyblock.player.listener.PlayerBoatListener;
+import net.skygrind.skyblock.player.listener.PlayerDamageListener;
+import net.skygrind.skyblock.player.listener.PlayerDeathListener;
 import net.skygrind.skyblock.player.listener.PlayerJoinListener;
 import net.skygrind.skyblock.region.RegionHandler;
 import net.skygrind.skyblock.schematic.SchematicLoader;
@@ -31,6 +34,7 @@ import net.skygrind.skyblock.shop.ShopHandler;
 import net.skygrind.skyblock.task.BackupTask;
 import net.skygrind.skyblock.task.FlyCheckTask;
 import net.skygrind.skyblock.task.TabUpdateTask;
+import net.skygrind.skyblock.timers.TimerHandler;
 import net.skygrind.skyblock.util.GridUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -59,6 +63,8 @@ public class SkyBlock extends PluginModule {
     private Tabbed tabbed;
     private World islandWorld;
     private GridUtil gridUtil;
+    private CombatLogHandler combatLogHandler;
+    private TimerHandler timerHandler;
 
     public static synchronized SkyBlock getPlugin() {
         return plugin;
@@ -86,6 +92,8 @@ public class SkyBlock extends PluginModule {
         this.gooseHandler = new GooseHandler();
         this.tabbed = new Tabbed(API.getPlugin());
         this.gridUtil = new GridUtil(100000);
+        this.combatLogHandler = new CombatLogHandler();
+        this.timerHandler = new TimerHandler();
 
         if (Bukkit.getPluginManager().getPlugin("WorldEdit") != null && !Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled()) {
             disable();
@@ -169,6 +177,8 @@ public class SkyBlock extends PluginModule {
         registerEvent(new IslandOreGens());
         registerEvent(this.gooseHandler);
         registerEvent(new PlayerJoinListener());
+        registerEvent(new PlayerDamageListener());
+        registerEvent(new PlayerDeathListener());
 
         if (getServerConfig().getServerType().equals(ServerType.ISLES)) {
             registerEvent(new IslesRaidListener());
@@ -249,5 +259,13 @@ public class SkyBlock extends PluginModule {
 
     public GridUtil getGridUtil() {
         return gridUtil;
+    }
+
+    public CombatLogHandler getCombatLogHandler() {
+        return combatLogHandler;
+    }
+
+    public TimerHandler getTimerHandler() {
+        return timerHandler;
     }
 }

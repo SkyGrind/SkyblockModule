@@ -30,7 +30,7 @@ public class IslandChatCommand extends GooseCommand {
         switch (args[0].toLowerCase()) {
             case "is":
             case "i":
-            case "team":    
+            case "team":
             case "island": {
                 GeneralListener.CHAT_MODE_MAP.put(sender.getUniqueId(), ChatMode.ISLAND);
                 sender.sendMessage(ChatColor.YELLOW + "You are now speaking in " + ChatColor.GREEN + "Island " + ChatColor.YELLOW + "chat.");

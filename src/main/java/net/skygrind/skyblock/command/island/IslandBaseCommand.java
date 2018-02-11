@@ -36,7 +36,7 @@ public class IslandBaseCommand extends GooseCommand {
             player.sendMessage(ChatColor.AQUA + " /island sethome " + ChatColor.WHITE + "Set your island's home.");
             player.sendMessage(ChatColor.AQUA + " /island top " + ChatColor.WHITE + "Displays the top islands.");
             player.sendMessage(ChatColor.AQUA + " /island warp " + ChatColor.WHITE + "Warp to another island.");
-            
+
             player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
         }
     }

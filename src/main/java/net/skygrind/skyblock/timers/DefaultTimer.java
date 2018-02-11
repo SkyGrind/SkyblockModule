@@ -2,16 +2,14 @@ package net.skygrind.skyblock.timers;
 
 import org.bukkit.entity.Player;
 
-public class DefaultTimer implements Timer
-{
+public class DefaultTimer implements Timer {
     private TimerType timerType;
     private Long time;
     private Player player;
     private boolean frozen;
     private Long frozenAt;
 
-    public DefaultTimer(TimerType timerType, Long time, Player player)
-    {
+    public DefaultTimer(TimerType timerType, Long time, Player player) {
         this.timerType = timerType;
         this.time = time;
         this.player = player;
@@ -19,30 +17,26 @@ public class DefaultTimer implements Timer
     }
 
     @Override
-    public Long getTime()
-    {
-        if(frozen)
+    public Long getTime() {
+        if (frozen)
             return time - frozenAt;
 
         return time - System.currentTimeMillis();
     }
 
     @Override
-    public void setTime(Long time)
-    {
+    public void setTime(Long time) {
         this.time = time;
     }
 
     @Override
-    public void freeze()
-    {
+    public void freeze() {
         this.frozen = true;
         this.frozenAt = System.currentTimeMillis();
     }
 
     @Override
-    public void unfreeze()
-    {
+    public void unfreeze() {
         this.frozen = false;
         long add = System.currentTimeMillis() - frozenAt;
         this.time = time + add;
@@ -50,33 +44,28 @@ public class DefaultTimer implements Timer
     }
 
     @Override
-    public boolean isFrozen()
-    {
+    public boolean isFrozen() {
         return frozen;
     }
 
     @Override
-    public TimerType getTimerType()
-    {
+    public TimerType getTimerType() {
         return timerType;
     }
 
     @Override
-    public Player getPlayer()
-    {
+    public Player getPlayer() {
         return player;
     }
 
     @Override
-    public Integer getTagLevel()
-    {
+    public Integer getTagLevel() {
         return 1;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.time.toString() + ":" + this.player.getUniqueId().toString() + ":" + this.frozen + ":" +
-               this.timerType.toString();
+                this.timerType.toString();
     }
 }

@@ -91,14 +91,18 @@ public class Island implements Comparable<Island> {
     public List<UUID> getMembers() {
         return members;
     }
-    
-    public List<UUID> getExpelled() { return expelled; }
 
     public void setMembers(List<UUID> members) {
         this.members = members;
     }
-    
-    public void setExpelled(List<UUID> expelled) { this.expelled = expelled; }
+
+    public List<UUID> getExpelled() {
+        return expelled;
+    }
+
+    public void setExpelled(List<UUID> expelled) {
+        this.expelled = expelled;
+    }
 
     public int getSize() {
         return size;
@@ -127,11 +131,11 @@ public class Island implements Comparable<Island> {
     public boolean isMember(UUID uuid) {
         return members.contains(uuid) || owner.equals(uuid);
     }
-    
+
     public boolean isAllowed(UUID uuid) {
         return members.contains(uuid) || owner.equals(uuid) || coop.contains(uuid);
     }
-    
+
     public boolean isExpelled(UUID uuid) {
         if (expelled == null)
             expelled = new ArrayList<>();

@@ -6,10 +6,8 @@ import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.List;
 import java.util.UUID;
 
 public class IslandSetHomeCommand extends GooseCommand {

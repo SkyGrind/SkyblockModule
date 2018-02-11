@@ -2,8 +2,7 @@ package net.skygrind.skyblock.timers;
 
 import org.bukkit.entity.Player;
 
-public interface Timer
-{
+public interface Timer {
     Long getTime();
 
     void setTime(Long time);

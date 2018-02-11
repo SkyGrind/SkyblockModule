@@ -9,7 +9,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.List;
 import java.util.UUID;
 
 public class IslandMembersCommand extends GooseCommand {
@@ -35,7 +34,7 @@ public class IslandMembersCommand extends GooseCommand {
         // can't be completely null, worse case scenario is they are offline
         OfflinePlayer owner = Bukkit.getOfflinePlayer(island.getOwner());
         sender.sendMessage(ChatColor.GRAY + " \u00BB " + (!owner.isOnline() ? ChatColor.RED + owner.getName() + " (Owner)" : ChatColor.GREEN + owner.getName() + " (Owner)"));
-        
+
         for (UUID uuid : island.getMembers()) {
             Player player = Bukkit.getPlayer(uuid);
             if (player != null && player.isOnline()) {

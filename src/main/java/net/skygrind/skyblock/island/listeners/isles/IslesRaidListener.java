@@ -13,7 +13,7 @@ import org.bukkit.util.Vector;
 
 
 public class IslesRaidListener implements Listener {
-    
+
     @EventHandler
     public void onVehicleMove(final VehicleMoveEvent event) {
         if (!event.getVehicle().getType().equals(EntityType.BOAT))

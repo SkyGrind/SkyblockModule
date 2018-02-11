@@ -196,11 +196,11 @@ public class GeneralListener implements Listener {
 
         event.setCancelled(true);
     }
-    
+
     @EventHandler
     public void onVoid(PlayerMoveEvent event) {
         if (!(SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.SKY)) return;
-        
+
         if (event.getPlayer().getLocation().getY() < -5) {
             event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         }

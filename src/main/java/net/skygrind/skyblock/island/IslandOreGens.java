@@ -2,7 +2,6 @@ package net.skygrind.skyblock.island;
 
 import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -20,9 +19,9 @@ import java.util.*;
 public class IslandOreGens implements Listener {
 
     private final static List<BlockFace> FACES = Arrays.asList(BlockFace.SELF, BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST);
+    private final Map<Material, Double> chances;
     private SkyBlock plugin = SkyBlock.getPlugin();
     private Random random = new Random();
-    private final Map<Material, Double> chances;
 
     public IslandOreGens() {
         this.chances = SkyBlock.getPlugin().getOreGenerationConfig().getGenerationMap();
