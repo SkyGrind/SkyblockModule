@@ -13,6 +13,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
+
 public class IslandWarpCommand extends GooseCommand {
     public IslandWarpCommand() {
         super("warp", Lists.newArrayList(), true);
@@ -87,6 +89,20 @@ public class IslandWarpCommand extends GooseCommand {
 
                 sender.teleport(finalLocation.toLocation());
                 sender.sendMessage(ChatColor.GREEN + String.format("You have been teleported to %s's island.", target.getName()));
+                if (!force) {
+                    for (UUID uuid : island.getMembers()) {
+                        Player player = Bukkit.getPlayer(uuid);
+                        if (player == null)
+                            continue;
+
+                        player.sendMessage(ChatColor.GREEN + String.format("%s has warped to your island", sender.getName()));
+                    }
+
+                    Player player = Bukkit.getPlayer(island.getOwner());
+                    if (player != null)
+                        player.sendMessage(ChatColor.GREEN + String.format("%s has warped to your island", sender.getName()));
+
+                }
             }
         }.runTaskLater(API.getPlugin(), 3 * 20L);
     }
