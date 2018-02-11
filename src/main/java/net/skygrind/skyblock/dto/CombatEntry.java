@@ -101,7 +101,7 @@ public class CombatEntry extends BukkitRunnable implements Listener {
 
         CoreUserManager coreUserManager = (CoreUserManager) API.getUserManager();
         User killedUser = coreUserManager.getUserDataDriver().findById(uuid);
-        Profile killedProfile = killedUser.getProfile("skyblock");
+        Profile killedProfile = killedUser.getProfile("Skyblock");
         killedUser.update();
 
         Double deaths = killedProfile.getDouble("deaths");

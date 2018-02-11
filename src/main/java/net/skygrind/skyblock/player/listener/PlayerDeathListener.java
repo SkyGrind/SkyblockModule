@@ -32,7 +32,7 @@ public class PlayerDeathListener implements Listener {
         if (killedUser == null)
             return;
 
-        Profile killedProfile = killedUser.getProfile("skyblock");
+        Profile killedProfile = killedUser.getProfile("Skyblock");
 
         Double deaths = killedProfile.getDouble("deaths");
         deaths++;
