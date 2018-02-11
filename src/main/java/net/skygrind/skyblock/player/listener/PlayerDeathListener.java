@@ -1,8 +1,8 @@
 package net.skygrind.skyblock.player.listener;
 
-import com.skygrind.api.API;
-import com.skygrind.api.framework.user.User;
-import com.skygrind.api.framework.user.profile.Profile;
+import com.islesmc.modules.api.API;
+import com.islesmc.modules.api.framework.user.User;
+import com.islesmc.modules.api.framework.user.profile.Profile;
 import net.skygrind.skyblock.SkyBlock;
 import net.skygrind.skyblock.timers.Timer;
 import net.skygrind.skyblock.timers.TimerType;
@@ -55,7 +55,7 @@ public class PlayerDeathListener implements Listener {
         Bukkit.getLogger().info(killed.getName() + " was killed by " + killer.getName());
 
         User killerUser = API.getUserManager().findByUniqueId(killer.getUniqueId());
-        Profile killerProfile = killerUser.getProfile("skyblock");
+        Profile killerProfile = killerUser.getProfile("Skyblock");
 
         Double killstreak = killerProfile.getDouble("killstreak");
         if (killstreak == null)
