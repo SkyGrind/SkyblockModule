@@ -45,14 +45,7 @@ public class FlyCheckTask extends BukkitRunnable {
     
     private void doNotEnter(final Player player) {
         player.sendMessage(ChatColor.RED + "You cannot enter this island as it is locked..");
-        Island playerIsland = SkyBlock.getPlugin().getIslandRegistry().getIslandForPlayer(player);
-        
-        Location location = playerIsland.getSpawn();
-        
-        if (location == null) {
-            player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
-        }
-        
-        player.teleport(location);
+        // Teleport to self (not moving) instead of tp'ing to spawn 
+        player.teleport(player.getLocation());
     }
 }

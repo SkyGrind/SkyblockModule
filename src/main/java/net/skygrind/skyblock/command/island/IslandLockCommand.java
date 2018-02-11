@@ -1,7 +1,9 @@
 package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
+import com.islesmc.modules.api.API;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import net.skygrind.skyblock.misc.MessageUtil;
@@ -15,6 +17,11 @@ public class IslandLockCommand extends GooseCommand {
 
     @Override
     public void execute(Player sender, String[] args) {
+        if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES) {
+            sender.sendMessage(ChatColor.RED + "That cannot be used on this realm!");
+            return;
+        }
+        
         if (args.length > 0) {
             sender.sendMessage(ChatColor.RED + "Usage: /island lock");
             return;

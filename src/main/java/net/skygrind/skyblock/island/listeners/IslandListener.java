@@ -179,6 +179,7 @@ public class IslandListener implements Listener {
             return;
 
         event.setDamage(0D);
+        event.setCancelled(true);
         damager.sendMessage(ChatColor.RED + "You cannot attack entities on this island.");
     }
 
@@ -236,7 +237,6 @@ public class IslandListener implements Listener {
             // Can raid
            // System.out.println("can raid");
             if (!this.canMine.contains(event.getBlock().getType())) {
-                System.out.println(String.format("%s cannot mine", placer.getName()));
                 placer.sendMessage(ChatColor.RED + "You cannot mine this block while raiding; you must blow it up.");
                 event.setCancelled(true);
                 return;
@@ -252,16 +252,13 @@ public class IslandListener implements Listener {
 
         }
 
-        System.out.println(String.format("%s cannot mind", placer.getName()));
         placer.sendMessage(ChatColor.RED + "You do not have permission to build here!");
         event.setCancelled(true);
     }
 
-    private boolean isChest(Block block) {
-        if(block.getType().equals(Material.CHEST)) {
-            return true;
-        }
-        return block.getType().equals(Material.TRAPPED_CHEST);
+    private boolean isInteractable(Block block) {
+        return block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.CHEST 
+                || block.getType() == Material.FENCE_GATE || block.getType() == Material.TRAP_DOOR;
     }
 
     @EventHandler
@@ -275,7 +272,7 @@ public class IslandListener implements Listener {
             if (block.getWorld() != SkyBlock.getPlugin().getIslandWorld())
                 return;
 
-            if (!isChest(block))
+            if (!isInteractable(block))
                 return;
 
             if (SkyBlock.getPlugin().getServerConfig().getServerType().equals(ServerType.ISLES)) {

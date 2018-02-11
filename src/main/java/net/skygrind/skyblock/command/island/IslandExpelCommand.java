@@ -2,6 +2,7 @@ package net.skygrind.skyblock.command.island;
 
 import com.google.common.collect.Lists;
 import net.skygrind.skyblock.SkyBlock;
+import net.skygrind.skyblock.configuration.ServerType;
 import net.skygrind.skyblock.goose.GooseCommand;
 import net.skygrind.skyblock.island.Island;
 import org.bukkit.Bukkit;
@@ -16,6 +17,11 @@ public class IslandExpelCommand extends GooseCommand {
     
     @Override
     public void execute(Player player, String[] args) {
+        if (SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.ISLES) {
+            player.sendMessage(ChatColor.RED + "That cannot be used on this realm!");
+            return;
+        }
+        
         if (args.length != 1) {
             player.sendMessage(ChatColor.RED + "You must expel a player: /is expel <player>");
             return;
