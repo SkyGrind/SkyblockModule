@@ -76,6 +76,7 @@
             <groupId>net.techcable</groupId>
             <artifactId>npclib</artifactId>
             <version>LATEST</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
