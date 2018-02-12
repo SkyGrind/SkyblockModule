@@ -183,9 +183,10 @@ public class SkyBlock extends PluginModule {
             registerEvent(new CoordinateBookListener());
             registerEvent(new PlayerBoatListener());
             registerCommand("givecoordinatebook", new GiveCoordinateBookCommand());
-
-            new FlyCheckTask().runTaskTimerAsynchronously(API.getPlugin(), 1L, 5L);
         }
+
+        new FlyCheckTask().runTaskTimerAsynchronously(API.getPlugin(), 1L, 5L);
+
 
         GooseCommandHandler commandHandler = new GooseCommandHandler("island", new IslandBaseCommand());
         commandHandler.setAliases(Lists.newArrayList("is", "islands"));
