@@ -16,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+import org.spigotmc.CustomTimingsHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ import java.util.UUID;
 public class GeneralListener implements Listener {
 
     public static final Map<UUID, ChatMode> CHAT_MODE_MAP = new HashMap<>();
+    private final CustomTimingsHandler customTimingsHandler = new CustomTimingsHandler("skyBlockPlayerJoinListener");
 
     @EventHandler
     public void onAsyncChat(final AsyncPlayerChatEvent event) {
@@ -59,6 +61,7 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        this.customTimingsHandler.startTiming();
         event.setJoinMessage(null);
 
         Player player = event.getPlayer();
@@ -79,6 +82,7 @@ public class GeneralListener implements Listener {
             Bukkit.broadcastMessage(ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise " + ChatColor.GRAY + "\u00BB " + ChatColor.YELLOW + String.format("Welcome %s to the ", player.getName()) + ChatColor.AQUA + ChatColor.BOLD.toString() + "Sky" + ChatColor.WHITE + ChatColor.BOLD + "Paradise" + ChatColor.YELLOW + String.format(" (%s)", joinNumber));
             player.teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
         }
+        this.customTimingsHandler.stopTiming();
     }
 
     @EventHandler
@@ -199,7 +203,8 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onVoid(PlayerMoveEvent event) {
-        if (!(SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.SKY)) return;
+        if (!(SkyBlock.getPlugin().getServerConfig().getServerType() == ServerType.SKY))
+            return;
 
         if (event.getPlayer().getLocation().getY() < -5) {
             event.getPlayer().teleport(SkyBlock.getPlugin().getServerConfig().getSpawnLocation());
