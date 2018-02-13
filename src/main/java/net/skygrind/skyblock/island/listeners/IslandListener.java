@@ -22,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +124,7 @@ public class IslandListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(final PlayerMoveEvent event) {
-        if (event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
+        if (event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
             Island island = SkyBlock.getPlugin().getIslandRegistry().getIslandAt(event.getTo());
             if (island == null)
                 return;
