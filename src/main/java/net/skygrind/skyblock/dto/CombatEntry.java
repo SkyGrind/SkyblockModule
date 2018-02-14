@@ -36,7 +36,7 @@ public class CombatEntry extends BukkitRunnable implements Listener {
         this.uuid = player.getUniqueId();
         this.name = player.getName();
 
-        this.npc = SkyBlock.getPlugin().getCombatLogHandler().getNpcRegistry().createLivingNPC(this.uuid, this.name, EntityType.PLAYER);
+        this.npc = SkyBlock.getPlugin().getCombatLogHandler().getNpcRegistry().createNPC(EntityType.PLAYER, this.uuid, this.name);
 
         this.npc.spawn(player.getLocation());
         this.npc.setProtected(false);
