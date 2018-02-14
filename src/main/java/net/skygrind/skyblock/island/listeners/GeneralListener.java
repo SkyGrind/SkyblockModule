@@ -107,9 +107,15 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event) {
+        // Mobs not attacking players
+        if (event.getEntity() instanceof Player && !(event.getDamager() instanceof Player)) {
+            return;
+        }
+        
+        // Not sure what this checks at all lol
         if (!(event.getEntity() instanceof Player && event.getDamager() instanceof Player))
             return;
-
+        
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
