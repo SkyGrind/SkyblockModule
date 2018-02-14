@@ -61,6 +61,11 @@ public class IslandInviteCommand extends GooseCommand {
             player.sendMessage(ChatColor.RED + "You cannot invite that player, they are expelled!");
             return;
         }
+        
+        if (!island.getOwner().equals(player.getUniqueId())) {
+            player.sendMessage(ChatColor.RED + "You cannot invite members, you are not the owner!");
+            return;
+        }
 
         player.sendMessage(ChatColor.RED + String.format("You have invited %s to join your island.", target.getName()));
 
